@@ -43,7 +43,7 @@ function History() {
         if (fileName) {
             const token = localStorage.getItem("token");
 
-            fetch(`http://localhost:5000/user/${encodeURIComponent(fileName)}/file`, {
+            fetch(`http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/user/${encodeURIComponent(fileName)}/file`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
