@@ -129,9 +129,9 @@ function YourComponent() {
                             ))}
                             <h4 id="cypress" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Cypress</h4>
                             <p id="cypressResult"/>
-                            <h4 id="python">Python</h4>
+                            <h4 id="python" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Python</h4>
                             <p id="pythonResult"/>
-                            <h4 id="playwright">Playwright</h4>
+                            <h4 id="playwright" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Playwright</h4>
                             <p id="playwrightResult"/>
                         </div>
                     </div>

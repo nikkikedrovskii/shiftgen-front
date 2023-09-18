@@ -51,7 +51,7 @@ function Conditions() {
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputterms">
                             {warningList.map((warning, index) => (
                                 <div key={index}>
-                                    <h4>{warning.typeOfData}</h4>
+                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>{warning.typeOfData}</h4>
                                     <p>{warning.example}</p>
                                 </div>
                             ))}
