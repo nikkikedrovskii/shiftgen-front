@@ -120,11 +120,11 @@ function YourComponent() {
                             {responseData.map((item, index) => (
                                 <li key={index}>
                                     <h4>{index+1})</h4>
-                                    <h4>Name:</h4> {item.name}
-                                    <h4> Priority:</h4> {item.priority}
-                                    <h4> Conditions:</h4> {item.conditions}
-                                    <h4> Stages of Execution:</h4> {item.stagesOfExecution}
-                                    <h4> Result:</h4> {item.result}
+                                    <h4>Name: {item.name}</h4>
+                                    <h4>Priority: {item.priority}</h4>
+                                    <h4>Conditions: {item.conditions}</h4>
+                                    <h4>Stages of Execution: {item.stagesOfExecution}</h4>
+                                    <h4>Result: {item.result}</h4>
                                 </li>
                             ))}
                             <h4 id="cypress">Cypress</h4>

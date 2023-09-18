@@ -25,6 +25,7 @@ function Home() {
     const handleSubmit = (e) => {
         e.preventDefault();
         // TODO: замените на вызов вашего эндпоинта
+        localStorage.setItem('useCase', inputValue);
         navigate("/authorization")
     }
 
