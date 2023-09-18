@@ -17,18 +17,21 @@ function Authorization() {
                     <img src={qinshiftLogo} alt="logo Qinshift" className="ms-auto brand-logo" />
                 </div>
 
-                <button
-                    type="button"
-                    className="btn btn-outline-dark"
-                    onClick={handleGoogleAuthorization}
-                >
-                    <img
-                        src="https://developers.google.com/identity/images/g-logo.png"
-                        alt="Google Logo"
-                        style={{ marginRight: '10px' }}
-                    />
-                    Sign in with Google
-                </button>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
+                    <button
+                        type="button"
+                        className="btn btn-outline-dark"
+                        onClick={handleGoogleAuthorization}
+                    >
+                        <img
+                            src="https://developers.google.com/identity/images/g-logo.png"
+                            alt="Google Logo"
+                            style={{ marginRight: '10px' }}
+                        />
+                        Sign in with Google
+                    </button>
+                </div>
+
 
                 <div className="g_id_signin"
                      data-type="standard"
