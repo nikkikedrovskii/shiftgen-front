@@ -39,7 +39,6 @@ function Conditions() {
 
     return (
         <main>
-            <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
             <div className="container">
                 <div className="d-flex align-items-center">
                     <div className="go-back-link">

@@ -108,7 +108,6 @@ function YourComponent() {
 
     return (
         <main>
-            <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
             <div className="container">
                 <div className="d-flex align-items-center justify-content-between">
                     <div className="dropdown">

@@ -30,7 +30,6 @@ function Home() {
 
     return (
         <main>
-            <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
             <div className="container">
                 <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo" />
                 <form onSubmit={handleSubmit}>

@@ -39,7 +39,9 @@ function RedirectPage() {
     }, [navigate, location.search]);
 
     return (
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+        <div>
+            Redirecting...
+        </div>
     );
 }
 
