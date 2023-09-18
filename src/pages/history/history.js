@@ -37,6 +37,32 @@ function History() {
         window.location.href = '/ShiftGen/google.html';
     }
 
+    const [fileName, setFileName] = useState('');
+
+    const handleDownload = () => {
+        if (fileName) {
+            const token = localStorage.getItem("token") // Замените на ваш токен аутентификации
+
+            fetch(`http://localhost:5000/user/${fileName}/file`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(new Blob([blob]));
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                })
+                .catch(error => console.error('Ошибка:', error));
+        }
+    }
+
     return (
         <main>
             <div className="container">
@@ -59,15 +85,25 @@ function History() {
                         </thead>
                         <tbody>
                             {fileList.map((warning, index) => (
-                                <tr key={index}>
+                                <tr>
                                     <th>{warning.createdAt}</th>
-                                    <th><a href={`http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/user/${warning.inputFileName}/file`}>{warning.inputFileName}</a></th>
+                                    <th>{warning.inputFileName}</th>
                                     <th></th>
-                                    <th><a href={`http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/user/${warning.outputFileName}/file`}>{warning.outputFileName}</a></th>
+                                    <th>{warning.outputFileName}</th>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                </div>
+                <div>
+                    <h1>Загрузка файла</h1>
+                    <input
+                        type="text"
+                        value={fileName}
+                        onChange={(e) => setFileName(e.target.value)}
+                        placeholder="Название файла"
+                    />
+                    <button onClick={handleDownload}>Скачать файл</button>
                 </div>
             </div>
         </main>
