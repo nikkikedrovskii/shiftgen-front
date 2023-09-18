@@ -119,13 +119,12 @@ function YourComponent() {
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata">
                             {responseData.map((item, index) => (
                                 <li key={index}>
-                                    <h4>{index+1})</h4>
-                                    <h4>Name: {item.name}</h4>
-                                    <p>{item.name}</p>
-                                    <h4>Priority: {item.priority}</h4>
-                                    <h4>Conditions: {item.conditions}</h4>
-                                    <h4>Stages of Execution: {item.stagesOfExecution}</h4>
-                                    <h4>Result: {item.result}</h4>
+                                    <p>{index+1})</p>
+                                    <p>Name: {item.name}</p>
+                                    <p>Priority: {item.priority}</p>
+                                    <p>Conditions: {item.conditions}</p>
+                                    <p>Stages of Execution: {item.stagesOfExecution}</p>
+                                    <p>Result: {item.result}</p>
                                 </li>
                             ))}
                             <h4 id="cypress" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Cypress</h4>
