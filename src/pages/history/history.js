@@ -39,11 +39,11 @@ function History() {
 
     const [fileName, setFileName] = useState('');
 
-    const handleDownload = () => {
+    const handleDownload = (fileName) => {
         if (fileName) {
-            const token = localStorage.getItem("token") // Замените на ваш токен аутентификации
+            const token = localStorage.getItem("token");
 
-            fetch(`http://localhost:5000/user/${fileName}/file`, {
+            fetch(`http://localhost:5000/user/${encodeURIComponent(fileName)}/file`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -89,7 +89,9 @@ function History() {
                                     <th>{warning.createdAt}</th>
                                     <th>{warning.inputFileName}</th>
                                     <th></th>
-                                    <th>{warning.outputFileName}</th>
+                                        <th onClick={() => handleDownload(warning.outputFileName)}>
+                                        {warning.outputFileName}
+                                    </th>
                                 </tr>
                             ))}
                         </tbody>
