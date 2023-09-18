@@ -121,6 +121,7 @@ function YourComponent() {
                                 <li key={index}>
                                     <h4>{index+1})</h4>
                                     <h4>Name: {item.name}</h4>
+                                    <p>{item.name}</p>
                                     <h4>Priority: {item.priority}</h4>
                                     <h4>Conditions: {item.conditions}</h4>
                                     <h4>Stages of Execution: {item.stagesOfExecution}</h4>
