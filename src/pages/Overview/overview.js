@@ -127,7 +127,7 @@ function YourComponent() {
                                     <h4>Result: {item.result}</h4>
                                 </li>
                             ))}
-                            <h4 id="cypress">Cypress</h4>
+                            <h4 id="cypress" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Cypress</h4>
                             <p id="cypressResult"/>
                             <h4 id="python">Python</h4>
                             <p id="pythonResult"/>
