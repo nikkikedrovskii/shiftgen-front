@@ -11,21 +11,6 @@ function YourComponent() {
     const [playwrightResult, setPlaywrightResult] = useState(null);
     const languages = ["cypress", "python", "playwright"];
 
-/*    useEffect(() => {
-        const handleStorageChange = (e) => {
-            const storedData = localStorage.getItem('responseData');
-            if (storedData) {
-                setResponseData(JSON.parse(storedData));
-            }
-        };
-
-        window.addEventListener('storage', handleStorageChange);
-
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-        };
-    }, []);*/
-
     useEffect(() => {
         async function makeRequest(language, testStrategy) {
 
@@ -48,9 +33,11 @@ function YourComponent() {
                 let formattedString = data.script.replace(/\n/g, '<br>');
                 document.getElementById('cypressResult').innerHTML = formattedString;
             } else if (language === "python") {
-                setPythonResult(data.script)
+                let formattedString = data.script.replace(/\n/g, '<br>');
+                document.getElementById('pythonResult').innerHTML = formattedString;
             } else if (language === "playwright") {
-                setPlaywrightResult(data.script)
+                let formattedString = data.script.replace(/\n/g, '<br>');
+                document.getElementById('playwrightResult').innerHTML = formattedString;
             }
             return data;
         }
@@ -63,7 +50,6 @@ function YourComponent() {
 
                 const responseData = await makeRequest(language, testStrategy);
 
-                // Здесь вы можете обрабатывать ответ от сервера
                 console.log(`Результат для ${language} с стратегией ${testStrategy}:`, responseData);
             }
         }
@@ -142,11 +128,11 @@ function YourComponent() {
                                 </li>
                             ))}
                             <h4 id="cypress">Cypress</h4>
-                            <p id="cypressResult"></p>
+                            <p id="cypressResult"/>
                             <h4 id="python">Python</h4>
-                            <p>{pythonResult}</p>
+                            <p id="pythonResult"/>
                             <h4 id="playwright">Playwright</h4>
-                            <p>{playwrightResult}</p>
+                            <p id="playwrightResult"/>
                         </div>
                     </div>
                     <div className="row pt-4 pt-lg-5">
