@@ -87,7 +87,9 @@ function History() {
                             {fileList.map((warning, index) => (
                                 <tr>
                                     <th>{warning.createdAt}</th>
-                                    <th>{warning.inputFileName}</th>
+                                    <th onClick={() => handleDownload(warning.inputFileName)}>
+                                        {warning.inputFileName}
+                                    </th>
                                     <th></th>
                                         <th onClick={() => handleDownload(warning.outputFileName)}>
                                         {warning.outputFileName}
