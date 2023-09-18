@@ -99,16 +99,6 @@ function History() {
                         </tbody>
                     </table>
                 </div>
-                <div>
-                    <h1>Загрузка файла</h1>
-                    <input
-                        type="text"
-                        value={fileName}
-                        onChange={(e) => setFileName(e.target.value)}
-                        placeholder="Название файла"
-                    />
-                    <button onClick={handleDownload}>Скачать файл</button>
-                </div>
             </div>
         </main>
     );
