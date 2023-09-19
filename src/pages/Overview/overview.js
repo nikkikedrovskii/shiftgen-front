@@ -5,16 +5,13 @@ import { Link } from 'react-router-dom';
 function YourComponent() {
     const outputRef = useRef(null);
     const [responseData, setResponseData] = useState([]);
-    const [cypressResult, setCypressResult] = useState(null);
-    const [pythonResult, setPythonResult] = useState(null);
-    const [playwrightResult, setPlaywrightResult] = useState(null);
     const languages = ["cypress", "python", "playwright"];
 
     useEffect(() => {
         async function makeRequest(language, testStrategy) {
 
             const response = await fetch('http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/script/generate', {
-                method: 'POST', // Метод запроса может быть другим
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,

@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
+import {Link} from "react-router-dom";
 
 function History() {
     const token = localStorage.getItem('token');
     const [fileList, setFileList] = useState([]);
     useEffect(() => {
-        // Функция для получения данных с сервера
+
         async function fetchWarningData() {
             try {
                 const response = await fetch('http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/user/storage',{
@@ -68,7 +69,7 @@ function History() {
             <div className="container">
                 <div className="d-flex align-items-center">
                     <div className="go-back-link">
-                        <p className="mb-0"><a href="prehled.html">Back</a></p>
+                        <p className="mb-0"><Link to="/overview">Back</Link></p>
                     </div>
                     <img src={qinshiftLogo} alt="logo Qinshift" className="ms-auto brand-logo"/>
                 </div>

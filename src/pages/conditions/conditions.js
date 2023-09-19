@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
 import {useNavigate} from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 
 function Conditions() {
@@ -19,7 +20,7 @@ function Conditions() {
     }
 
     useEffect(() => {
-        // Функция для получения данных с сервера
+
         async function fetchWarningData() {
             try {
                 const response = await fetch('http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/warning',{
@@ -42,7 +43,7 @@ function Conditions() {
             <div className="container">
                 <div className="d-flex align-items-center">
                     <div className="go-back-link">
-                        <p className="mb-0"><a href="index.html">Back</a></p>
+                        <p className="mb-0"><Link to="/authorization">Back</Link></p>
                     </div>
                     <img src={qinshiftLogo} alt="logo Qinshift" className="ms-auto brand-logo"/>
                 </div>

@@ -11,7 +11,7 @@ function RedirectPage() {
             localStorage.removeItem("responseData");
             try {
                 const response = await fetch('http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/strategy/generate', {
-                    method: 'POST', // Метод запроса может быть другим
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -33,7 +33,7 @@ function RedirectPage() {
         const token = params.get('token');
         localStorage.setItem('token', token);
 
-        fetchData(); // Вызов асинхронной функции
+        fetchData();
 
         navigate('/conditions');
     }, [navigate, location.search]);
