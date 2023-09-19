@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.min.js';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
+import { Link } from 'react-router-dom';
 
 function YourComponent() {
     const outputRef = useRef(null);
@@ -105,7 +104,7 @@ function YourComponent() {
                             </svg>
                         </button>
                         <ul className="dropdown-menu">
-                            <a className="dropdown-item" href="historie.html">History</a>
+                            <Link to="/history" className="dropdown-item">History</Link>
                             <a className="dropdown-item" href="#">Log out</a>
                             <a className="dropdown-item" href="#">Delete account</a>
                         </ul>
