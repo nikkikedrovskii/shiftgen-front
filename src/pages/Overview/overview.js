@@ -91,6 +91,15 @@ function YourComponent() {
         }
     };
 
+    const handleLogout = () => {
+        // Удаляем токен из LocalStorage
+        localStorage.removeItem('token');
+        localStorage.removeItem('useCase');
+        localStorage.removeItem('responseData');
+        // Перенаправляем пользователя на "/"
+        window.location.href = '/';
+    };
+
     return (
         <main>
             <div className="container">
@@ -105,7 +114,7 @@ function YourComponent() {
                         </button>
                         <ul className="dropdown-menu">
                             <Link to="/history" className="dropdown-item">History</Link>
-                            <a className="dropdown-item" href="#">Log out</a>
+                            <button className="dropdown-item" onClick={handleLogout}>Log out</button>
                             <a className="dropdown-item" href="#">Delete account</a>
                         </ul>
                     </div>
