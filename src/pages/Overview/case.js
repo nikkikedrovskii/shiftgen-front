@@ -2,10 +2,13 @@ import React, {useEffect, useRef, useState} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
 import { Link } from 'react-router-dom';
 
-function YourComponent() {
+function Case() {
     const outputRef = useRef(null);
     const [responseData, setResponseData] = useState([]);
+    const [responseStorage, setResponseStorage] = useState("");
     const languages = ["cypress", "python", "playwright"];
+    const fuck = localStorage.getItem('responseData');
+    const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
         async function makeRequest(language, testStrategy) {
@@ -18,7 +21,7 @@ function YourComponent() {
                 },
                 body: JSON.stringify({
                     language: language,
-                    testStrategyList: testStrategy
+                    testCaseList: testStrategy
                 }),
             });
 
@@ -157,4 +160,4 @@ function YourComponent() {
     );
 }
 
-export default YourComponent;
+export default Case;

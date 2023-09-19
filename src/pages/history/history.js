@@ -10,17 +10,14 @@ function History() {
     useEffect(() => {
 
         async function fetchWarningData() {
-            try {
                 const response = await fetch('http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/user/storage',{
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
-                });
+                })
                 const data = await response.json();
                 setFileList(data);
-            } catch (error) {
-                console.error('Error fetching warning data:', error);
-            }
+
         }
 
         fetchWarningData();
@@ -92,8 +89,7 @@ function History() {
                                         {warning.inputFileName}
                                     </th>
                                     <th></th>
-                                        <th onClick={() => handleDownload(warning.outputFileName)}>
-                                        {warning.outputFileName}
+                                    <th onClick={() => handleDownload(warning.outputFileName)}>{warning.outputFileName}
                                     </th>
                                 </tr>
                             ))}

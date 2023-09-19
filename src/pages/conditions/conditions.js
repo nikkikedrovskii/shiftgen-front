@@ -8,6 +8,7 @@ function Conditions() {
     const [isChecked, setIsChecked] = useState(false);
     const [warningList, setWarningList] = useState([]);
     const token = localStorage.getItem('token');
+    const action = localStorage.getItem('action');
     let navigate = useNavigate();
 
     const handleCheckboxChange = () => {
@@ -16,7 +17,13 @@ function Conditions() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate("/overview")
+        if (action === "testCase") {
+            navigate("/case")
+        } else if (action === "testStrategy") {
+            navigate("/strategy")
+        } else if (action === "testPlan") {
+            navigate("/plan")
+        }
     }
 
     useEffect(() => {
@@ -49,6 +56,7 @@ function Conditions() {
                 </div>
                 <form id="podminky" onSubmit={handleSubmit}>
                     <div className="form-group pt-4">
+                        <label htmlFor="outputterms">Do not upload following sensitive information:</label>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputterms">
                             {warningList.map((warning, index) => (
                                 <div key={index}>
