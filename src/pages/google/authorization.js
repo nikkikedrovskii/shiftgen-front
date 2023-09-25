@@ -33,7 +33,6 @@ function Authorization()  {
                     </button>
                 </div>
 
-
                 <div className="g_id_signin"
                      data-type="standard"
                      data-size="large"
