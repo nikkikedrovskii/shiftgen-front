@@ -62,9 +62,9 @@ function Home() {
                         />
                     </div>
                     <div className="text-center pt-4 pt-lg-5">
+                        <button type="button" className="btn btn-primary" onClick={handleSubmit}>Generate Test Strategy</button>
+                        <button type="button" className="btn btn-primary mx-2" onClick={handleSubmit}>Generate Test Plan</button>
                         <button type="button" className="btn btn-primary" onClick={handleSubmit}>Generate Test Cases</button>
-                        <button type="button" className="btn btn-primary mx-2" onClick={handleSubmit}>Generate Test Strategies</button>
-                        <button type="button" className="btn btn-primary" onClick={handleSubmit}>Generate Test Plan</button>
                     </div>
                 </form>
             </div>
