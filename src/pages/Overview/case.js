@@ -16,7 +16,7 @@ function Case() {
             const timeout = setTimeout(() => {
                 navigate("/error")
                 throw new Error('Timeout Error');
-            }, 90000);
+            }, 180000);
             const responsePromise = await fetch('http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/script/generate', {
                 method: 'POST',
                 headers: {
