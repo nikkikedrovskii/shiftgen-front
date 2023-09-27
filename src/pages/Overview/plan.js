@@ -1,28 +1,22 @@
 import React, {useEffect, useRef, useState} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 function Plan() {
-    const outputRef = useRef(null);
     const [responseData, setResponseData] = useState([]);
     const [responseStorage, setResponseStorage] = useState("");
     const languages = ["cypress", "python", "playwright"];
-    const fuck = localStorage.getItem('responseData');
+    const [planData, setPlanData] = useState('');
     const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
 
-        const handleStorageChange = async (e) => {
-                        const storedData = JSON.parse(localStorage.getItem('responseData'));
-                        if (storedData) {
-                            let formattedString = storedData.replace(/\n/g, '<br>');
-                            document.getElementById('plan').innerHTML = formattedString;
-
-                            console.log("stor " + storedData)
-                            console.log(formattedString)
-                            setResponseStorage(storedData);
-                        }
+        const storedData = JSON.parse(localStorage.getItem('responseData'));
+        if (storedData) {
+            let formattedString = storedData.replace(/\n/g, '<br>');
+            setPlanData(formattedString);
         }
+
         window.addEventListener('storage', handleStorageChange);
 
         return () => {
@@ -30,11 +24,18 @@ function Plan() {
         };
     }, []);
 
-
+    const handleStorageChange = async (e) => {
+        const storedData = JSON.parse(localStorage.getItem('responseData'));
+        if (storedData) {
+            let formattedString = storedData.replace(/\n/g, '<br>');
+            setPlanData(formattedString);
+            setResponseStorage(storedData);
+        }
+    }
     const copyContent = async () => {
         try {
-            const text = outputRef.current.innerText;
-            await navigator.clipboard.writeText(text);
+            const outputdata = document.getElementById('outputdata');
+            await navigator.clipboard.writeText(outputdata.innerText);
             console.log('Content copied to clipboard');
         } catch (err) {
             console.error('Failed to copy: ', err);
@@ -70,10 +71,10 @@ function Plan() {
                 </div>
                 <form id="inputarea">
                     <div className="form-group pt-4">
-                        <div className="copy-icon" onClick={copyContent}></div>
+                        <div className="copy-icon" onClick={copyContent}/>
                         <label htmlFor="outputdata">Your test plan:</label>
-                        <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata">
-                            <p id="plan"/>
+                        <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata" >
+                            <p dangerouslySetInnerHTML={{ __html: planData }} />
                         </div>
                     </div>
                 </form>

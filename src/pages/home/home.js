@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
-import Authorization from "../google/authorization";
 
 
 function Home() {
@@ -28,17 +27,14 @@ function Home() {
         const buttonText = e.target.innerText;
 
         if (buttonText === 'Generate Test Cases') {
-
             localStorage.removeItem("action")
             localStorage.setItem('action', "testCase");
 
-        } else if (buttonText === 'Generate Test Strategies') {
-
+        } else if (buttonText === 'Generate Test Strategy') {
             localStorage.removeItem("action")
             localStorage.setItem('action', "testStrategy");
 
         } else if (buttonText === 'Generate Test Plan') {
-
             localStorage.removeItem("action")
             localStorage.setItem('action', "testPlan");
         }
@@ -52,7 +48,7 @@ function Home() {
                 <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo" />
                 <form>
                     <div className="form-group pt-4">
-                        <div className="paste-icon" data-target="#inputdata" onClick={handlePasteClick}></div>
+                        <div className="paste-icon" data-target="#inputdata" onClick={handlePasteClick}/>
                         <label htmlFor="inputdata">Insert use cases from analysis:</label>
                         <textarea
                             className="form-control"

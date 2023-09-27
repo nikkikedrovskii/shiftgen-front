@@ -2,21 +2,24 @@ import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {AiOutlineLeft} from "react-icons/ai";
 
 function History() {
     const token = localStorage.getItem('token');
     const [fileList, setFileList] = useState([]);
+    const navigate = useNavigate();
+
     useEffect(() => {
 
         async function fetchWarningData() {
-                const response = await fetch('http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/user/storage',{
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                const data = await response.json();
-                setFileList(data);
+            const response = await fetch('http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/user/storage', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const data = await response.json();
+            setFileList(data);
 
         }
 
@@ -24,16 +27,16 @@ function History() {
     }, []);
 
 
-    const handleAgreementChange = () => {
-        document.querySelectorAll('button').forEach(btn => {
-            btn.classList.toggle('d-none');
-        });
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        window.location.href = '/ShiftGen/google.html';
-    }
+    const handleRedirect = () => {
+        const action = localStorage.getItem("action");
+        if (action === "testCase") {
+            navigate("/case")
+        } else if (action === "testStrategy") {
+            navigate("/strategy")
+        } else if (action === "testPlan") {
+            navigate("/plan")
+        }
+    };
 
     const [fileName, setFileName] = useState('');
 
@@ -65,8 +68,11 @@ function History() {
         <main>
             <div className="container">
                 <div className="d-flex align-items-center">
-                    <div className="go-back-link">
-                        <p className="mb-0"><Link to="/overview">Back</Link></p>
+                    <div className="go-back-link" onClick={handleRedirect}>
+                        <p className="mb-0">
+                            <AiOutlineLeft className={'icon-back'}/>
+                            Back
+                        </p>
                     </div>
                     <img src={qinshiftLogo} alt="logo Qinshift" className="ms-auto brand-logo"/>
                 </div>
@@ -82,17 +88,17 @@ function History() {
                         </tr>
                         </thead>
                         <tbody>
-                            {fileList.map((warning, index) => (
-                                <tr>
-                                    <th>{warning.createdAt}</th>
-                                    <th onClick={() => handleDownload(warning.inputFileName)}>
-                                        {warning.inputFileName}
-                                    </th>
-                                    <th></th>
-                                    <th onClick={() => handleDownload(warning.outputFileName)}>{warning.outputFileName}
-                                    </th>
-                                </tr>
-                            ))}
+                        {fileList.map((warning, index) => (
+                            <tr>
+                                <th>{warning.createdAt}</th>
+                                <th onClick={() => handleDownload(warning.inputFileName)}>
+                                    {warning.inputFileName}
+                                </th>
+                                <th></th>
+                                <th onClick={() => handleDownload(warning.outputFileName)}>{warning.outputFileName}
+                                </th>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>

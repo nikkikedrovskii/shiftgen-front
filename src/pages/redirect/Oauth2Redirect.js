@@ -21,11 +21,15 @@ function RedirectPage() {
                         analytics: localStorage.getItem("data")
                     }),
                 });
-
                 const data = await response.json();
-                localStorage.setItem('error',  JSON.stringify(data));
-                localStorage.setItem('responseData', JSON.stringify(data.testStrategies));
-                window.dispatchEvent(new Event('storage'))
+
+                if (response.status === 200) {
+                    localStorage.setItem('responseData', JSON.stringify(data.testStrategies));
+                    window.dispatchEvent(new Event('storage'))
+                } else {
+                    localStorage.setItem('error', JSON.stringify(data));
+                    navigate("/error")
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -46,9 +50,13 @@ function RedirectPage() {
                 });
 
                 const data = await response.json();
-                localStorage.setItem('error',  JSON.stringify(data));
-                localStorage.setItem('responseData', JSON.stringify(data.testPlan));
-                window.dispatchEvent(new Event('storage'))
+                if (response.status === 200) {
+                    localStorage.setItem('responseData', JSON.stringify(data.testPlan));
+                    window.dispatchEvent(new Event('storage'))
+                } else {
+                    localStorage.setItem('error', JSON.stringify(data));
+                    navigate("/error")
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -56,8 +64,14 @@ function RedirectPage() {
 
         const fetchGenerateUseCase = async () => {
             localStorage.removeItem("responseData");
+
+            const timeout = setTimeout(() => {
+                navigate("/error")
+                throw new Error('Timeout Error');
+            }, 60000);
+
             try {
-                const response = await fetch('http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/case/generate', {
+                const responsePromise  = await fetch('http://localhost:5000/case/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -68,10 +82,17 @@ function RedirectPage() {
                     }),
                 });
 
+                const response = await responsePromise;
+                clearTimeout(timeout);
+
                 const data = await response.json();
-                localStorage.setItem('error',  JSON.stringify(data));
-                localStorage.setItem('responseData', JSON.stringify(data.testCaseList));
-                window.dispatchEvent(new Event('storage'))
+                if (response.status === 200) {
+                    localStorage.setItem('responseData', JSON.stringify(data.testCaseList));
+                    window.dispatchEvent(new Event('storage'))
+                } else {
+                    localStorage.setItem('error', JSON.stringify(data));
+                    navigate("/error")
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

@@ -1,19 +1,23 @@
 import React, {useEffect, useRef, useState} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 function Case() {
     const outputRef = useRef(null);
     const [responseData, setResponseData] = useState([]);
-    const [responseStorage, setResponseStorage] = useState("");
     const languages = ["cypress", "python", "playwright"];
-    const fuck = localStorage.getItem('responseData');
-    const [isChecked, setIsChecked] = useState(false);
+    const [cypressData, setCypressData] = useState('');
+    const [pythonData, setPythonData] = useState('');
+    const [playwrightData, setPlaywrightData] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function makeRequest(language, testStrategy) {
-
-            const response = await fetch('http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/script/generate', {
+            const timeout = setTimeout(() => {
+                navigate("/error")
+                throw new Error('Timeout Error');
+            }, 60000);
+            const responsePromise = await fetch('http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/script/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,18 +29,25 @@ function Case() {
                 }),
             });
 
+            const response = await responsePromise;
+            clearTimeout(timeout);
+
             const data = await response.json();
 
-            if (language === "cypress") {
-                // setCypressResult(data.script)
-                let formattedString = data.script.replace(/\n/g, '<br>');
-                document.getElementById('cypressResult').innerHTML = formattedString;
-            } else if (language === "python") {
-                let formattedString = data.script.replace(/\n/g, '<br>');
-                document.getElementById('pythonResult').innerHTML = formattedString;
-            } else if (language === "playwright") {
-                let formattedString = data.script.replace(/\n/g, '<br>');
-                document.getElementById('playwrightResult').innerHTML = formattedString;
+            if (response.status === 200) {
+                if (language === "cypress") {
+                    let formattedString = data.script.replace(/\n/g, '<br>');
+                    setCypressData(formattedString);
+                } else if (language === "python") {
+                    let formattedString = data.script.replace(/\n/g, '<br>');
+                    setPythonData(formattedString)
+                } else if (language === "playwright") {
+                    let formattedString = data.script.replace(/\n/g, '<br>');
+                    setPlaywrightData(formattedString)
+                }
+            } else {
+                localStorage.setItem('error', JSON.stringify(data));
+                navigate("/error")
             }
             return data;
         }
@@ -83,8 +94,8 @@ function Case() {
 
     const copyContent = async () => {
         try {
-            const text = outputRef.current.innerText;
-            await navigator.clipboard.writeText(text);
+            const outputdata = document.getElementById('outputdata');
+            await navigator.clipboard.writeText(outputdata.innerText);
             console.log('Content copied to clipboard');
         } catch (err) {
             console.error('Failed to copy: ', err);
@@ -136,11 +147,11 @@ function Case() {
                                 </li>
                             ))}
                             <h4 id="cypress" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Cypress</h4>
-                            <p id="cypressResult"/>
+                            <p dangerouslySetInnerHTML={{ __html: cypressData }} />
                             <h4 id="python" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Python</h4>
-                            <p id="pythonResult"/>
+                            <p dangerouslySetInnerHTML={{ __html: pythonData }} />
                             <h4 id="playwright" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Playwright</h4>
-                            <p id="playwrightResult"/>
+                            <p dangerouslySetInnerHTML={{ __html: playwrightData }} />
                         </div>
                     </div>
                     <div className="row pt-4 pt-lg-5">

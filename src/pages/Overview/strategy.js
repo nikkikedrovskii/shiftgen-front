@@ -7,22 +7,17 @@ function Strategy() {
     const [responseData, setResponseData] = useState([]);
     const [responseStorage, setResponseStorage] = useState("");
     const languages = ["cypress", "python", "playwright"];
-    const fuck = localStorage.getItem('responseData');
+    const [strategyData, setStrategyData] = useState('');
     const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
 
-        const handleStorageChange = async (e) => {
-            const storedData = JSON.parse(localStorage.getItem('responseData'));
-            if (storedData) {
-                let formattedString = storedData.replace(/\n/g, '<br>');
-                document.getElementById('strategy').innerHTML = formattedString;
-
-                console.log("stor " + storedData)
-                console.log(formattedString)
-                setResponseStorage(storedData);
-            }
+        const storedData = JSON.parse(localStorage.getItem('responseData'));
+        if (storedData) {
+            let formattedString = storedData.replace(/\n/g, '<br>');
+            setStrategyData(formattedString);
         }
+
         window.addEventListener('storage', handleStorageChange);
 
         return () => {
@@ -31,10 +26,20 @@ function Strategy() {
     }, []);
 
 
+    const handleStorageChange = async (e) => {
+        const storedData = JSON.parse(localStorage.getItem('responseData'));
+        if (storedData) {
+            let formattedString = storedData.replace(/\n/g, '<br>');
+            setStrategyData(formattedString);
+
+            setResponseStorage(storedData);
+        }
+    }
+
     const copyContent = async () => {
         try {
-            const text = outputRef.current.innerText;
-            await navigator.clipboard.writeText(text);
+            const outputdata = document.getElementById('outputdata');
+            await navigator.clipboard.writeText(outputdata.innerText);
             console.log('Content copied to clipboard');
         } catch (err) {
             console.error('Failed to copy: ', err);
@@ -42,11 +47,10 @@ function Strategy() {
     };
 
     const handleLogout = () => {
-        // Удаляем токен из LocalStorage
         localStorage.removeItem('token');
         localStorage.removeItem('useCase');
         localStorage.removeItem('responseData');
-        // Перенаправляем пользователя на "/"
+
         window.location.href = '/';
     };
 
@@ -75,7 +79,7 @@ function Strategy() {
                         <div className="copy-icon" onClick={copyContent}></div>
                         <label htmlFor="outputdata">Your test strategy:</label>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata">
-                            <p id="strategy"/>
+                            <p dangerouslySetInnerHTML={{ __html: strategyData }} />
                         </div>
                     </div>
                 </form>
