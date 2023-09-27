@@ -68,7 +68,7 @@ function RedirectPage() {
             const timeout = setTimeout(() => {
                 navigate("/error")
                 throw new Error('Timeout Error');
-            }, 60000);
+            }, 90000);
 
             try {
                 const responsePromise  = await fetch('http://localhost:5000/case/generate', {
