@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
 import {Link, useNavigate} from 'react-router-dom';
-import Timer from "../timer/Timer";
 
 function Case() {
     const outputRef = useRef(null);
@@ -133,7 +132,6 @@ function Case() {
                     <div className="form-group pt-4">
                         <div className="copy-icon" onClick={copyContent}></div>
                         <label htmlFor="outputdata">Your test cases:</label>
-                        <Timer/>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata">
                             {responseData.map((item, index) => (
                                 <li key={index}>
