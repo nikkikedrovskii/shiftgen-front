@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
 import {Link, useNavigate} from 'react-router-dom';
+import Timer from "../timer/Timer";
 
 function Case() {
     const outputRef = useRef(null);
@@ -17,7 +18,7 @@ function Case() {
                 navigate("/error")
                 throw new Error('Timeout Error');
             }, 180000);
-            const responsePromise = await fetch('http://shiftgen-app-env.eba-ymv6peay.eu-north-1.elasticbeanstalk.com/script/generate', {
+            const responsePromise = await fetch('http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/script/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +82,6 @@ function Case() {
     }, []);
 
     const scrollToTarget = (target) => {
-        console.log(JSON.parse(localStorage.getItem("responseData"))[1].name+ " ttrararar ")
 
         if (outputRef.current) {
             const targetElement = outputRef.current.querySelector(target);
@@ -103,11 +103,9 @@ function Case() {
     };
 
     const handleLogout = () => {
-        // Удаляем токен из LocalStorage
         localStorage.removeItem('token');
         localStorage.removeItem('useCase');
         localStorage.removeItem('responseData');
-        // Перенаправляем пользователя на "/"
         window.location.href = '/';
     };
 
@@ -135,6 +133,7 @@ function Case() {
                     <div className="form-group pt-4">
                         <div className="copy-icon" onClick={copyContent}></div>
                         <label htmlFor="outputdata">Your test cases:</label>
+                        <Timer/>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata">
                             {responseData.map((item, index) => (
                                 <li key={index}>
