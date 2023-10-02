@@ -38,7 +38,7 @@ function RedirectPage() {
         const fetchGeneratePlan= async () => {
             localStorage.removeItem("responseData");
             try {
-                const response = await fetch('http://localhost:5000/plan/generate', {
+                const response = await fetch('http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/plan/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ function RedirectPage() {
             }, 90000);
 
             try {
-                const responsePromise  = await fetch('http://localhost:5000/case/generate', {
+                const responsePromise  = await fetch('http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/case/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
