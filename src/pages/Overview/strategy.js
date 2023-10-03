@@ -1,6 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
 import { Link } from 'react-router-dom';
+import {TimerContext} from "../timer/TimerProvider";
 
 function Strategy() {
     const outputRef = useRef(null);
@@ -9,6 +10,7 @@ function Strategy() {
     const languages = ["cypress", "python", "playwright"];
     const [strategyData, setStrategyData] = useState('');
     const [isChecked, setIsChecked] = useState(false);
+    const seconds = useContext(TimerContext);
 
     useEffect(() => {
 
@@ -77,7 +79,10 @@ function Strategy() {
                 <form id="inputarea">
                     <div className="form-group pt-4">
                         <div className="copy-icon" onClick={copyContent}></div>
-                        <label htmlFor="outputdata">Your test strategy:</label>
+                        <label htmlFor="outputdata" style={{ display: 'flex', alignItems: 'center' }}>
+                            Your test strategy:
+                            <div style={{ marginLeft: '1000px' }}>In progress: {seconds}</div>
+                        </label>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata">
                             <p dangerouslySetInnerHTML={{ __html: strategyData }} />
                         </div>

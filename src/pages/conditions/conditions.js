@@ -1,10 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
 import {useNavigate} from "react-router-dom";
 import { Link } from 'react-router-dom';
+import {TimerContext} from "../timer/TimerProvider";
 
 
 function Conditions() {
+  //  const [seconds, setSeconds] = useState(5);
+    const seconds = useContext(TimerContext);
     const [isChecked, setIsChecked] = useState(false);
     const [warningList, setWarningList] = useState([]);
     const token = localStorage.getItem('token');

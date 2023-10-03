@@ -1,13 +1,15 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState, useContext} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
 import {Link} from 'react-router-dom';
+import {TimerContext} from "../timer/TimerProvider";
 
 function Plan() {
     const [responseData, setResponseData] = useState([]);
     const [responseStorage, setResponseStorage] = useState("");
     const languages = ["cypress", "python", "playwright"];
     const [planData, setPlanData] = useState('');
-    const [isChecked, setIsChecked] = useState(false);
+    const seconds = useContext(TimerContext);
+    const [timerRunning, setTimerRunning] = useState(true);
 
     useEffect(() => {
 
@@ -24,6 +26,9 @@ function Plan() {
         };
     }, []);
 
+    const stopTimer = () => {
+        setTimerRunning(false);
+    };
     const handleStorageChange = async (e) => {
         const storedData = JSON.parse(localStorage.getItem('responseData'));
         if (storedData) {
@@ -48,6 +53,9 @@ function Plan() {
         localStorage.removeItem('responseData');
         window.location.href = '/';
     };
+    // eslint-disable-next-line no-restricted-globals
+   // const seconds = location.state ? location.state.seconds : null;
+
 
     return (
         <main>
@@ -71,8 +79,10 @@ function Plan() {
                 </div>
                 <form id="inputarea">
                     <div className="form-group pt-4">
-                        <div className="copy-icon" onClick={copyContent}/>
-                        <label htmlFor="outputdata">Your test plan:</label>
+                        <label htmlFor="outputdata" style={{ display: 'flex', alignItems: 'center' }}>
+                            Your test plan:
+                            <div style={{ marginLeft: '1000px' }}>In progress: {seconds}</div>
+                        </label>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata" >
                             <p dangerouslySetInnerHTML={{ __html: planData }} />
                         </div>

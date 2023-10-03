@@ -11,7 +11,12 @@ function RedirectPage() {
         const fetchGenerateStrategy = async () => {
             localStorage.removeItem("responseData");
             try {
-                const response = await fetch('http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/strategy/generate', {
+                const timeout = setTimeout(() => {
+                    navigate("/error")
+                    throw new Error('Timeout Error');
+                }, 90000);
+
+                const responsePromise = await fetch('http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/strategy/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -21,6 +26,10 @@ function RedirectPage() {
                         analytics: localStorage.getItem("data")
                     }),
                 });
+
+                const response = await responsePromise;
+                clearTimeout(timeout);
+
                 const data = await response.json();
 
                 if (response.status === 200) {
@@ -38,7 +47,12 @@ function RedirectPage() {
         const fetchGeneratePlan= async () => {
             localStorage.removeItem("responseData");
             try {
-                const response = await fetch('http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/plan/generate', {
+                const timeout = setTimeout(() => {
+                    navigate("/error")
+                    throw new Error('Timeout Error');
+                }, 90000);
+
+                const responsePromise = await fetch('http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/plan/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -48,6 +62,9 @@ function RedirectPage() {
                         analytics: localStorage.getItem("data")
                     }),
                 });
+
+                const response = await responsePromise;
+                clearTimeout(timeout);
 
                 const data = await response.json();
                 if (response.status === 200) {

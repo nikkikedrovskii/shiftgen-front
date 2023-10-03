@@ -1,6 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
 import {Link, useNavigate} from 'react-router-dom';
+import {TimerContext} from "../timer/TimerProvider";
 
 function Case() {
     const outputRef = useRef(null);
@@ -10,6 +11,7 @@ function Case() {
     const [pythonData, setPythonData] = useState('');
     const [playwrightData, setPlaywrightData] = useState('');
     const navigate = useNavigate();
+    const seconds = useContext(TimerContext);
 
     useEffect(() => {
         async function makeRequest(language, testStrategy) {
@@ -131,7 +133,10 @@ function Case() {
                 <form id="inputarea">
                     <div className="form-group pt-4">
                         <div className="copy-icon" onClick={copyContent}></div>
-                        <label htmlFor="outputdata">Your test cases:</label>
+                        <label htmlFor="outputdata" style={{ display: 'flex', alignItems: 'center' }}>
+                            Your test cases:
+                            <div style={{ marginLeft: '1000px' }}>In progress: {seconds}</div>
+                        </label>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata">
                             {responseData.map((item, index) => (
                                 <li key={index}>
