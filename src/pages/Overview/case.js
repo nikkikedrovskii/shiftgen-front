@@ -12,13 +12,14 @@ function Case() {
     const [playwrightData, setPlaywrightData] = useState('');
     const navigate = useNavigate();
     const seconds = useContext(TimerContext);
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
         async function makeRequest(language, testStrategy) {
             const timeout = setTimeout(() => {
                 navigate("/error")
                 throw new Error('Timeout Error');
-            }, 180000);
+            }, 110000);
             const responsePromise = await fetch('http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/script/generate', {
                 method: 'POST',
                 headers: {
@@ -61,7 +62,6 @@ function Case() {
                 const testStrategy = JSON.parse(storedData);
 
                 const responseData = await makeRequest(language, testStrategy);
-
                 console.log(`Результат для ${language} с стратегией ${testStrategy}:`, responseData);
             }
         }
@@ -69,6 +69,7 @@ function Case() {
         const handleStorageChange = async (e) => {
             const storedData = localStorage.getItem('responseData');
             if (storedData) {
+                hideBlock();
                 setResponseData(JSON.parse(storedData));
                 const testStrategy = JSON.parse(storedData);
                 console.log(" into handler " + testStrategy)
@@ -82,6 +83,9 @@ function Case() {
         };
     }, []);
 
+    const hideBlock = () => {
+        setIsVisible(false);
+    };
     const scrollToTarget = (target) => {
 
         if (outputRef.current) {
@@ -135,7 +139,7 @@ function Case() {
                         <div className="copy-icon" onClick={copyContent}></div>
                         <label htmlFor="outputdata" style={{ display: 'flex', alignItems: 'center' }}>
                             Your test cases:
-                            <div style={{ marginLeft: '1000px' }}>In progress: {seconds}</div>
+                            {isVisible && <div style={{ marginLeft: '1000px' }}>In progress: {seconds}</div>}
                         </label>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata">
                             {responseData.map((item, index) => (

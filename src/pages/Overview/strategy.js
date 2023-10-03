@@ -11,11 +11,13 @@ function Strategy() {
     const [strategyData, setStrategyData] = useState('');
     const [isChecked, setIsChecked] = useState(false);
     const seconds = useContext(TimerContext);
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
 
         const storedData = JSON.parse(localStorage.getItem('responseData'));
         if (storedData) {
+            hideBlock();
             let formattedString = storedData.replace(/\n/g, '<br>');
             setStrategyData(formattedString);
         }
@@ -28,9 +30,14 @@ function Strategy() {
     }, []);
 
 
+    const hideBlock = () => {
+        setIsVisible(false);
+    };
+
     const handleStorageChange = async (e) => {
         const storedData = JSON.parse(localStorage.getItem('responseData'));
         if (storedData) {
+            hideBlock();
             let formattedString = storedData.replace(/\n/g, '<br>');
             setStrategyData(formattedString);
 
@@ -81,7 +88,7 @@ function Strategy() {
                         <div className="copy-icon" onClick={copyContent}></div>
                         <label htmlFor="outputdata" style={{ display: 'flex', alignItems: 'center' }}>
                             Your test strategy:
-                            <div style={{ marginLeft: '1000px' }}>In progress: {seconds}</div>
+                            {isVisible && <div style={{ marginLeft: '1000px' }}>In progress: {seconds}</div>}
                         </label>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata">
                             <p dangerouslySetInnerHTML={{ __html: strategyData }} />

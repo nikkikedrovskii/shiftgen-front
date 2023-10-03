@@ -10,11 +10,13 @@ function Plan() {
     const [planData, setPlanData] = useState('');
     const seconds = useContext(TimerContext);
     const [timerRunning, setTimerRunning] = useState(true);
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
 
         const storedData = JSON.parse(localStorage.getItem('responseData'));
         if (storedData) {
+            hideBlock();
             let formattedString = storedData.replace(/\n/g, '<br>');
             setPlanData(formattedString);
         }
@@ -26,12 +28,13 @@ function Plan() {
         };
     }, []);
 
-    const stopTimer = () => {
-        setTimerRunning(false);
+    const hideBlock = () => {
+        setIsVisible(false);
     };
     const handleStorageChange = async (e) => {
         const storedData = JSON.parse(localStorage.getItem('responseData'));
         if (storedData) {
+            hideBlock();
             let formattedString = storedData.replace(/\n/g, '<br>');
             setPlanData(formattedString);
             setResponseStorage(storedData);
@@ -81,7 +84,7 @@ function Plan() {
                     <div className="form-group pt-4">
                         <label htmlFor="outputdata" style={{ display: 'flex', alignItems: 'center' }}>
                             Your test plan:
-                            <div style={{ marginLeft: '1000px' }}>In progress: {seconds}</div>
+                            {isVisible && <div style={{ marginLeft: '1000px' }}>In progress: {seconds}</div>}
                         </label>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata" >
                             <p dangerouslySetInnerHTML={{ __html: planData }} />
