@@ -10,7 +10,6 @@ import Error from "./pages/error/error";
 import Case from "./pages/Overview/case";
 import Plan from "./pages/Overview/plan";
 import Strategy from "./pages/Overview/strategy";
-import Help from "./pages/help/help";
 import {TimerProvider} from "./pages/timer/TimerProvider";
 
 function App() {
@@ -26,7 +25,6 @@ function App() {
          <Route path="/strategy" element={<Strategy/>}/>
          <Route path="/history" element={<History/>}/>
          <Route path="/error" element={<Error/>}/>
-         <Route path="/help" element={<Help/>}/>
      </Routes>
    </div>
   );
