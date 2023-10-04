@@ -506,6 +506,10 @@ html {
  * Remove the margin in all browsers.
  */
 
+.custom-button {
+    width: 200px; /* Измените значение по вашему желанию */
+}
+
 body {
     margin: 0;
 }

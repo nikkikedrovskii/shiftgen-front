@@ -11,6 +11,7 @@ import Case from "./pages/Overview/case";
 import Plan from "./pages/Overview/plan";
 import Strategy from "./pages/Overview/strategy";
 import {TimerProvider} from "./pages/timer/TimerProvider";
+import Help from "./pages/help/help";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
          <Route path="/strategy" element={<Strategy/>}/>
          <Route path="/history" element={<History/>}/>
          <Route path="/error" element={<Error/>}/>
+         <Route path="/help" element={<Help/>}/>
      </Routes>
    </div>
   );

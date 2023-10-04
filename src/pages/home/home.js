@@ -41,6 +41,9 @@ function Home() {
         localStorage.setItem('data', inputValue);
         navigate("/authorization")
     }
+    const helpButton = () => {
+        navigate("/help")
+    }
 
     return (
         <main>
@@ -58,9 +61,10 @@ function Home() {
                         />
                     </div>
                     <div className="text-center pt-4 pt-lg-5">
-                        <button type="button" className="btn btn-primary" onClick={handleSubmit}>Generate Test Strategy</button>
-                        <button type="button" className="btn btn-primary mx-2" onClick={handleSubmit}>Generate Test Plan</button>
-                        <button type="button" className="btn btn-primary" onClick={handleSubmit}>Generate Test Cases</button>
+                        <button type="button" className="btn btn-primary custom-button" onClick={handleSubmit}>Generate Test Strategy</button>
+                        <button type="button" className="btn btn-primary mx-2 custom-button" onClick={handleSubmit}>Generate Test Plan</button>
+                        <button type="button" className="btn btn-primary custom-button" onClick={handleSubmit}>Generate Test Cases</button>
+                        <button type="button" className="btn btn-primary mx-2 custom-button" onClick={helpButton}>Help</button>
                     </div>
                 </form>
             </div>
@@ -69,3 +73,4 @@ function Home() {
 }
 
 export default Home;
+
