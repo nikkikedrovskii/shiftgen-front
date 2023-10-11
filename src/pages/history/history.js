@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
 import {useNavigate} from "react-router-dom";
 import {AiOutlineLeft} from "react-icons/ai";
+import WarningInfo from "../../components/WarningInfo";
 
 function History() {
     const token = localStorage.getItem('token');
@@ -18,7 +19,10 @@ function History() {
                     Authorization: `Bearer ${token}`
                 }
             })
+
             const data = await response.json();
+
+            console.log(data)
             setFileList(data);
 
         }
@@ -38,13 +42,11 @@ function History() {
         }
     };
 
-    const [fileName, setFileName] = useState('');
-
     const handleDownload = (fileName) => {
         if (fileName) {
             const token = localStorage.getItem("token");
 
-            fetch(`http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/user/${encodeURIComponent(fileName)}/file`, {
+            fetch(`http://localhost:5000/user/${encodeURIComponent(fileName)}/file`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -70,7 +72,7 @@ function History() {
                 <div className="d-flex align-items-center">
                     <div className="go-back-link" onClick={handleRedirect}>
                         <p className="mb-0">
-                            <AiOutlineLeft className={'icon-back'}/>
+                            <AiOutlineLeft className={'icon-ba'}/>
                             Back
                         </p>
                     </div>
@@ -88,14 +90,19 @@ function History() {
                         </tr>
                         </thead>
                         <tbody>
-                        {fileList.map((warning, index) => (
+                        {fileList.map((warning) => (
                             <tr>
                                 <th>{warning.createdAt}</th>
                                 <th onClick={() => handleDownload(warning.inputFileName)}>
                                     {warning.inputFileName}
                                 </th>
-                                <th></th>
-                                <th onClick={() => handleDownload(warning.outputFileName)}>{warning.outputFileName}
+                                <th>
+                                    {warning.inadmissibleInformationList.length >=1 && (
+                                        <WarningInfo inadmissibleInformationList={warning.inadmissibleInformationList} />
+                                    )}
+                                </th>
+                                <th onClick={() => handleDownload(warning.outputFileName)}>
+                                    {warning.outputFileName}
                                 </th>
                             </tr>
                         ))}
