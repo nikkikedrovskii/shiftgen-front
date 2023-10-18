@@ -85,7 +85,7 @@ function RedirectPage() {
             const timeout = setTimeout(() => {
                 navigate("/error")
                 throw new Error('Timeout Error');
-            }, 90000);
+            }, 120000);
 
             try {
                 const responsePromise  = await fetch('http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/case/generate', {
