@@ -17,7 +17,6 @@ function RedirectPage() {
                 }, 90000);
 
                 const responsePromise = await fetch('http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/strategy/generate', {
-                    mode: 'no-cors',
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
