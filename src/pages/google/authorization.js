@@ -5,7 +5,7 @@ function Authorization()  {
 
     const handleGoogleAuthorization = () => {
        // window.location.href = 'http://localhost:5000/oauth2/authorization/google';
-        window.location.href = 'http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/oauth2/authorization/google';
+        window.location.href = 'http://shiftgen-project-env-1.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/oauth2/authorization/google';
     }
 
     return (
