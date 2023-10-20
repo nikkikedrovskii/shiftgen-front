@@ -90,6 +90,7 @@ function RedirectPage() {
             try {
                 const responsePromise  = await fetch('http://shiftgen-project-env.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/case/generate', {
                     method: 'POST',
+                    mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -101,8 +102,8 @@ function RedirectPage() {
 
                 const response = await responsePromise;
                 clearTimeout(timeout);
-
                 const data = await response.json();
+                localStorage.setItem('check', JSON.stringify(data));
                 if (response.status === 200) {
                     localStorage.setItem('responseData', JSON.stringify(data.testCaseList));
                     window.dispatchEvent(new Event('storage'))
