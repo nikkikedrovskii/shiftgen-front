@@ -131,7 +131,7 @@ function RedirectPage() {
             fetchGeneratePlan()
         }
 
-      //  navigate('/conditions');
+        navigate('/conditions');
     }, [navigate, location.search]);
 
     return (
