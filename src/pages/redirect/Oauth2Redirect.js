@@ -101,8 +101,8 @@ function RedirectPage() {
 
                 const response = await responsePromise;
                 clearTimeout(timeout);
-
                 const data = await response.json();
+                localStorage.setItem('check', JSON.stringify(data));
                 if (response.status === 200) {
                     localStorage.setItem('responseData', JSON.stringify(data.testCaseList));
                     window.dispatchEvent(new Event('storage'))
