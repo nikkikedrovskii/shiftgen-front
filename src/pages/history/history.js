@@ -14,7 +14,7 @@ function History() {
     useEffect(() => {
 
         async function fetchWarningData() {
-            const response = await fetch('http://shiftgen-project-env-1.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/user/storage', {
+            const response = await fetch('https://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/user/storage', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -46,7 +46,7 @@ function History() {
         if (fileName) {
             const token = localStorage.getItem("token");
 
-            fetch(`http://shiftgen-project-env-1.eba-bjpjpizj.eu-north-1.elasticbeanstalk.com/user/${encodeURIComponent(fileName)}/file`, {
+            fetch(`https://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/user/${encodeURIComponent(fileName)}/file`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
