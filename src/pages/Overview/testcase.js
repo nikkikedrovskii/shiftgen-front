@@ -3,7 +3,7 @@ import qinshiftLogo from '../../img/qinshift_logo.svg';
 import {Link, useNavigate} from 'react-router-dom';
 import {TimerContext} from "../timer/TimerProvider";
 
-function Case() {
+function Testcase() {
     const outputRef = useRef(null);
     const [responseData, setResponseData] = useState([]);
     const languages = ["cypress", "python", "playwright"];
@@ -177,4 +177,4 @@ function Case() {
     );
 }
 
-export default Case;
+export default Testcase;

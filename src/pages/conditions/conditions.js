@@ -33,7 +33,7 @@ function Conditions() {
 
         async function fetchWarningData() {
             try {
-                const response = await fetch('http://localhost:5000/warning',{
+                const response = await fetch('https://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/warning',{
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

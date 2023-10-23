@@ -7,7 +7,7 @@ import RedirectPage from "./pages/redirect/Oauth2Redirect";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import History from "./pages/history/history";
 import Error from "./pages/error/error";
-import Case from "./pages/Overview/case";
+import Testcase from "./pages/Overview/testcase";
 import Plan from "./pages/Overview/plan";
 import Strategy from "./pages/Overview/strategy";
 import {TimerProvider} from "./pages/timer/TimerProvider";
@@ -22,7 +22,7 @@ function App() {
          <Route path="/authorization" element={<Authorization/>}/>
          <Route path="/conditions" element={<Conditions/>}/>
          <Route path="/oauth2/redirect" element={<RedirectPage/>}/>
-         <Route path="/case" element={<Case/>}/>
+         <Route path="/case" element={<Testcase/>}/>
          <Route path="/plan" element={<Plan/>}/>
          <Route path="/strategy" element={<Strategy/>}/>
          <Route path="/history" element={<History/>}/>
