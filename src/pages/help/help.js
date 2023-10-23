@@ -2,9 +2,15 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 function Help() {
+
+    let navigate = useNavigate();
+
+    const helpButton = () => {
+        navigate("/example")
+    }
 
     return (
         <main>
@@ -18,208 +24,143 @@ function Help() {
 
                 <form id="podminky">
                     <div className="form-group pt-4">
+                        <button type="button" className="btn btn-primary mx-2 custom-button" onClick={helpButton}>Example</button>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputterms">
-                                <div>
-                                    <h1>Exampe of Requirement Analysis</h1>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>1. Login</h4>
-                                    <p>Access is granted immediately after joining company with exception of 5th contractors.
-                                        For login are used domain username and password.
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>2. Dashboard</h4>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>2.1.	Calendar</h4>
-                                    <p style={{marginLeft: '30px' }}>By default is shown record from current day.<br />
-                                        User can set day of his choosing and interval of time<br />
-                                        It’s possible to copy shown record to another day (4.5 Copy records)<br />
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.2.	Tile with last records</h4>
-                                    <p style={{marginLeft: '30px' }}>Shows list of last 10 records. Each record redirects to Time tracking tab (4.3 New record) to view or modify, if it‘s possible, this record.<br/>
-                                        Contains button Weekly calendar, which redirects to overview of current week’s calendar (4.1 Weekly calendar).<br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.3.	Offer to download application to phone</h4>
-                                    <p style={{marginLeft: '30px' }}> Tiles to download application to Android or iOS. Redirecting user to Google Play or App Store.</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>2.4.	Menu tiles</h4>
-                                    <p style={{marginLeft: '30px' }}>Shows all six menu tiles and redirects to right site.</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>3. Logout</h4>
-                                    <p>Logout succesfully user from system.</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>4. Time tracking</h4>
-                                    <p>Recording of employee’s project (work on projects, education) or non-project (vacation, <br/>
-                                        sickdays) activities. Employee’s pay is generated from these records. <br/>
-                                        Time tracking is still open on first work day of the next month until end of the day, after it’s <br/>
-                                        automatically closed and it’s not possible to create new or modify records of previous month.<br/>
-                                        Most of funcionality is available for employee rights, for records approval of employees are needed other rights like project manager, or other. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>4.1.	Weekly calendar</h4>
-                                    <p style={{marginLeft: '30px' }}>Shows time records in weekly calendar. <br/>
-                                        By default is shown current week with filter for hours and possibility to specify wanted date. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>4.2.	Time records</h4>
-                                    <p style={{marginLeft: '30px' }}>Shows table with filter for each recorded day. Table can show all or limited amount of records. <br/>
-                                        Default filter contains personal or all records, possibility to filter records from last days or month, and search. <br/>
-                                        There's option to set own filter in time interval for specific employee, project, project phase and activity. <br/>
+                            <div>
+                                <h1> Requirement Analysis Document for Qinshift App with Sensitive Data Guarding v0.2</h1>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>1. Introduction</h4>
+                                <p>The Qinshift App is a sophisticated tool designed to streamline the process of creating and managing software testing assets. Built with the capability to interact with Chat GPT 4.0 via an API, this application serves as a valuable resource for test analysts, developers, and quality assurance professionals. The Qinshift App empowers users to efficiently create test analysis, test strategy, and test cases based on requirement analysis or use case descriptions. This document outlines the functional and non-functional requirements of the Qinshift App, with a specific focus on sensitive data guarding, token management, and Chat GPT API integration.</p>
 
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>4.3.	New record</h4>
-                                    <p style={{marginLeft: '30px' }}>Contains table with informations about employee's day and calendar. <br/>
-                                        Employees set time interval with description of activity for their current project and its phase and can mark interval as overtime. <br/>
-                                        They can modify or delete created record. <br/>
-                                        Records for each interval fill calendar which defaultly shows current day, with filter about daytime and possibility to change date. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>4.4.	Weekly records</h4>
-                                    <p style={{marginLeft: '30px' }}>Summary of worked out hours in each day of week.<br/>
-                                        By default is shown current week with option to set another week. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>4.5.	Copy records</h4>
-                                    <p style={{marginLeft: '30px' }}>Option to copy all employee's records from one day to chosen interval of days.</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>4.6.	Approval according to the project</h4>
-                                    <p style={{marginLeft: '30px' }}>For each project which is under management of user, it’s possible to approve time <br/>
-                                        records of all employees assigned to this project. <br/>
-                                        User can also reject specific or all records of employees with possibility to write a reason. <br/>
-                                        Doing so, there will be warning email sent to each employee, whose report was rejected. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>4.7.	Approval according to the employee</h4>
-                                    <p style={{marginLeft: '30px' }}>Is available for specific right. Allows to approve time records of single employee.</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>4.8.	Report</h4>
-                                    <p style={{marginLeft: '30px' }}>View of all employee's records in specific month. <br/>
-                                        Contains filter for employee, month and year. <br/>
-                                        Report view is possible to download and print. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>4.9.	Vacation days report</h4>
-                                    <p style={{marginLeft: '30px' }}>View of employee's vacation days of the year with information about original, taken <br/>
-                                        and current amount of days, and report when vacation days were taken. <br/>
-                                        Contains filter for year, employee and fund type. <br/>
-                                        Report view is possible to download and print. <br/>
-
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>4.10.	Non project activities report</h4>
-                                    <p style={{marginLeft: '30px' }}>Overview of non project activities of the year. Non project activities are for example <br/>
-                                        vacation days, sickdays, maternity leave, non paid vacation, wedding etc. <br/>
-                                        Contains filter for employee, year and activity type. <br/>
-                                        Report view is possible to download and print. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>4.11.	Funds</h4>
-                                    <p style={{marginLeft: '30px' }}>Overview of employee's available funds (amount of vacation days, compensatory time off, etc.) of the year. <br/>
-                                        Possibility to see usage of each fund type in whole year. Option to change year. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>5. Project management</h4>
-                                    <p>Project management is bound for project manager role.</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>5.1.  Overview</h4>
-                                    <p style={{marginLeft: '30px' }}>List of running, new and completed projects. <br/>
-                                        Rights to create, modify or delete project are granted according to hiearchy in company. <br/>
-                                        It’s possible to set own filter for project searching and print current list. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>5.2.  New project</h4>
-                                    <p style={{marginLeft: '30px' }}>Allows to create new project. <br/>
-                                        It’s mandatory to fill name of project, business unit, customer, project type, delivery type, company, vertical, project manager, account manager, deputy project manager, start and end date, branch, place, state. <br/>
-                                        It’s possible to copy from other existing projects. New project after assigning employee there will reflect in their time tracking. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>5.3.	Modify project</h4>
-                                    <p style={{marginLeft: '30px' }}>Allows to modify existing project and adding employees.</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>5.4.	Project membership</h4>
-                                    <p style={{marginLeft: '30px' }}>List of projects with assigned employees and their position and start/end date there.</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>5.5.	Project teams</h4>
-                                    <p style={{marginLeft: '30px' }}>List of all project teams. It’s possible to create new or modify and assign members. <br/>
-                                        After assigning member it will reflect in their time tracking. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>5.6.	Project types</h4>
-                                    <p style={{marginLeft: '30px' }}>List of all project types with owner of this project type. <br/>
-                                        It’s possible to create new or modify. It will reflect in time tracking. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>5.7.	Project import</h4>
-                                    <p style={{marginLeft: '30px' }}>Allows to import project from specific Excel template. <br/>
-                                        Project will create as new and will reflect in time tracking of each member. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>6.  Requests</h4>
-                                    <p>Project management is bound for project manager role.</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>6.1.	Requests</h4>
-                                    <p style={{marginLeft: '30px' }}>Shows list of requests for vacation days, sickdays, compensatory time offs, non paid vacation days, etc. <br/>
-                                        It’s possible to see detailed view or modify records. <br/>
-                                        Every record has information about current state, created date and type. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>6.2.	New request</h4>
-                                    <p style={{marginLeft: '30px' }}>Creates new request for vacation days, sickdays compensatory time offs, non paid vacation days, etc. <br/>
-                                        Users set start and end of vacation, or other leave. They can also set if leave is only half of work day (morning or afternoon). <br/>
-                                        It’s mandatory to set approver (emplyee’s superior person). <br/>
-                                        Users have option to change state of request, if it’s ready for approval (then it’s sent to superior person) or to modify request. If superior person recieves request, they have option to approve it. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>6.3.	Modify/view request</h4>
-                                    <p style={{marginLeft: '30px' }}>Allows user to view or modify created request. <br/>
-                                        Shows informations about type of request and it’s current state (not approved, approved). <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>7.  Human resources</h4>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>7.2.1.  Overview</h4>
-                                    <p style={{marginLeft: '30px' }}>Shows list of all past and future company’s internal trainings for employees. <br/>
-                                        Each training has name, description, available space, available free space, <br/>
-                                        beginning and end of training and possibility do delete or open detailed view of specific traning. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>7.2.2.  New training</h4>
-                                    <p style={{marginLeft: '30px' }}>Creates new training, possible with HR rights.</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>7.2.3.  Modify/view</h4>
-                                    <p style={{marginLeft: '30px' }}>Contains information of specific training editable for users with HR rights, <br/>
-                                        list of candidates attending, possibility to add candidate and more information to which project it belongs. <br/>
-                                        Users can apply to join training or add training to their calendar. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>8.  Reports</h4>
-                                    <p> Opens SQL Server Reporting Services. View of all employee's records, vacation days and leaves reports for specific month in links. <br/>
-                                        View can be in tiles or as list. Contains filter for employee, month and year. Report view is possible to download and print. <br/>
-                                        Every document is possible to add to favourites for better searching <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>9.  Administration</h4>
-                                    <p> Opens SQL Server Reporting Services. View of all employee's records, vacation days and leaves reports for specific month in links. <br/>
-                                        View can be in tiles or as list. Contains filter for employee, month and year. Report view is possible to download and print. <br/>
-                                        Every document is possible to add to favourites for better searching <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.1.	Contacts</h4>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.1.1. Overview</h4>
-                                    <p style={{marginLeft: '30px' }}>Information about employee, company they works in and their superior</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.1.2. New contact</h4>
-                                    <p style={{marginLeft: '30px' }}>Creates new contact with all information about employee. <br/>
-                                        To do so, there are needed HR rights. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.1.3. Modify</h4>
-                                    <p style={{marginLeft: '30px' }}>Allows user to modify or adding new contact informations like <br/>
-                                        basic informations (name, title), address, email and phone number. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.2.	Users</h4>
-                                    <p style={{marginLeft: '30px' }}>List of each user with their domain name, full name and email. <br/>
-                                        It’s possible to see detailed view of user with their rights and groups of rights. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.3.	Groups of users</h4>
-                                    <p style={{marginLeft: '30px' }}>List of all groups with specific rights. <br/>
-                                        It’s possible to create new, or modify existing. User with specific rights can add rights or assign people to this group. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.4.	Activities</h4>
-                                    <p style={{marginLeft: '30px' }}>List of general activities linked to time tracking. <br/>
-                                        It’s possible to create new activity or modify or delete existing one. <br/>
-                                        List contains name, project activity checkbox, limit of time for this activity, priority. <br/>
-                                        Activity can be linked to project types. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.5.	Customers</h4>
-                                    <p style={{marginLeft: '30px' }}>List of general activities linked to time tracking. <br/>
-                                        It’s possible to create new activity or modify or delete existing one. <br/>
-                                        List contains name, project activity checkbox, limit of time for this activity, priority. <br/>
-                                        Activity can be linked to project types. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.6. Task planner</h4>
-                                    <p style={{marginLeft: '30px' }}>List of announcing emails about warning for customers about time tracker closing, warning for approvers etc. <br/>
-                                        For each message is defined date and time when it should be sent. When message is sent, new date for sending is added. <br/>
-                                        List contains name, if message is allowed, parameters, sending date. Each message can be modified or deleted. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.7. Branches</h4>
-                                    <p style={{marginLeft: '30px' }}>List of announcing emails about warning for customers about time tracker closing, warning for approvers etc. <br/>
-                                        For each message is defined date and time when it should be sent. When message is sent, new date for sending is added. <br/>
-                                        List contains name, if message is allowed, parameters, sending date. Each message can be modified or deleted. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.7.1. Overview</h4>
-                                    <p style={{marginLeft: '30px' }}>Shows all of company branches with their location, description and contact person, <br/>
-                                        with possibility to search specific one. There is an option to delete chosen branch. <br/>
-                                    </p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.7.2. New branch</h4>
-                                    <p style={{marginLeft: '30px' }}>To create new branch, there‘re needed rights for backoffice.</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>9.7.3. Modify/view</h4>
-                                    <p style={{marginLeft: '30px' }}>Possibility to modify branch informations with backoffice rights.</p>
-                                    <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>10. Bug report</h4>
-                                    <p> Redirects user to Requester system for reporting bugs, where is needed to log in with domain username and password.</p>
-                                </div>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>2. Functional Requirements</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>2.1 Test Asset Creation</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.1.1 Test Analysis</h4>
+                                <p style={{marginLeft: '30px' }}> - Objective: Allow users to create comprehensive test analysis documents. <br />
+                                    - Requirements: <br />
+                                    1. Users should be able to input and edit test analysis content. <br />
+                                    2. Provide a formatting and rich text editor for content creation. <br />
+                                    3. Support saving and versioning of test analysis documents. </p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.1.2 Test Strategy</h4>
+                                <p style={{marginLeft: '30px' }}> - Objective: Enable users to formulate test strategies efficiently. <br />
+                                    - Requirements: <br />
+                                    1. Provide a dedicated section for defining test strategies. <br />
+                                    2. Allow users to specify testing approaches, objectives, and timelines. <br />
+                                    3. Support the inclusion of relevant references and documentation. </p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.1.3 Test Cases</h4>
+                                <p style={{marginLeft: '30px' }}> - Objective: Allow users to generate test cases based on requirement analysis or use case descriptions. <br />
+                                    - Requirements: <br />
+                                    1. Users should input or import requirements or use case descriptions. <br />
+                                    2. The application should automatically generate test cases based on the provided input. <br />
+                                    3. Test cases should be exportable in Python, Playwright, or Cypress format. </p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>2.2 User Authentication</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.2.1 Gmail Login</h4>
+                                <p style={{marginLeft: '30px' }}> - Objective: Provide a secure and convenient login method. <br />
+                                    - Requirements: <br />
+                                    1. Users should be able to log in using their Gmail accounts. <br />
+                                    2. Implement secure authentication protocols.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>2.3 Data Privacy and Rules Confirmation</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.3.1 Rules Confirmation and Sensitive Data Guarding</h4>
+                                <p style={{marginLeft: '30px' }}> - Objective: Ensure compliance with data privacy rules and prevent the input of sensitive data. <br />
+                                    - Requirements: <br />
+                                    1. Users must confirm their agreement to a set of rules and conditions, including restrictions on sensitive data input. <br />
+                                    2. Implement mechanisms to detect and prevent the input of sensitive data, including:
+                                    <p style={{marginLeft: '30px'}}>
+                                        - Personal Information: Social security numbers, credit card numbers, passwords, addresses. <br />
+                                        - Health Information: Diagnoses, treatment plans, medical conditions. <br />
+                                        - Racial/Ethnic/Discriminatory Data: Hate speech, discriminatory content, xenophobic material. <br />
+                                        - Illegal Activities: Planning crimes, drug trafficking, cyberattacks. <br />
+                                        - Intellectual Property: Protect intellectual property rights.</p></p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>2.4 History and Output Management</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.4.1 History Viewing</h4>
+                                <p style={{marginLeft: '30px' }}>- Objective : Allow users to access their historical data and interactions.<br />
+                                    - Requirements: <br />
+                                    1. Users should have access to a history section displaying past interactions, input, and output data.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.4.2 Output Formats</h4>
+                                <p style={{marginLeft: '30px' }}>-  Objective : Provide flexibility in viewing and exporting output data.<br />
+                                    - Requirements: <br />
+                                    1. Users should be able to view outputs in XLS or Word document formats.<br/>
+                                    2. Export options should include the ability to download outputs in these formats.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.4.3 XLS Output Columns</h4>
+                                <p style={{marginLeft: '30px' }}>
+                                    - The XLS output should include the following columns: <br/>
+                                    <p style={{marginLeft: '40px' }}> - Name <br/>
+                                        - Priority <br/>
+                                        - Conditions <br/>
+                                        - Stage of Execution <br/>
+                                        - Result of created test cases </p></p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>2.5 Data Safety</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.5.1 Data Safety Checks</h4>
+                                <p style={{marginLeft: '30px' }}>  Objective : Implement checks to ensure user-provided data is safe.<br />
+                                    - Requirements: <br />
+                                    1. The application should perform checks to identify and flag any unsafe data provided to the Chat GPT API.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>2.6 Priority Setting</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.6.1 Test Case Priority</h4>
+                                <p style={{marginLeft: '30px' }}>-  Objective : Allow users to assign priority levels to test cases.<br />
+                                    - Requirements: <br />
+                                    1. Users should be able to set priorities for test cases, including medium, high, and critical.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>2.7 User Account Management</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.7.1 Logout</h4>
+                                <p style={{marginLeft: '30px' }}>-  Objective : Allow users to securely log out of their accounts.<br />
+                                    - Requirements: <br />
+                                    1. Users should have the option to log out securely from their accounts.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.7.2 Account Deletion</h4>
+                                <p style={{marginLeft: '30px' }}>-  Objective : Provide users with the ability to delete their account and associated information.<br />
+                                    - Requirements: <br />
+                                    1. Users should be able to initiate the account deletion process. <br/>
+                                    2. Implement secure and permanent account deletion mechanisms.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>2.8 Help and Manual</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>2.8.1 Help and Manual Access</h4>
+                                <p style={{marginLeft: '30px' }}>-  Objective : Offer users easy access to documentation and help resources.<br />
+                                    - Requirements: <br />
+                                    1. Users should be able to access a comprehensive help and manual section within the application.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>3. Non-Functional Requirements</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>3.1 Responsive Design</h4>
+                                <p style={{marginLeft: '30px' }}>-  Objective : Ensure the Qinshift App is accessible and functional across various devices and screen sizes.<br />
+                                    - Requirements: <br />
+                                    1. The application must be responsive, adapting to different screen sizes and orientations.<br/>
+                                    2. User interfaces should be user-friendly and navigable on both desktop and mobile devices. <br/>
+                                    3. Ensure consistent layout and usability regardless of the device being used.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>3.2 Cloud Hosting</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>3.2.1 AWS Cloud Hosting</h4>
+                                <p style={{marginLeft: '30px' }}>-  Objective : Ensure reliable and scalable cloud hosting for the Qinshift App.<br />
+                                    - Requirements: <br />
+                                    1. The application should be hosted on the AWS cloud platform.<br/>
+                                    2. Utilize AWS services for scalability, load balancing, and data storage.<br/>
+                                    3. Implement security best practices for AWS cloud hosting.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>3.3 Performance</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>3.3.1 Speed and Responsiveness</h4>
+                                <p style={{marginLeft: '30px' }}>-  Objective : Ensure the Qinshift App performs efficiently and responds promptly to user actions.<br />
+                                    - Requirements: <br />
+                                    1. The application should have fast load times for all components and features.<br/>
+                                    2. Response times to user interactions, such as generating test cases, should be near-instantaneous.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>3.4 Security</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>3.4.1 Data Security</h4>
+                                <p style={{marginLeft: '30px' }}>-  Objective : Protect user data and sensitive information from unauthorized access or breaches.<br />
+                                    - Requirements: <br />
+                                    1. Implement encryption protocols to secure data transmission.<br/>
+                                    2. Store user data securely, following industry best practices.<br/>
+                                    3. Regularly perform security audits and vulnerability assessments.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>3.4.2 Token Management</h4>
+                                <p style={{marginLeft: '30px' }}>-  Objective : Manage tokens efficiently to optimize interactions with Chat GPT 4.0 API.<br />
+                                    - Requirements: <br />
+                                    1. Implement token management to keep track of the number of tokens used in API interactions.<br/>
+                                    2. Display a warning to users when they approach token limits to prevent API errors.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>3.4.3 Example of Tokens</h4>
+                                <p style={{marginLeft: '30px' }}>- Provide users with an example of what constitutes a token to enhance understanding.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>3.5 Availability and Reliability</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>3.5.1 High Availability</h4>
+                                <p style={{marginLeft: '30px' }}>-  Objective : Ensure the Qinshift App is accessible at all times.<br />
+                                    - Requirements: <br />
+                                    1. Implement redundancy and failover mechanisms to minimize downtime.<br/>
+                                    2. Aim for a high availability rate, ideally 99.9% or higher.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px',marginLeft: '10px'  }}>3.6 Scalability</h4>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px', marginLeft: '20px'  }}>3.6.1 Scalability</h4>
+                                <p style={{marginLeft: '30px' }}>-  Objective : Prepare the application for future growth and increased user demand.<br />
+                                    - Requirements: <br />
+                                    1. Design the application to be horizontally scalable to accommodate additional users and data.<br/>
+                                    2. Utilize cloud resources efficiently to scale resources up or down based on demand.</p>
+                                <h4 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>4. Conclusion</h4>
+                                <p>The Qinshift App aims to provide a user-friendly and efficient solution for creating and managing software testing assets using Chat GPT 4.0-based interactions. By incorporating sensitive data guarding mechanisms, responsive design principles, and leveraging AWS cloud hosting, the application ensures accessibility, security, scalability, and reliability. Meeting these requirements will result in a robust and secure platform, offering a powerful tool for test analysts and quality assurance professionals, while prioritizing data security, user experience, performance, and compliance with sensitive data handling regulations.</p>
+                            </div>
                         </div>
                     </div>
                 </form>
