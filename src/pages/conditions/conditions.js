@@ -21,7 +21,7 @@ function Conditions() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (action === "testCase") {
-            navigate("/case")
+            navigate("/testcase")
         } else if (action === "testStrategy") {
             navigate("/strategy")
         } else if (action === "testPlan") {

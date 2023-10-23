@@ -20,7 +20,7 @@ function Testcase() {
                 navigate("/error")
                 throw new Error('Timeout Error');
             }, 130000);
-            const responsePromise = await fetch('https://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/script/generate', {
+            const responsePromise = await fetch('/script/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
