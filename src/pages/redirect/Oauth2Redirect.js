@@ -88,7 +88,7 @@ function RedirectPage() {
             }, 120000);
 
             try {
-                const responsePromise  = await fetch('https://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/case/generate', {
+                const responsePromise  = await fetch('/case/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
