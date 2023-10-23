@@ -22,7 +22,7 @@ function App() {
          <Route path="/authorization" element={<Authorization/>}/>
          <Route path="/conditions" element={<Conditions/>}/>
          <Route path="/oauth2/redirect" element={<RedirectPage/>}/>
-         <Route path="/case" element={<Testcase/>}/>
+         <Route path="/testcase" element={<Testcase/>}/>
          <Route path="/plan" element={<Plan/>}/>
          <Route path="/strategy" element={<Strategy/>}/>
          <Route path="/history" element={<History/>}/>
