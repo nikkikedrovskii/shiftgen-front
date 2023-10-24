@@ -16,7 +16,7 @@ function RedirectPage() {
                     throw new Error('Timeout Error');
                 }, 90000);
 
-                const responsePromise = await fetch('https://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/strategy/generate', {
+                const responsePromise = await fetch('http://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/strategy/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ function RedirectPage() {
                     throw new Error('Timeout Error');
                 }, 90000);
 
-                const responsePromise = await fetch('https://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/plan/generate', {
+                const responsePromise = await fetch('http://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/plan/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function RedirectPage() {
             }, 120000);
 
             try {
-                const responsePromise  = await fetch('https://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/case/generate', {
+                const responsePromise  = await fetch('http://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/case/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
