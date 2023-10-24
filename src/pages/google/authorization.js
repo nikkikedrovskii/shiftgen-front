@@ -4,8 +4,8 @@ import qinshiftLogo from '../../img/qinshift_logo.svg';
 function Authorization()  {
 
     const handleGoogleAuthorization = () => {
-       // window.location.href = 'http://localhost:5000/oauth2/authorization/google';
-        window.location.href = 'http://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/oauth2/authorization/google';
+       // window.location.href = 'https://localhost:5000/oauth2/authorization/google';
+        window.location.href = 'https://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/oauth2/authorization/google';
     }
 
     return (
@@ -25,7 +25,7 @@ function Authorization()  {
                         onClick={handleGoogleAuthorization}
                     >
                         <img
-                            src="https://developers.google.com/identity/images/g-logo.png"
+                            src="httpss://developers.google.com/identity/images/g-logo.png"
                             alt="Google Logo"
                             style={{ marginRight: '10px' }}
                         />
