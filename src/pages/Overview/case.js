@@ -20,7 +20,7 @@ function Case() {
                 navigate("/error")
                 throw new Error('Timeout Error');
             }, 130000);
-            const responsePromise = await fetch('/script/generate', {
+            const responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/script/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ function Case() {
                 setResponseData(JSON.parse(storedData));
                 const testStrategy = JSON.parse(storedData);
                 console.log(" into handler " + testStrategy)
-            //    executeRequests()
+                executeRequests()
             }
         }
         window.addEventListener('storage', handleStorageChange);
