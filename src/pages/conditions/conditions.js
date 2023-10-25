@@ -1,13 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
-import {useNavigate} from "react-router-dom";
-import { Link } from 'react-router-dom';
-import {TimerContext} from "../timer/TimerProvider";
+import {Link, useNavigate} from "react-router-dom";
 
 
 function Conditions() {
-  //  const [seconds, setSeconds] = useState(5);
-    const seconds = useContext(TimerContext);
+
     const [isChecked, setIsChecked] = useState(false);
     const [warningList, setWarningList] = useState([]);
     const token = localStorage.getItem('token');
@@ -78,9 +75,14 @@ function Conditions() {
                                 id="agreement"
                                 onChange={handleCheckboxChange}
                             />
-                            <label className="form-check-label" htmlFor="agreement">Label</label>
+                            <div><label className="form-check-label" htmlFor="agreement">Label</label>
+                                <button style={{ marginLeft: '1100px' }} type="submit" className={`next-step ${isChecked ? '' : 'd-none'}`}>Next</button></div>
+                            <p>I confirm that the text I have uploaded does not contain any business-sensitive data. By clicking this confirmation, <br/>
+                                I acknowledge that I am solely responsible for ensuring the confidentiality and security of any information shared in this chat. <br/>
+                                I understand that sharing sensitive business data in this chat may have legal, financial, or security implications, and I absolve the chatbot, its developers, and its operators from any liability in case of unintentional data exposure. <br/>
+                                If I have any doubts about the nature of the information I'm sharing, I will refrain from doing so in this chat. By proceeding, I agree to use this service responsibly and in accordance with all applicable laws and regulations.<br/></p>
                         </div>
-                        <button type="submit" className={`next-step ${isChecked ? '' : 'd-none'}`}>Next</button>
+
                     </div>
                 </form>
             </div>
