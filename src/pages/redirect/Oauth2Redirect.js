@@ -14,7 +14,7 @@ function RedirectPage() {
                 const timeout = setTimeout(() => {
                     navigate("/error")
                     throw new Error('Timeout Error');
-                }, 90000);
+                }, 120000);
 
                 const fileData = localStorage.getItem('uploadedFile');
                 let responsePromise;
@@ -65,7 +65,7 @@ function RedirectPage() {
                 const timeout = setTimeout(() => {
                     navigate("/error")
                     throw new Error('Timeout Error');
-                }, 90000);
+                }, 120000);
 
 
                 const fileData = localStorage.getItem('uploadedFile');
