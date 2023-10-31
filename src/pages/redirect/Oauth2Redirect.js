@@ -16,16 +16,31 @@ function RedirectPage() {
                     throw new Error('Timeout Error');
                 }, 90000);
 
-                const responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/strategy/generate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify({
-                        analytics: localStorage.getItem("data")
-                    }),
-                });
+                const fileData = localStorage.getItem('uploadedFile');
+                let responsePromise;
+
+                if (fileData != null) {
+                    const formData = getFileObjectFromB64Json()
+                    responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/strategy/file/generate', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: formData
+                    });
+                } else {
+                     responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/strategy/generate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify({
+                            analytics: localStorage.getItem("data")
+                        }),
+                    });
+                }
+
 
                 const response = await responsePromise;
                 clearTimeout(timeout);
@@ -44,7 +59,7 @@ function RedirectPage() {
             }
         };
 
-        const fetchGeneratePlan= async () => {
+        const fetchGeneratePlan = async () => {
             localStorage.removeItem("responseData");
             try {
                 const timeout = setTimeout(() => {
@@ -52,16 +67,30 @@ function RedirectPage() {
                     throw new Error('Timeout Error');
                 }, 90000);
 
-                const responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/plan/generate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    },
-                    body: JSON.stringify({
-                        analytics: localStorage.getItem("data")
-                    }),
-                });
+
+                const fileData = localStorage.getItem('uploadedFile');
+                let responsePromise;
+                if (fileData != null) {
+                    const formData = getFileObjectFromB64Json()
+                     responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/plan/file/generate', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: formData
+                    });
+                } else {
+                     responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/plan/generate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        },
+                        body: JSON.stringify({
+                            analytics: localStorage.getItem("data")
+                        }),
+                    });
+                }
 
                 const response = await responsePromise;
                 clearTimeout(timeout);
@@ -79,6 +108,23 @@ function RedirectPage() {
             }
         };
 
+        function getFileObjectFromB64Json() {
+           const fileData = localStorage.getItem('uploadedFile');
+           const parsedFileData = JSON.parse(fileData);
+           const base64String = parsedFileData.base64String;
+           const binaryString = atob(base64String);
+           const byteArray = new Uint8Array(binaryString.length);
+           for (let i = 0; i < binaryString.length; i++) {
+               byteArray[i] = binaryString.charCodeAt(i);
+           }
+           const fileBlob = new Blob([byteArray], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+           const file = new File([fileBlob], parsedFileData.filename);
+
+           const formData = new FormData();
+           formData.append('file', file);
+           return formData;
+       }
+
         const fetchGenerateUseCase = async () => {
             localStorage.removeItem("responseData");
 
@@ -88,21 +134,36 @@ function RedirectPage() {
             }, 120000);
 
             try {
-                const responsePromise  = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/case/generate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    },
-                    body: JSON.stringify({
-                        useCases: localStorage.getItem("data")
-                    }),
-                });
+                const fileData = localStorage.getItem('uploadedFile');
+
+                let responsePromise;
+
+                if (fileData != null) {
+                    const formData = getFileObjectFromB64Json()
+                    responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/case/file/generate', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: formData
+                    });
+                } else {
+                     responsePromise  = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/case/generate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        },
+                        body: JSON.stringify({
+                            useCases: localStorage.getItem("data")
+                        }),
+                    });
+                }
+
 
                 const response = await responsePromise;
                 clearTimeout(timeout);
                 const data = await response.json();
-                localStorage.setItem('check', JSON.stringify(data));
                 if (response.status === 200) {
                     localStorage.setItem('responseData', JSON.stringify(data.testCaseList));
                     window.dispatchEvent(new Event('storage'))
