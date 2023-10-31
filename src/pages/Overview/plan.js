@@ -9,10 +9,13 @@ function Plan() {
     const languages = ["cypress", "python", "playwright"];
     const [planData, setPlanData] = useState('');
     const seconds = useContext(TimerContext);
-    const [timerRunning, setTimerRunning] = useState(true);
     const [isVisible, setIsVisible] = useState(true);
+    const [fileData, setFileData] = useState(null);
 
     useEffect(() => {
+
+        const base64String = localStorage.getItem('uploadedFile');
+        setFileData(base64String);
 
         const storedData = JSON.parse(localStorage.getItem('responseData'));
         if (storedData) {
@@ -56,9 +59,6 @@ function Plan() {
         localStorage.removeItem('responseData');
         window.location.href = '/';
     };
-    // eslint-disable-next-line no-restricted-globals
-   // const seconds = location.state ? location.state.seconds : null;
-
 
     return (
         <main>

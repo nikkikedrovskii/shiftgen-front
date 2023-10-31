@@ -16,10 +16,10 @@ function Case() {
 
     useEffect(() => {
         async function makeRequest(language, testStrategy) {
-            const timeout = setTimeout(() => {
+/*            const timeout = setTimeout(() => {
                 navigate("/error")
                 throw new Error('Timeout Error');
-            }, 130000);
+            }, 130000);*/
             const responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/script/generate', {
                 method: 'POST',
                 headers: {
@@ -33,7 +33,7 @@ function Case() {
             });
 
             const response = await responsePromise;
-            clearTimeout(timeout);
+         //   clearTimeout(timeout);
 
             const data = await response.json();
 

@@ -75,9 +75,9 @@ function Conditions() {
                                 id="agreement"
                                 onChange={handleCheckboxChange}
                             />
-                            <div><label className="form-check-label" htmlFor="agreement">Label</label>
+                            <div><label className="form-check-label" htmlFor="agreement">I confirm</label>
                                 <button style={{ marginLeft: '1100px' }} type="submit" className={`next-step ${isChecked ? '' : 'd-none'}`}>Next</button></div>
-                            <p>I confirm that the text I have uploaded does not contain any business-sensitive data. By clicking this confirmation, <br/>
+                            <p> That the text I have uploaded does not contain any business-sensitive data. By clicking this confirmation, <br/>
                                 I acknowledge that I am solely responsible for ensuring the confidentiality and security of any information shared in this chat. <br/>
                                 I understand that sharing sensitive business data in this chat may have legal, financial, or security implications, and I absolve the chatbot, its developers, and its operators from any liability in case of unintentional data exposure. <br/>
                                 If I have any doubts about the nature of the information I'm sharing, I will refrain from doing so in this chat. By proceeding, I agree to use this service responsibly and in accordance with all applicable laws and regulations.<br/></p>

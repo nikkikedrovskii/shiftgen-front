@@ -2,7 +2,6 @@
   "name": "shiftgenfront",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
