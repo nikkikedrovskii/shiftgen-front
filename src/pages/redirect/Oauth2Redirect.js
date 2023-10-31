@@ -21,7 +21,7 @@ function RedirectPage() {
 
                 if (fileData != null) {
                     const formData = getFileObjectFromB64Json()
-                    responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/strategy/file/generate', {
+                    responsePromise = await fetch('http://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/strategy/file/generate', {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -29,7 +29,7 @@ function RedirectPage() {
                         body: formData
                     });
                 } else {
-                     responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/strategy/generate', {
+                     responsePromise = await fetch('http://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/strategy/generate', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ function RedirectPage() {
                 let responsePromise;
                 if (fileData != null) {
                     const formData = getFileObjectFromB64Json()
-                     responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/plan/file/generate', {
+                     responsePromise = await fetch('http://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/plan/file/generate', {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -80,7 +80,7 @@ function RedirectPage() {
                         body: formData
                     });
                 } else {
-                     responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/plan/generate', {
+                     responsePromise = await fetch('http://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/plan/generate', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ function RedirectPage() {
 
                 if (fileData != null) {
                     const formData = getFileObjectFromB64Json()
-                    responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/case/file/generate', {
+                    responsePromise = await fetch('http://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/case/file/generate', {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -148,7 +148,7 @@ function RedirectPage() {
                         body: formData
                     });
                 } else {
-                     responsePromise  = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/case/generate', {
+                     responsePromise  = await fetch('http://shiftgen-env-1.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/case/generate', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
