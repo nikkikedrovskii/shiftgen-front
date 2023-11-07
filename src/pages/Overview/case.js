@@ -128,6 +128,7 @@ function Case() {
                         </button>
                         <ul className="dropdown-menu">
                             <Link to="/history" className="dropdown-item">History</Link>
+                            <Link to="/security" className="dropdown-item">Security</Link>
                             <button className="dropdown-item" onClick={handleLogout}>Log out</button>
                             <a className="dropdown-item" href="#">Delete account</a>
                         </ul>
