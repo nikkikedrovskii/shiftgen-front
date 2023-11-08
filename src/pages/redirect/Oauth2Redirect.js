@@ -108,6 +108,41 @@ function RedirectPage() {
             }
         };
 
+        const fetchGenerateCucumberScript= async () => {
+            localStorage.removeItem("responseData");
+            try {
+                const timeout = setTimeout(() => {
+                    navigate("/error")
+                    throw new Error('Timeout Error');
+                }, 120000);
+
+                  const responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/script/cucumber/generate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        },
+                        body: JSON.stringify({
+                            testCases: localStorage.getItem("data")
+                        }),
+                    });
+
+                const response = await responsePromise;
+                clearTimeout(timeout);
+
+                const data = await response.json();
+                if (response.status === 200) {
+                    localStorage.setItem('responseData', JSON.stringify(data.script));
+                    window.dispatchEvent(new Event('storage'))
+                } else {
+                    localStorage.setItem('error', JSON.stringify(data));
+                    navigate("/error")
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
         function getFileObjectFromB64Json() {
            const fileData = localStorage.getItem('uploadedFile');
            const parsedFileData = JSON.parse(fileData);
@@ -190,6 +225,8 @@ function RedirectPage() {
             fetchGenerateStrategy()
         } else if (action === "testPlan") {
             fetchGeneratePlan()
+        } else if (action === "cucumberScript") {
+            fetchGenerateCucumberScript()
         }
 
         navigate('/conditions');

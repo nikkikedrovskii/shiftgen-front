@@ -23,6 +23,8 @@ function Conditions() {
             navigate("/strategy")
         } else if (action === "testPlan") {
             navigate("/plan")
+        }  else if (action === "cucumberScript") {
+            navigate("/cucumber")
         }
     }
 

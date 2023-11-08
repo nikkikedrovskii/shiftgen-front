@@ -55,6 +55,10 @@ function Home() {
             localStorage.removeItem("action")
             localStorage.setItem('action', "testPlan");
         }
+        else if (buttonText === 'Generate cucumber script') {
+            localStorage.removeItem("action")
+            localStorage.setItem('action', "cucumberScript");
+        }
         localStorage.setItem('data', inputValue);
         navigate("/authorization")
     }
@@ -109,10 +113,13 @@ function Home() {
                     </div>
                     {fileUploaded && <div className="text-center">The file has been uploaded. The text input field is locked</div>}
                     <div className="text-center pt-4 pt-lg-5">
+                        <div>
                         <button type="button" className="btn btn-primary custom-button" onClick={handleSubmit}>Generate Test Strategy</button>
                         <button type="button" className="btn btn-primary mx-2 custom-button" onClick={handleSubmit}>Generate Test Plan</button>
                         <button type="button" className="btn btn-primary custom-button" onClick={handleSubmit}>Generate Test Cases</button>
-                        <button type="button" className="btn btn-primary mx-2 custom-button" onClick={helpButton}>Help</button>
+                        <button type="button" className="btn btn-primary mx-2 custom-button" style={{ minWidth: '250px' }} onClick={handleSubmit}>Generate cucumber script</button>
+                        </div>
+                        <button type="button" className="btn btn-primary mx-2 custom-button mt-2" onClick={helpButton}>Help</button>
                     </div>
                 </form>
             </div>

@@ -14,6 +14,7 @@ import {TimerProvider} from "./pages/timer/TimerProvider";
 import Help from "./pages/help/help";
 import Example from "./pages/example/example";
 import Security from "./pages/security/Security";
+import Cucumber from "./pages/Overview/cucumber";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
          <Route path="/help" element={<Help/>}/>
          <Route path="/example" element={<Example/>}/>
          <Route path="/security" element={<Security/>}/>
+         <Route path="/cucumber" element={<Cucumber/>}/>
      </Routes>
    </div>
   );
