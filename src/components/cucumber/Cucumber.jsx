@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
 import {Link} from 'react-router-dom';
-import {TimerContext} from "../../pages/timer/TimerProvider";
+import {TimerContext} from "../../pages/timer/TimerProvider.js";
 import PageHeader from "../page_header/PageHeader";
 
 

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {TimerContext} from "../../pages/timer/TimerProvider";
+import {TimerContext} from "../../pages/timer/TimerProvider.js";
 import PageHeader from "../page_header/PageHeader";
 
 function Case() {
