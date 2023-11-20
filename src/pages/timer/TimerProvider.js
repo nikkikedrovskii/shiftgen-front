@@ -5,7 +5,7 @@ import React, { createContext, useState, useEffect } from 'react';
 const TimerContext = createContext();
 
 const TimerProvider = ({ children }) => {
-    const [seconds, setSeconds] = useState(120);
+    const [seconds, setSeconds] = useState(180);
 
     useEffect(() => {
         const interval = setInterval(() => {

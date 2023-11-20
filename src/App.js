@@ -7,14 +7,12 @@ import RedirectPage from "./pages/redirect/Oauth2Redirect";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import History from "./pages/history/history";
 import Error from "./pages/error/error";
-import Case from "./pages/Overview/case";
-import Plan from "./pages/Overview/plan";
-import Strategy from "./pages/Overview/strategy";
 import {TimerProvider} from "./pages/timer/TimerProvider";
 import Help from "./pages/help/help";
 import Example from "./pages/example/example";
 import Security from "./pages/security/Security";
-import Cucumber from "./pages/Overview/cucumber";
+import Overview from "./pages/Overview/Overview";
+import Setting from "./pages/setting/Setting";
 
 function App() {
   return (
@@ -24,15 +22,13 @@ function App() {
          <Route path="/authorization" element={<Authorization/>}/>
          <Route path="/conditions" element={<Conditions/>}/>
          <Route path="/oauth2/redirect" element={<RedirectPage/>}/>
-         <Route path="/case" element={<Case/>}/>
-         <Route path="/plan" element={<Plan/>}/>
-         <Route path="/strategy" element={<Strategy/>}/>
          <Route path="/history" element={<History/>}/>
          <Route path="/error" element={<Error/>}/>
          <Route path="/help" element={<Help/>}/>
          <Route path="/example" element={<Example/>}/>
          <Route path="/security" element={<Security/>}/>
-         <Route path="/cucumber" element={<Cucumber/>}/>
+         <Route path="/overview" element={<Overview/>}/>
+         <Route path="/setting" element={<Setting/>}/>
      </Routes>
    </div>
   );

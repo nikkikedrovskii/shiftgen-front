@@ -14,7 +14,7 @@ function RedirectPage() {
                 const timeout = setTimeout(() => {
                     navigate("/error")
                     throw new Error('Timeout Error');
-                }, 120000);
+                }, 180000);
 
                 const fileData = localStorage.getItem('uploadedFile');
                 let responsePromise;
@@ -65,7 +65,7 @@ function RedirectPage() {
                 const timeout = setTimeout(() => {
                     navigate("/error")
                     throw new Error('Timeout Error');
-                }, 120000);
+                }, 180000);
 
 
                 const fileData = localStorage.getItem('uploadedFile');
@@ -114,7 +114,7 @@ function RedirectPage() {
                 const timeout = setTimeout(() => {
                     navigate("/error")
                     throw new Error('Timeout Error');
-                }, 120000);
+                }, 180000);
 
                   const responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/script/cucumber/generate', {
                         method: 'POST',
@@ -166,7 +166,7 @@ function RedirectPage() {
             const timeout = setTimeout(() => {
                 navigate("/error")
                 throw new Error('Timeout Error');
-            }, 120000);
+            }, 180000);
 
             try {
                 const fileData = localStorage.getItem('uploadedFile');

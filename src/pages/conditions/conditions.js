@@ -17,15 +17,7 @@ function Conditions() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (action === "testCase") {
-            navigate("/case")
-        } else if (action === "testStrategy") {
-            navigate("/strategy")
-        } else if (action === "testPlan") {
-            navigate("/plan")
-        }  else if (action === "cucumberScript") {
-            navigate("/cucumber")
-        }
+        navigate("/overview")
     }
 
     useEffect(() => {

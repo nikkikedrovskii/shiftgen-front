@@ -25,6 +25,7 @@ function Help() {
                 <form id="podminky">
                     <div className="form-group pt-4">
                         <button type="button" className="btn btn-primary mx-2 custom-button" onClick={helpButton}>Example</button>
+                        <div style={{ marginLeft: '1150px' }}>QinGPT v. 1.0.0 </div>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputterms">
                             <div>
                                 <h1> Requirement Analysis Document for Qinshift App with Sensitive Data Guarding v0.2</h1>

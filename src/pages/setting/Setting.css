@@ -1,0 +1,25 @@
+.text-center {
+    margin-top: 20px; /* Добавляем отступ сверху */
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.setting-item {
+    width: 100%;
+    margin-bottom: 20px; /* Отступ между элементами настроек */
+}
+.flag-icon:hover {
+    box-shadow: inset 0 0 10px #000000; /* Внутренняя тень */
+    border-radius: 3px; /* Скругление углов для соответствия дизайну на изображении */
+}
+
+.language-selection:hover {
+    background-color: white; /* Белый фон при наведении */
+    padding: 5px; /* Небольшой отступ вокруг контента */
+    border-radius: 5px; /* Скругление углов для более приятного вида */
+    transition: background-color 0.2s; /* Плавное изменение фона */
+}
