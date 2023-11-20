@@ -3,6 +3,7 @@ import axios from 'axios';
 import Modal from "../../components/modal/Modal";
 import enFlag from "../../img/us.svg";
 import czFlag from "../../img/cz.svg";
+import {useNavigate} from "react-router-dom";
 
 const languageMapping = {
     en: { name: 'English', flag: enFlag, iso639_2: 'EN'},
@@ -13,6 +14,7 @@ function Setting() {
     const [selectedLanguage, setSelectedLanguage] = useState({ name: 'Loading...', flag: '' });
     const [isModalOpen, setModalOpen] = useState(false);
     const [originalLanguage, setOriginalLanguage] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchSettings = async () => {
@@ -64,6 +66,7 @@ function Setting() {
             });
             console.log(response.data);
             setOriginalLanguage(selectedLanguage);
+            navigate("/")
         } catch (error) {
             console.error('Ошибка при обновлении настроек:', error);
         }
