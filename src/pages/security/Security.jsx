@@ -18,7 +18,7 @@ function Security() {
     async function fetchBannedWordResponseList() {
         const tokenObject = localStorage.getItem('token');
         const {value} = JSON.parse(tokenObject);
-        const response = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/banned',{
+        const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/banned',{
             headers: {
                 Authorization: `Bearer ${value}`
             }
@@ -31,7 +31,7 @@ function Security() {
     async function createPost(newPost) {
         const tokenObject = localStorage.getItem('token');
         const {value} = JSON.parse(tokenObject);
-         await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/banned',{
+         await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/banned',{
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${value}`,
@@ -48,7 +48,7 @@ function Security() {
         const tokenObject = localStorage.getItem('token');
         const {value} = JSON.parse(tokenObject);
         console.log(post.id)
-        await fetch(`http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/banned/${post.id}`, {
+        await fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/banned/${post.id}`, {
             headers: {
                 Authorization: `Bearer ${value}`
             },

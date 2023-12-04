@@ -21,7 +21,7 @@ function Setting() {
             try {
                 const tokenObject = localStorage.getItem('token');
                 const {value} = JSON.parse(tokenObject);
-                const response = await axios.get('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/setting', {
+                const response = await axios.get('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/setting', {
                     headers: {
                         Authorization: `Bearer ${value}`
                     }
@@ -60,7 +60,7 @@ function Setting() {
             const tokenObject = localStorage.getItem('token');
             const {value} = JSON.parse(tokenObject);
             console.log("selectedLanguage.iso639_2", selectedLanguage.iso639_2);
-            const response = await axios.put('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/setting', { language: selectedLanguage.iso639_2 }, {
+            const response = await axios.put('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/setting', { language: selectedLanguage.iso639_2 }, {
                 headers: {
                     Authorization: `Bearer ${value}`
                 }
