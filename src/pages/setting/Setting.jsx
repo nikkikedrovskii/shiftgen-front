@@ -19,10 +19,11 @@ function Setting() {
     useEffect(() => {
         const fetchSettings = async () => {
             try {
-                const token = localStorage.getItem('token');
+                const tokenObject = localStorage.getItem('token');
+                const {value} = JSON.parse(tokenObject);
                 const response = await axios.get('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/setting', {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${value}`
                     }
                 });
 
@@ -56,12 +57,12 @@ function Setting() {
     const handleUpdate = async () => {
 
         try {
-            const token = localStorage.getItem('token');
-
+            const tokenObject = localStorage.getItem('token');
+            const {value} = JSON.parse(tokenObject);
             console.log("selectedLanguage.iso639_2", selectedLanguage.iso639_2);
             const response = await axios.put('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/setting', { language: selectedLanguage.iso639_2 }, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${value}`
                 }
             });
             console.log(response.data);

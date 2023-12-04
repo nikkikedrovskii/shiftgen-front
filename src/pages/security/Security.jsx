@@ -7,7 +7,6 @@ import ForbiddenWordList from "../../components/forbidden_word/ForbiddenWordList
 
 function Security() {
 
-    const token = localStorage.getItem('token');
 
     const [posts, setPosts] = useState([])
 
@@ -17,9 +16,11 @@ function Security() {
     },[])
 
     async function fetchBannedWordResponseList() {
+        const tokenObject = localStorage.getItem('token');
+        const {value} = JSON.parse(tokenObject);
         const response = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/banned',{
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${value}`
             }
         });
         const data = await response.json();
@@ -28,10 +29,12 @@ function Security() {
     }
 
     async function createPost(newPost) {
+        const tokenObject = localStorage.getItem('token');
+        const {value} = JSON.parse(tokenObject);
          await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/banned',{
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${value}`,
             },
             method: 'POST',
              body: JSON.stringify({
@@ -42,10 +45,12 @@ function Security() {
     }
 
     async function removePost(post) {
+        const tokenObject = localStorage.getItem('token');
+        const {value} = JSON.parse(tokenObject);
         console.log(post.id)
         await fetch(`http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/banned/${post.id}`, {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${value}`
             },
             method: 'DELETE', // Определение метода запроса
         });

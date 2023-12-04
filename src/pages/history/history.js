@@ -11,12 +11,14 @@ function History() {
     const [fileList, setFileList] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
 
+    useEffect(() => {
+        const tokenObject = localStorage.getItem('token');
+        const {value} = JSON.parse(tokenObject);
         async function fetchWarningData() {
             const response = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/user/storage', {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${value}`
                 }
             })
 
@@ -43,13 +45,14 @@ function History() {
     };
 
     const handleDownload = (fileName) => {
+        const tokenObject = localStorage.getItem('token');
+        const {value} = JSON.parse(tokenObject);
         if (fileName) {
-            const token = localStorage.getItem("token");
 
             fetch(`http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/user/${encodeURIComponent(fileName)}/file`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${value}`,
                 },
             })
                 .then(response => response.blob())

@@ -7,8 +7,8 @@ function Conditions() {
 
     const [isChecked, setIsChecked] = useState(false);
     const [warningList, setWarningList] = useState([]);
-    const token = localStorage.getItem('token');
-    const action = localStorage.getItem('action');
+    const tokenObject = localStorage.getItem('token');
+    const {value} = JSON.parse(tokenObject);
     let navigate = useNavigate();
 
     const handleCheckboxChange = () => {
@@ -26,7 +26,7 @@ function Conditions() {
             try {
                 const response = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/warning',{
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${value}`
                     }
                 });
                 const data = await response.json();

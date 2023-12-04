@@ -1,24 +1,25 @@
 import {Route, Routes} from 'react-router-dom'
 import './App.css';
-import Home from "./pages/home/home.js";
 import Authorization from "./pages/google/authorization.js";
 import Conditions from "./pages/conditions/conditions.js";
 import RedirectPage from "./pages/redirect/Oauth2Redirect.js";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import History from "./pages/history/history.js";
-import Error from "./pages/error/error.cjs";
+import Error from "./pages/error/error.js";
 import {TimerProvider} from "./pages/timer/TimerProvider.js";
 import Help from "./pages/help/help.js";
 import Example from "./pages/example/example.js";
 import Security from "./pages/security/Security";
 import Overview from "./pages/Overview/Overview";
 import Setting from "./pages/setting/Setting";
+import Chat from "./pages/chat/Chat";
+import Home from "./pages/home/Home";
 
 function App() {
   return (
    <div>
      <Routes>
-        <Route path="/" element={<Home/>}/>
+         <Route path="/" element={<Home/>}/>
          <Route path="/authorization" element={<Authorization/>}/>
          <Route path="/conditions" element={<Conditions/>}/>
          <Route path="/oauth2/redirect" element={<RedirectPage/>}/>
@@ -29,6 +30,7 @@ function App() {
          <Route path="/security" element={<Security/>}/>
          <Route path="/overview" element={<Overview/>}/>
          <Route path="/setting" element={<Setting/>}/>
+         <Route path="/chat" element={<Chat/>}/>
      </Routes>
    </div>
   );

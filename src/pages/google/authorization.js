@@ -1,7 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
 
 function Authorization()  {
+
+    useEffect(() => {
+        const tokenObject = localStorage.getItem('token');
+        if (tokenObject){
+            const {value} = JSON.parse(tokenObject);
+            window.location.href = 'http://localhost:3000/oauth2/redirect?token=' + value;
+        }
+    }, []);
 
     const handleGoogleAuthorization = () => {
        // window.location.href = 'https://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/oauth2/authorization/google';

@@ -13,6 +13,8 @@ function Case() {
     const navigate = useNavigate();
     const seconds = useContext(TimerContext);
     const [isVisible, setIsVisible] = useState(true);
+    const tokenObject = localStorage.getItem('token');
+    const {value} = JSON.parse(tokenObject);
 
     useEffect(() => {
         async function makeRequest(language, testStrategy) {
@@ -24,7 +26,7 @@ function Case() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Authorization': `Bearer ${value}`,
                 },
                 body: JSON.stringify({
                     language: language,
