@@ -25,7 +25,7 @@ function ChatPage({ onToggle, switchChecked, onSwitchToggle }) {
         }))
 
         try {
-            const response = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/chat', {
+            const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -77,7 +77,7 @@ function ChatPage({ onToggle, switchChecked, onSwitchToggle }) {
                                 onChange={(e) => setInputText(e.target.value)}
                                 style={{ backgroundColor: 'white' }}
                             />
-                            <div className="pt-4 pt-lg-5" style={{ marginLeft: '1100px' }}>
+                            <div className="pt-4 pt-lg-5">
                                 <button type="button" className="btn btn-primary custom-button" onClick={handleSend}>Send</button>
                             </div>
                         </div>

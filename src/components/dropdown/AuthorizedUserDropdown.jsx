@@ -20,7 +20,7 @@ function AuthorizedUserDropdown() {
             chatMessageList: JSON.parse(chatList)
         }))
         try {
-             fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/chat', {
+             fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/chat', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

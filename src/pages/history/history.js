@@ -16,7 +16,7 @@ function History() {
         const tokenObject = localStorage.getItem('token');
         const {value} = JSON.parse(tokenObject);
         async function fetchWarningData() {
-            const response = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/user/storage', {
+            const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/user/storage', {
                 headers: {
                     Authorization: `Bearer ${value}`
                 }
@@ -49,7 +49,7 @@ function History() {
         const {value} = JSON.parse(tokenObject);
         if (fileName) {
 
-            fetch(`http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/user/${encodeURIComponent(fileName)}/file`, {
+            fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/user/${encodeURIComponent(fileName)}/file`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${value}`,

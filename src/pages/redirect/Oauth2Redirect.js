@@ -22,7 +22,7 @@ function RedirectPage() {
 
             if (fileData != null) {
                 const formData = getFileObjectFromB64Json()
-                responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/strategy/file/generate', {
+                responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/strategy/file/generate', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${value}`
@@ -30,7 +30,7 @@ function RedirectPage() {
                     body: formData
                 });
             } else {
-                responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/strategy/generate', {
+                responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/strategy/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ function RedirectPage() {
             let responsePromise;
             if (fileData != null) {
                 const formData = getFileObjectFromB64Json()
-                responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/plan/file/generate', {
+                responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/plan/file/generate', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${value}`
@@ -83,7 +83,7 @@ function RedirectPage() {
                     body: formData
                 });
             } else {
-                responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/plan/generate', {
+                responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/plan/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ function RedirectPage() {
                 throw new Error('Timeout Error');
             }, 180000);
 
-            const responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/script/cucumber/generate', {
+            const responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/script/cucumber/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -182,7 +182,7 @@ function RedirectPage() {
 
             if (fileData != null) {
                 const formData = getFileObjectFromB64Json()
-                responsePromise = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/case/file/generate', {
+                responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/case/file/generate', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${value}`
@@ -190,7 +190,7 @@ function RedirectPage() {
                     body: formData
                 });
             } else {
-                responsePromise  = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/case/generate', {
+                responsePromise  = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/case/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

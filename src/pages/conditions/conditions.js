@@ -24,7 +24,7 @@ function Conditions() {
 
         async function fetchWarningData() {
             try {
-                const response = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/warning',{
+                const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/warning',{
                     headers: {
                         Authorization: `Bearer ${value}`
                     }

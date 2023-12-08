@@ -136,7 +136,7 @@ function GenerationPage({onToggle, switchChecked, onSwitchToggle}) {
                             value={inputValue}
                             onChange={handleInputChange}
                             disabled={inputDataDisabled}
-                            style={{flex: 1, minWidth: '1300px'}}
+                            style={{flex: 1}}
                         />
                         <div style={{marginLeft: '20px', display: 'flex', alignItems: 'center', flexShrink: 0}}>
                             <span style={{marginRight: '10px'}}>Generation</span>
@@ -171,8 +171,6 @@ function GenerationPage({onToggle, switchChecked, onSwitchToggle}) {
                 </form>
             </div>
         </main>
-
-
     );
 }
 
