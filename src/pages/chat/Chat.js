@@ -13,7 +13,7 @@ const ChatPage = () => {
         setInputText('');
 
         try {
-            const response = await fetch('http://shiftgen-env.eba-cigf3qkz.eu-north-1.elasticbeanstalk.com/chat', {
+            const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
