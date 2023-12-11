@@ -75,7 +75,7 @@ function Case() {
                 setResponseData(JSON.parse(storedData));
                 const testStrategy = JSON.parse(storedData);
                 console.log(" into handler " + testStrategy)
-              //  executeRequests()
+                executeRequests()
             }
         }
         window.addEventListener('storage', handleStorageChange);
