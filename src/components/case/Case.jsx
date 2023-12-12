@@ -17,11 +17,11 @@ function Case() {
     const {value} = JSON.parse(tokenObject);
 
     useEffect(() => {
-        async function makeRequest(language, testStrategy) {
-            /*            const timeout = setTimeout(() => {
+/*        async function makeRequest(language, testStrategy) {
+            /!*            const timeout = setTimeout(() => {
                             navigate("/error")
                             throw new Error('Timeout Error');
-                        }, 130000);*/
+                        }, 130000);*!/
             const responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/script/generate', {
                 method: 'POST',
                 headers: {
@@ -55,9 +55,9 @@ function Case() {
                 navigate("/error")
             }
             return data;
-        }
+        }*/
 
-        async function executeRequests() {
+/*        async function executeRequests() {
             for (let i = 0; i < languages.length; i++) {
                 const language = languages[i];
                 const storedData = localStorage.getItem('responseData');
@@ -66,7 +66,48 @@ function Case() {
                 const responseData = await makeRequest(language, testStrategy);
                 console.log(`Результат для ${language} с стратегией ${testStrategy}:`, responseData);
             }
-        }
+        }*/
+
+/*        async function makeRequest(e) {
+            e.preventDefault();
+
+            const buttonText = e.target.innerText;
+            const storedData = localStorage.getItem('responseData');
+            const testStrategy = JSON.parse(storedData);
+
+            const responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/script/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${value}`,
+                },
+                body: JSON.stringify({
+                    language: buttonText,
+                    testCaseList: testStrategy
+                }),
+            });
+
+            const response = await responsePromise;
+
+            const data = await response.json();
+
+            if (response.status === 200) {
+                if (buttonText === "cypress") {
+                    let formattedString = data.script.replace(/\n/g, '<br>');
+                    setCypressData(formattedString);
+                } else if (buttonText === "python") {
+                    let formattedString = data.script.replace(/\n/g, '<br>');
+                    setPythonData(formattedString)
+                } else if (buttonText === "playwright") {
+                    let formattedString = data.script.replace(/\n/g, '<br>');
+                    setPlaywrightData(formattedString)
+                }
+            } else {
+                localStorage.setItem('error', JSON.stringify(data));
+                navigate("/error")
+            }
+            return data;
+        }*/
 
         const handleStorageChange = async (e) => {
             const storedData = localStorage.getItem('responseData');
@@ -108,6 +149,46 @@ function Case() {
             console.error('Failed to copy: ', err);
         }
     };
+    const fetchData = async (e) => {
+        e.preventDefault();
+
+        const buttonText = e.target.innerText;
+        const storedData = localStorage.getItem('responseData');
+        const testStrategy = JSON.parse(storedData);
+
+        const responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/script/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${value}`,
+            },
+            body: JSON.stringify({
+                language: buttonText,
+                testCaseList: testStrategy
+            }),
+        });
+
+        const response = await responsePromise;
+
+        const data = await response.json();
+        console.log(data.script)
+        if (response.status === 200) {
+            if (buttonText === "Cypress") {
+                console.log(data.script)
+                let formattedString = data.script.replace(/\n/g, '<br>');
+                setCypressData(formattedString);
+            } else if (buttonText === "Python") {
+                let formattedString = data.script.replace(/\n/g, '<br>');
+                setPythonData(formattedString)
+            } else if (buttonText === "Playwright") {
+                let formattedString = data.script.replace(/\n/g, '<br>');
+                setPlaywrightData(formattedString)
+            }
+        } else {
+            localStorage.setItem('error', JSON.stringify(data));
+            navigate("/error")
+        }
+    };
 
     return (
         <main>
@@ -131,12 +212,38 @@ function Case() {
                                     <p>Result: {item.result}</p>
                                 </li>
                             ))}
-                            <h4 id="cypress" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Cypress</h4>
+                            <button
+                                id="cypress"
+                                className="btn btn-primary"
+                                style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}
+                                onClick={fetchData}
+                            >
+                                Cypress
+                            </button>
                             <p dangerouslySetInnerHTML={{ __html: cypressData }} />
-                            <h4 id="python" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Python</h4>
+                            <button
+                                id="python"
+                                className="btn btn-primary"
+                                style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}
+                                onClick={fetchData}
+                            >
+                                Python
+                            </button>
                             <p dangerouslySetInnerHTML={{ __html: pythonData }} />
-                            <h4 id="playwright" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Playwright</h4>
-                            <p dangerouslySetInnerHTML={{ __html: playwrightData }} />
+                            <button
+                                id="playwright"
+                                className="btn btn-primary"
+                                style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}
+                                onClick={fetchData}
+                            >
+                                Playwright
+                            </button>
+                            <p dangerouslySetInnerHTML={{ __html: playwrightData }}/>
+{/*                            <p dangerouslySetInnerHTML={{ __html: cypressData }} />
+                            <button id="python" className="btn btn-primary" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Python</button>
+                            <p dangerouslySetInnerHTML={{ __html: pythonData }} />
+                            <button id="playwright" className="btn btn-primary" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Playwright</button>
+                            <p dangerouslySetInnerHTML={{ __html: playwrightData }} />*/}
                         </div>
                     </div>
                     <div className="row pt-4 pt-lg-5">
