@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import "./Security.css"
 import ForbiddenWordForm from "../../components/forbidden_word_form/ForbiddenWordForm";
 import ForbiddenWordList from "../../components/forbidden_word/ForbiddenWordList";
+import {AiOutlineLeft} from "react-icons/ai";
 
 function Security() {
 
 
     const [posts, setPosts] = useState([])
-
+    const navigate = useNavigate();
     useEffect(()=>{
         console.log(posts)
         fetchBannedWordResponseList();
@@ -61,8 +62,11 @@ function Security() {
         <main>
             <div className="container">
                 <div className="d-flex align-items-center">
-                    <div className="go-back-link">
-                        <p className="mb-0"><Link to="/authorization">Back</Link></p>
+                    <div className="go-back-link" onClick={() => navigate(-1)}>
+                        <p className="mb-0">
+                            <AiOutlineLeft className={'icon-ba'}/>
+                            Back
+                        </p>
                     </div>
                     <img src={qinshiftLogo} alt="logo Qinshift" className="ms-auto brand-logo"/>
                 </div>

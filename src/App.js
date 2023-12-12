@@ -15,6 +15,7 @@ import Setting from "./pages/setting/Setting";
 import Chat from "./pages/chat/Chat";
 import Home from "./pages/home/Home";
 import LoginPage from "./pages/login/LoginPage";
+import Billing from "./pages/billing/Billing";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
          <Route path="/setting" element={<Setting/>}/>
          <Route path="/chat" element={<Chat/>}/>
          <Route path="/login" element={<LoginPage/>}/>
+         <Route path="/billing" element={<Billing/>}/>
      </Routes>
    </div>
   );

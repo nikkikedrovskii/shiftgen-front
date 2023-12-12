@@ -4,6 +4,7 @@ import Modal from "../../components/modal/Modal";
 import enFlag from "../../img/us.svg";
 import czFlag from "../../img/cz.svg";
 import {useNavigate} from "react-router-dom";
+import {AiOutlineLeft} from "react-icons/ai";
 
 const languageMapping = {
     en: { name: 'English', flag: enFlag, iso639_2: 'EN'},
@@ -77,6 +78,12 @@ function Setting() {
         <main>
             <div className="container">
                 <div className="text-center">
+                    <div className="go-back-link" onClick={() => navigate(-1)}>
+                        <p className="mb-0">
+                            <AiOutlineLeft className={'icon-ba'}/>
+                            Back
+                        </p>
+                    </div>
                     <h1>Setting</h1>
                     <p>version: 1.0.0</p>
                     <p onClick={toggleModal} style={{ fontSize: '1.5rem' }}>

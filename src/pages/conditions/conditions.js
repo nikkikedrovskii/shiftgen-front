@@ -43,9 +43,6 @@ function Conditions() {
         <main>
             <div className="container">
                 <div className="d-flex align-items-center">
-                    <div className="go-back-link">
-                        <p className="mb-0"><Link to="/authorization">Back</Link></p>
-                    </div>
                     <img src={qinshiftLogo} alt="logo Qinshift" className="ms-auto brand-logo"/>
                 </div>
                 <form id="podminky" onSubmit={handleSubmit}>
