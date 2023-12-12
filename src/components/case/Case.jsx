@@ -173,14 +173,14 @@ function Case() {
         const data = await response.json();
         console.log(data.script)
         if (response.status === 200) {
-            if (buttonText === "Cypress") {
+            if (buttonText === "Generate cypress script") {
                 console.log(data.script)
                 let formattedString = data.script.replace(/\n/g, '<br>');
                 setCypressData(formattedString);
-            } else if (buttonText === "Python") {
+            } else if (buttonText === "Generate python script") {
                 let formattedString = data.script.replace(/\n/g, '<br>');
                 setPythonData(formattedString)
-            } else if (buttonText === "Playwright") {
+            } else if (buttonText === "Generate playwright script") {
                 let formattedString = data.script.replace(/\n/g, '<br>');
                 setPlaywrightData(formattedString)
             }
@@ -218,7 +218,7 @@ function Case() {
                                 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}
                                 onClick={fetchData}
                             >
-                                Cypress
+                                Generate cypress script
                             </button>
                             <p dangerouslySetInnerHTML={{ __html: cypressData }} />
                             <button
@@ -227,7 +227,7 @@ function Case() {
                                 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}
                                 onClick={fetchData}
                             >
-                                Python
+                                Generate python script
                             </button>
                             <p dangerouslySetInnerHTML={{ __html: pythonData }} />
                             <button
@@ -236,7 +236,7 @@ function Case() {
                                 style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}
                                 onClick={fetchData}
                             >
-                                Playwright
+                                Generate playwright script
                             </button>
                             <p dangerouslySetInnerHTML={{ __html: playwrightData }}/>
 {/*                            <p dangerouslySetInnerHTML={{ __html: cypressData }} />
