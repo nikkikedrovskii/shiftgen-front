@@ -1,6 +1,7 @@
 // В RedirectPage.js
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 
 function RedirectPage() {
     const navigate = useNavigate();
@@ -234,8 +235,9 @@ function RedirectPage() {
             expiry: now.getTime() + 60 * 60000,
         };
         localStorage.setItem('token', JSON.stringify(item));
+        const decodedToken = jwtDecode(token)
 
-     //   localStorage.setItem('token', token);
+        localStorage.setItem('email', decodedToken.email);
 
         if (action === "testCase") {
             fetchGenerateUseCase();

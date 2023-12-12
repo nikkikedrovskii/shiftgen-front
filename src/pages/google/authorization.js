@@ -8,7 +8,7 @@ function Authorization()  {
         const tokenObject = localStorage.getItem('token');
         if (tokenObject){
             const {value} = JSON.parse(tokenObject);
-            window.location.href = 'http://master.d44820iy5gmpk.amplifyapp.com/oauth2/redirect?token=' + value;
+            window.location.href = 'https://master.d44820iy5gmpk.amplifyapp.com/oauth2/redirect?token=' + value;
         }
     }, []);
 

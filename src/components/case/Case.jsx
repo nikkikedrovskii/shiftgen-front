@@ -8,6 +8,7 @@ function Case() {
     const [responseData, setResponseData] = useState([]);
     const languages = ["cypress", "python", "playwright"];
     const [cypressData, setCypressData] = useState('');
+    const [scriptData, setScriptData] = useState('');
     const [pythonData, setPythonData] = useState('');
     const [playwrightData, setPlaywrightData] = useState('');
     const navigate = useNavigate();
@@ -17,107 +18,10 @@ function Case() {
     const {value} = JSON.parse(tokenObject);
 
     useEffect(() => {
-/*        async function makeRequest(language, testStrategy) {
-            /!*            const timeout = setTimeout(() => {
-                            navigate("/error")
-                            throw new Error('Timeout Error');
-                        }, 130000);*!/
-            const responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/script/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${value}`,
-                },
-                body: JSON.stringify({
-                    language: language,
-                    testCaseList: testStrategy
-                }),
-            });
 
-            const response = await responsePromise;
-            //   clearTimeout(timeout);
-
-            const data = await response.json();
-
-            if (response.status === 200) {
-                if (language === "cypress") {
-                    let formattedString = data.script.replace(/\n/g, '<br>');
-                    setCypressData(formattedString);
-                } else if (language === "python") {
-                    let formattedString = data.script.replace(/\n/g, '<br>');
-                    setPythonData(formattedString)
-                } else if (language === "playwright") {
-                    let formattedString = data.script.replace(/\n/g, '<br>');
-                    setPlaywrightData(formattedString)
-                }
-            } else {
-                localStorage.setItem('error', JSON.stringify(data));
-                navigate("/error")
-            }
-            return data;
-        }*/
-
-/*        async function executeRequests() {
-            for (let i = 0; i < languages.length; i++) {
-                const language = languages[i];
-                const storedData = localStorage.getItem('responseData');
-                const testStrategy = JSON.parse(storedData);
-
-                const responseData = await makeRequest(language, testStrategy);
-                console.log(`Результат для ${language} с стратегией ${testStrategy}:`, responseData);
-            }
-        }*/
-
-/*        async function makeRequest(e) {
-            e.preventDefault();
-
-            const buttonText = e.target.innerText;
-            const storedData = localStorage.getItem('responseData');
-            const testStrategy = JSON.parse(storedData);
-
-            const responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/script/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${value}`,
-                },
-                body: JSON.stringify({
-                    language: buttonText,
-                    testCaseList: testStrategy
-                }),
-            });
-
-            const response = await responsePromise;
-
-            const data = await response.json();
-
-            if (response.status === 200) {
-                if (buttonText === "cypress") {
-                    let formattedString = data.script.replace(/\n/g, '<br>');
-                    setCypressData(formattedString);
-                } else if (buttonText === "python") {
-                    let formattedString = data.script.replace(/\n/g, '<br>');
-                    setPythonData(formattedString)
-                } else if (buttonText === "playwright") {
-                    let formattedString = data.script.replace(/\n/g, '<br>');
-                    setPlaywrightData(formattedString)
-                }
-            } else {
-                localStorage.setItem('error', JSON.stringify(data));
-                navigate("/error")
-            }
-            return data;
-        }*/
-
-        const handleStorageChange = async (e) => {
-            const storedData = localStorage.getItem('responseData');
-            if (storedData) {
-                hideBlock();
-                setResponseData(JSON.parse(storedData));
-                const testStrategy = JSON.parse(storedData);
-                console.log(" into handler " + testStrategy)
-              //  executeRequests()
-            }
+        const storedData = JSON.parse(localStorage.getItem('responseData'));
+        if (storedData) {
+            setResponseData(storedData)
         }
         window.addEventListener('storage', handleStorageChange);
 
@@ -125,6 +29,16 @@ function Case() {
             window.removeEventListener('storage', handleStorageChange);
         };
     }, []);
+
+    const handleStorageChange = async (e) => {
+        const storedData = localStorage.getItem('responseData');
+        if (storedData) {
+            hideBlock();
+            setResponseData(JSON.parse(storedData));
+            const testStrategy = JSON.parse(storedData);
+            console.log(" into handler " + testStrategy)
+        }
+    }
 
     const hideBlock = () => {
         setIsVisible(false);
@@ -173,7 +87,9 @@ function Case() {
         const data = await response.json();
         console.log(data.script)
         if (response.status === 200) {
-            if (buttonText === "Generate cypress script") {
+            let formattedString = data.script.replace(/\n/g, '<br>');
+            setScriptData(formattedString);
+/*            if (buttonText === "Generate cypress script") {
                 console.log(data.script)
                 let formattedString = data.script.replace(/\n/g, '<br>');
                 setCypressData(formattedString);
@@ -183,7 +99,7 @@ function Case() {
             } else if (buttonText === "Generate playwright script") {
                 let formattedString = data.script.replace(/\n/g, '<br>');
                 setPlaywrightData(formattedString)
-            }
+            }*/
         } else {
             localStorage.setItem('error', JSON.stringify(data));
             navigate("/error")
@@ -212,49 +128,43 @@ function Case() {
                                     <p>Result: {item.result}</p>
                                 </li>
                             ))}
-                            <button
-                                id="cypress"
-                                className="btn btn-primary"
-                                style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}
-                                onClick={fetchData}
-                            >
-                                Generate cypress script
-                            </button>
-                            <p dangerouslySetInnerHTML={{ __html: cypressData }} />
-                            <button
-                                id="python"
-                                className="btn btn-primary"
-                                style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}
-                                onClick={fetchData}
-                            >
-                                Generate python script
-                            </button>
-                            <p dangerouslySetInnerHTML={{ __html: pythonData }} />
-                            <button
-                                id="playwright"
-                                className="btn btn-primary"
-                                style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}
-                                onClick={fetchData}
-                            >
-                                Generate playwright script
-                            </button>
-                            <p dangerouslySetInnerHTML={{ __html: playwrightData }}/>
-{/*                            <p dangerouslySetInnerHTML={{ __html: cypressData }} />
-                            <button id="python" className="btn btn-primary" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Python</button>
-                            <p dangerouslySetInnerHTML={{ __html: pythonData }} />
-                            <button id="playwright" className="btn btn-primary" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Playwright</button>
-                            <p dangerouslySetInnerHTML={{ __html: playwrightData }} />*/}
+                            <h4 id="cypress" style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}>Script:</h4>
+                            <p dangerouslySetInnerHTML={{ __html: scriptData }} />
                         </div>
                     </div>
                     <div className="row pt-4 pt-lg-5">
                         <div className="col-4">
-                            <a href="#cypress" className="btn btn-primary scroll-output" onClick={() => scrollToTarget('#cypress')}>Cypress</a>
+                        <button
+                            id="cypress"
+                            className="btn btn-primary"
+                            style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}
+                            onClick={fetchData}
+                            disabled={!responseData}
+                        >
+                            Generate cypress
+                        </button>
                         </div>
                         <div className="col-4">
-                            <a href="#python" className="btn btn-primary scroll-output" onClick={() => scrollToTarget('#python')}>Python</a>
+                        <button
+                            id="python"
+                            className="btn btn-primary"
+                            style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}
+                            onClick={fetchData}
+                            disabled={!responseData}
+                        >
+                            Generate python
+                        </button>
                         </div>
                         <div className="col-4">
-                            <a href="#playwright" className="btn btn-primary scroll-output" onClick={() => scrollToTarget('#playwright')}>Playwright</a>
+                        <button
+                            id="playwright"
+                            className="btn btn-primary"
+                            style={{ fontFamily: 'Elza, Arial, sans-serif', fontStyle: 'normal', fontWeight: '500', fontSize: '24px', lineHeight: '28px', color: '#D08F74', paddingTop: '10px' }}
+                            onClick={fetchData}
+                            disabled={!responseData}
+                        >
+                            Generate playwright
+                        </button>
                         </div>
                     </div>
                 </form>
