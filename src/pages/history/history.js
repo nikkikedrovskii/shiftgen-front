@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import qinshiftLogo from '../../img/qinshift_logo.svg';
-import {useNavigate} from "react-router-dom";
+import {useHistory, useNavigate} from "react-router-dom";
 import {AiOutlineLeft} from "react-icons/ai";
 import WarningInfo from "../../components/WarningInfo";
 
@@ -33,15 +33,12 @@ function History() {
     }, []);
 
 
+    function goBack() {
+        navigate.goBack();
+    }
+
     const handleRedirect = () => {
-        const action = localStorage.getItem("action");
-        if (action === "testCase") {
-            navigate("/case")
-        } else if (action === "testStrategy") {
-            navigate("/strategy")
-        } else if (action === "testPlan") {
-            navigate("/plan")
-        }
+        navigate("/overview")
     };
 
     const handleDownload = (fileName) => {
@@ -73,7 +70,7 @@ function History() {
         <main>
             <div className="container">
                 <div className="d-flex align-items-center">
-                    <div className="go-back-link" onClick={handleRedirect}>
+                    <div className="go-back-link" onClick={() => navigate(-1)}>
                         <p className="mb-0">
                             <AiOutlineLeft className={'icon-ba'}/>
                             Back

@@ -1,8 +1,27 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import qinshiftLogo from "../../img/qinshift_logo.svg";
+import {jwtDecode} from "jwt-decode";
 
 function PageHeader() {
+
+    const [email, setEmail] = useState('');
+
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const decodedToken = jwtDecode(token)
+        localStorage.setItem('email', decodedToken.email);
+
+        if (token) {
+            try {
+                const decodedToken = jwtDecode(token);
+                setEmail(decodedToken.email);
+            } catch (error) {
+                console.error("Error decoding token:", error);
+            }
+        }
+    },[]);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -22,7 +41,9 @@ function PageHeader() {
                     </svg>
                 </button>
                 <ul className="dropdown-menu">
+                    {email && <li className="dropdown-item disabled">Logged in as: {email}</li>}
                     <Link to="/history" className="dropdown-item">History</Link>
+                    <Link to="/billing" className="dropdown-item">Billing</Link>
                     <Link to="/security" className="dropdown-item">Security</Link>
                     <Link to="/setting" className="dropdown-item">Setting</Link>
                     <button className="dropdown-item" onClick={handleLogout}>Log out</button>
