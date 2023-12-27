@@ -39,7 +39,7 @@ function Billing() {
                     </div>
                     <h1>Billing</h1>
                     <p>
-                        Amount:
+                        Amount for the current month:
                         <span style={{ verticalAlign: 'middle', width: '30px', marginLeft: '100px', marginRight: '10px'}}>{amount.amount} $</span>
                     </p>
                 </div>
