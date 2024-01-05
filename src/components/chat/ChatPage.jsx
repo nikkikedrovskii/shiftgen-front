@@ -25,10 +25,13 @@ function ChatPage({ onToggle, switchChecked, onSwitchToggle }) {
         }))
 
         try {
+            const tokenObject = localStorage.getItem('token');
+            const {value} = JSON.parse(tokenObject);
             const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/chat', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${value}`
                 },
                 body: JSON.stringify({
                     chatMessageList: newChatMessageList
@@ -39,7 +42,7 @@ function ChatPage({ onToggle, switchChecked, onSwitchToggle }) {
             const lastMessage = responseData.chatMessageList[responseData.chatMessageList.length - 1];
             if (lastMessage) {
                 setChatMessageList(currentMessages => {
-                    const updatedMessages = [...currentMessages, { chatRole: 'assistant', content: lastMessage.content }];
+                    const updatedMessages = [...currentMessages, { chatRole: 'QINGPT', content: lastMessage.content }];
                     localStorage.setItem('chat', JSON.stringify(updatedMessages));
                     return updatedMessages;
                 });
@@ -63,20 +66,23 @@ function ChatPage({ onToggle, switchChecked, onSwitchToggle }) {
                 <form>
                     <div className="form-group pt-4" style={{ display: 'flex', alignItems: 'center' }}>
                         <div style={{ flex: 1 }}>
-                            <label htmlFor="inputdata">Chat with bot:</label>
-                            <textarea
-                                className="form-control"
-                                id="inputdata"
-                                value={displayMessages}
-                                onChange={handleInputChange}
-                            />
-                            <textarea
-                                id="uniqueTextarea"
-                                type="text"
-                                value={inputText}
-                                onChange={(e) => setInputText(e.target.value)}
-                                style={{ backgroundColor: 'white' }}
-                            />
+                            <label htmlFor="chatbox">Chat with bot:</label>
+                            <div className="chat-box" id="chatbox">
+                                <div className="chat-messages">
+                                    {chatMessageList.map((msg, index) => (
+                                        <div key={index} className={`chat-message ${msg.chatRole}`}>
+                                            <strong>{msg.chatRole}</strong>: <span className="message-content" style={{ whiteSpace: 'pre-wrap' }}>{msg.content}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                <input
+                                    type="text"
+                                    className="form-control chat-input"
+                                    placeholder="Type a message..."
+                                    value={inputText}
+                                    onChange={(e) => setInputText(e.target.value)}
+                                />
+                            </div>
                             <div className="pt-4 pt-lg-5">
                                 <button type="button" className="btn btn-primary custom-button" onClick={handleSend}>Send</button>
                             </div>
@@ -93,6 +99,8 @@ function ChatPage({ onToggle, switchChecked, onSwitchToggle }) {
                 </form>
             </div>
         </main>
+
+
 
     );
 }
