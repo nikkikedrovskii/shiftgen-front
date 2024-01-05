@@ -64,6 +64,64 @@ svg,
 video {
     vertical-align: middle;
 }
+.chat-box {
+    border: 1px solid #444;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: white; /* Темно-синий фон, как на изображении */
+    color: #2F4F4F; /* Белый текст */
+}
+
+.chat-messages {
+    padding: 10px;
+    height: 300px; /* Вы можете настроить высоту, как вам нужно */
+    overflow-y: auto; /* Добавляем прокрутку */
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    background: #D2D2D2; /* Чуть более светлый фон для сообщений */
+}
+
+.chat-message.user {
+    align-self: flex-end; /* Сообщения пользователя выравниваются по правой стороне */
+    background: #99BFFF; /* Синий фон для сообщений пользователя */
+}
+
+.chat-message, .chat-message > strong, .chat-message > span {
+    color: #222226;
+}
+
+.chat-message.bot {
+    align-self: flex-start; /* Сообщения бота выравниваются по левой стороне */
+}
+
+.message-content {
+    display: inline-block;
+    max-width: 80%; /* Ограничиваем ширину сообщения */
+    word-wrap: break-word; /* Перенос слов */
+}
+
+.chat-input {
+    border: none;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box; /* Чтобы padding не влиял на общую ширину */
+    border-top: 1px solid #444;
+}
+
+.chat-input::placeholder {
+    color: #000011; /* Цвет текста placeholder */
+}
+
+/* Убираем стандартные стили для фокуса */
+.chat-input:focus {
+    outline: none;
+}
 
 /*
  * Remove default fieldset styles.
