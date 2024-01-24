@@ -16,6 +16,7 @@ import Chat from "./pages/chat/Chat";
 import Home from "./pages/home/Home";
 import LoginPage from "./pages/login/LoginPage";
 import Billing from "./pages/billing/Billing";
+import AiTrism from "./pages/ai_trism/AiTrism";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
          <Route path="/chat" element={<Chat/>}/>
          <Route path="/login" element={<LoginPage/>}/>
          <Route path="/billing" element={<Billing/>}/>
+         <Route path="/aitrism" element={<AiTrism/>}/>
      </Routes>
    </div>
   );

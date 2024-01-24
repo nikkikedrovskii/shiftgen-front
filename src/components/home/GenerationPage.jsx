@@ -87,6 +87,7 @@ function GenerationPage({onToggle, switchChecked, onSwitchToggle}) {
             navigate("/authorization")
         }
     }
+
     const helpButton = () => {
         navigate("/help")
     }
