@@ -15,8 +15,26 @@ function Setting() {
     const [selectedLanguage, setSelectedLanguage] = useState({ name: 'Loading...', flag: '' });
     const [isModalOpen, setModalOpen] = useState(false);
     const [originalLanguage, setOriginalLanguage] = useState(null);
+    const [posts, setPosts] = useState([])
     const navigate = useNavigate();
 
+    useEffect(()=>{
+        console.log(posts)
+        fetchBannedWordResponseList();
+    },[])
+
+    async function fetchBannedWordResponseList() {
+        const tokenObject = localStorage.getItem('token');
+        const {value} = JSON.parse(tokenObject);
+        const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/regular/prompt',{
+            headers: {
+                Authorization: `Bearer ${value}`
+            }
+        });
+        const data = await response.json();
+        console.log(data)
+        setPosts(data.regularPromptResponseList);
+    }
     useEffect(() => {
         const fetchSettings = async () => {
             try {
@@ -73,6 +91,74 @@ function Setting() {
             console.error('Ошибка при обновлении настроек:', error);
         }
     };
+    const handleSave = async () => {
+        const tokenObject = localStorage.getItem('token');
+        const {value} = JSON.parse(tokenObject);
+        const promptValue = document.getElementById('prompt').value;
+        const expectedAnswerValue = document.getElementById('expectedAnswer').value;
+        const iterationValue = document.getElementById('iteration').value;
+
+        const dataToSend = {
+            prompt: promptValue,
+            expectedAnswer: expectedAnswerValue,
+            iteration: iterationValue,
+        };
+         await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/regular/prompt', {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json',
+                  Authorization: `Bearer ${value}`
+             },
+             body: JSON.stringify(dataToSend),
+         });
+        fetchBannedWordResponseList();
+    };
+
+    const handleUpdateRegularPrompt = async (item) => {
+        try {
+            const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/regular/prompt', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(item),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            fetchBannedWordResponseList();
+        } catch (error) {
+            console.error('Error during update:', error);
+        }
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/regular/prompt/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            // Удаляем элемент из списка в интерфейсе
+            setPosts(currentData => currentData.filter(item => item.id !== id));
+        } catch (error) {
+            console.error('Error during delete:', error);
+        }
+        fetchBannedWordResponseList();
+    };
+
+    const handleChange = (id, field, value) => {
+        setPosts(currentData =>
+            currentData.map(item =>
+                item.id === id ? { ...item, [field]: value } : item
+            )
+        );
+    };
 
     return (
         <main>
@@ -86,19 +172,58 @@ function Setting() {
                     </div>
                     <h1>Setting</h1>
                     <p>version: 1.0.0</p>
-                    <p onClick={toggleModal} style={{ fontSize: '1.5rem' }}>
+                    <p onClick={toggleModal} style={{fontSize: '1.5rem'}}>
                         Language:
-                        <img src={selectedLanguage.flag} alt={`${selectedLanguage.name} Flag`} style={{ width: '30px', marginLeft: '100px', marginRight: '10px' }} />
-                        <span style={{ verticalAlign: 'middle' }}>{selectedLanguage.name}</span>
+                        <img src={selectedLanguage.flag} alt={`${selectedLanguage.name} Flag`}
+                             style={{width: '30px', marginLeft: '100px', marginRight: '10px'}}/>
+                        <span style={{verticalAlign: 'middle'}}>{selectedLanguage.name}</span>
                     </p>
                     <button onClick={handleUpdate} disabled={!isLanguageChanged()}>
                         Update
                     </button>
                 </div>
-                {isModalOpen && <Modal changeLanguage={changeLanguage} />}
+                <h1 className="text-center">AI TRiSM Setting:</h1>
+                <div className="settings-form">
+                    <input type="text" className="form-input" placeholder="Prompt" id="prompt"/>
+                    <input type="text" className="form-input" placeholder="Expected Answer" id="expectedAnswer"/>
+
+                    <select className="form-select" id="iteration">
+                        <option value="DAILY">DAILY</option>
+                        <option value="WEEKLY">WEEKLY</option>
+                        <option value="MONTHLY">MONTHLY</option>
+                    </select>
+
+                    <button className="btn btn-primary custom-button" onClick={handleSave}>Save</button>
+                </div>
+                <div className="data-list" style={{ marginTop:'30px' }}>
+                    {posts.map(item => (
+                        <div key={item.id} className="data-item">
+                            <input
+                                type="text"
+                                value={item.prompt}
+                                onChange={(e) => handleChange(item.id, 'prompt', e.target.value)}
+                            />
+                            <input
+                                type="text"
+                                value={item.expectedAnswer}
+                                onChange={(e) => handleChange(item.id, 'expectedAnswer', e.target.value)}
+                            />
+                            <select
+                                value={item.iteration}
+                                onChange={(e) => handleChange(item.id, 'iteration', e.target.value)}
+                            >
+                                <option value="DAILY">DAILY</option>
+                                <option value="WEEKLY">WEEKLY</option>
+                                <option value="MONTHLY">MONTHLY</option>
+                            </select>
+                            <button onClick={() => handleUpdateRegularPrompt(item)} className="btn btn-primary custom-button">Update</button>
+                            <button onClick={() => handleDelete(item.externalRegularPromptId)} className="btn btn-primary custom-button">Delete</button>
+                        </div>
+                    ))}
+                </div>
+                {isModalOpen && <Modal changeLanguage={changeLanguage}/>}
             </div>
         </main>
-
     );
 }
 
