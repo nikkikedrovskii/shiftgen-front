@@ -71,6 +71,7 @@ function AuthorizedUserDropdown() {
                 <Link to="/billing" className="dropdown-item">Billing</Link>
                 <Link to="/security" className="dropdown-item">Security</Link>
                 <Link to="/setting" className="dropdown-item">Setting</Link>
+                <Link to="/aitrism" className="dropdown-item">Ai Trism</Link>
                 <button className="dropdown-item" onClick={handleLogout}>Log out</button>
                 <a className="dropdown-item" href="#">Delete account</a>
             </ul>
