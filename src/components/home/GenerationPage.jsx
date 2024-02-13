@@ -4,7 +4,7 @@ import qinshiftLogo from "../../img/qinshift_logo.svg";
 import AuthorizedUserDropdown from "../dropdown/AuthorizedUserDropdown";
 import UnauthorizedUserDropdown from "../dropdown/UnauthorizedUserDropdown";
 
-function GenerationPage({onToggle, switchChecked, onSwitchToggle}) {
+function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage }) {
 
     const [inputValue, setInputValue] = useState('');
     let navigate = useNavigate();
@@ -37,14 +37,6 @@ function GenerationPage({onToggle, switchChecked, onSwitchToggle}) {
             }
         }
 
-    }
-
-    const handlePasteClick = async () => {
-        const text = await navigator.clipboard.readText();
-        setInputValue(text);
-        if (text.length > 0) {
-            document.querySelectorAll('button').forEach(s => s.removeAttribute("disabled"))
-        }
     }
 
     const handleInputChange = (e) => {
@@ -97,14 +89,14 @@ function GenerationPage({onToggle, switchChecked, onSwitchToggle}) {
             const reader = new FileReader();
 
             reader.onload = (event) => {
-                const base64String = event.target.result.split(',')[1]; // Получаем base64 строку
+                const base64String = event.target.result.split(',')[1];
 
                 const fileData = {
-                    filename: file.name, // Сохраняем имя файла
+                    filename: file.name,
                     base64String: base64String
                 };
 
-                localStorage.setItem('uploadedFile', JSON.stringify(fileData)); // Сохраняем в localStorage
+                localStorage.setItem('uploadedFile', JSON.stringify(fileData));
             };
 
             reader.readAsDataURL(file);
@@ -129,8 +121,15 @@ function GenerationPage({onToggle, switchChecked, onSwitchToggle}) {
                         {isUserAuthorized ? <AuthorizedUserDropdown/> : <UnauthorizedUserDropdown/>}
                     </div>
                 </div>
-                <form>
-                    <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>
+                <div className="text-center">
+                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>QINIMAGE
+                        bot
+                    </button>
+                    <button className="btn btn-primary custom-button" onClick={switchToChatQinGptPage}>QINGEN
+                        bot
+                    </button>
+                    <form>
+                        <div className="form-group" style={{display: 'flex', alignItems: 'center'}}>
                         <textarea
                             className="form-control"
                             id="inputdata"
@@ -139,37 +138,31 @@ function GenerationPage({onToggle, switchChecked, onSwitchToggle}) {
                             disabled={inputDataDisabled}
                             style={{flex: 1}}
                         />
-                        <div style={{marginLeft: '20px', display: 'flex', alignItems: 'center', flexShrink: 0}}>
-                            <span style={{marginRight: '10px'}}>Generation</span>
-                            <label className="switch">
-                                <input type="checkbox" checked={switchChecked} onChange={onSwitchToggle}/>
-                                <span className="slider"/>
-                            </label>
-                            <span style={{marginLeft: '10px'}}>Chat</span>
                         </div>
-                    </div>
-                    {fileUploaded &&
-                        <div className="text-center">The file has been uploaded. The text input field is locked</div>}
-                    <div className="text-center pt-4 pt-lg-5">
-                        <div>
-                            <button type="button" className="btn btn-primary custom-button"
-                                    onClick={handleSubmit}>Generate Test Strategy
-                            </button>
-                            <button type="button" className="btn btn-primary mx-2 custom-button"
-                                    onClick={handleSubmit}>Generate Test Plan
-                            </button>
-                            <button type="button" className="btn btn-primary custom-button"
-                                    onClick={handleSubmit}>Generate Test Cases
-                            </button>
-                            <button type="button" className="btn btn-primary mx-2 custom-button"
-                                    style={{minWidth: '250px'}} onClick={handleSubmit}>Generate cucumber script
+                        {fileUploaded &&
+                            <div className="text-center">The file has been uploaded. The text input field is
+                                locked</div>}
+                        <div className="text-center pt-4 pt-lg-5">
+                            <div>
+                                <button type="button" className="btn btn-primary custom-button"
+                                        onClick={handleSubmit}>Generate Test Strategy
+                                </button>
+                                <button type="button" className="btn btn-primary mx-2 custom-button"
+                                        onClick={handleSubmit}>Generate Test Plan
+                                </button>
+                                <button type="button" className="btn btn-primary custom-button"
+                                        onClick={handleSubmit}>Generate Test Cases
+                                </button>
+                                <button type="button" className="btn btn-primary mx-2 custom-button"
+                                        style={{minWidth: '250px'}} onClick={handleSubmit}>Generate cucumber script
+                                </button>
+                            </div>
+                            <button type="button" className="btn btn-primary mx-2 custom-button mt-2"
+                                    onClick={helpButton}>Help
                             </button>
                         </div>
-                        <button type="button" className="btn btn-primary mx-2 custom-button mt-2"
-                                onClick={helpButton}>Help
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </main>
     );

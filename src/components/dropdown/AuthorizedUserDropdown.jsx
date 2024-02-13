@@ -24,10 +24,7 @@ function AuthorizedUserDropdown() {
 
     const handleLogout = () => {
         saveChat();
-        localStorage.removeItem('useCase');
-        localStorage.removeItem('responseData');
-        localStorage.removeItem('token');
-        localStorage.removeItem('chat')
+        localStorage.clear();
         window.location.href = '/';
     };
 

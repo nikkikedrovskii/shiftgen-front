@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
 
-function ChatPage({ switchToQinImagePage, switchToGenerationPage }) {
+function DalleChatPage({ switchToChatQinGptPage, switchToGenerationPage }) {
     const [inputValue, setInputValue] = useState('');
     const [inputText, setInputText] = useState('');
     const [chatMessageList, setChatMessageList] = useState([]);
 
     useEffect(() => {
-        const chat = localStorage.getItem('chat');
+        const chat = localStorage.getItem('imageChat');
         if (chat) {
             const chatJson = JSON.parse(chat);
             setChatMessageList(chatJson);
@@ -27,23 +27,23 @@ function ChatPage({ switchToQinImagePage, switchToGenerationPage }) {
         try {
             const tokenObject = localStorage.getItem('token');
             const {value} = JSON.parse(tokenObject);
-            const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/chat', {
+            const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/image/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${value}`
                 },
                 body: JSON.stringify({
-                    chatMessageList: newChatMessageList
+                    prompt: inputText
                 })
             });
 
             const responseData = await response.json();
-            const lastMessage = responseData.chatMessageList[responseData.chatMessageList.length - 1];
+            const lastMessage = responseData.imageUrl;
             if (lastMessage) {
                 setChatMessageList(currentMessages => {
-                    const updatedMessages = [...currentMessages, { chatRole: 'QINGPT', content: lastMessage.content }];
-                    localStorage.setItem('chat', JSON.stringify(updatedMessages));
+                    const updatedMessages = [...currentMessages, { chatRole: 'QINIMAGE', content: lastMessage }];
+                    localStorage.setItem('imageChat', JSON.stringify(updatedMessages));
                     return updatedMessages;
                 });
             }
@@ -57,19 +57,25 @@ function ChatPage({ switchToQinImagePage, switchToGenerationPage }) {
             <div className="container">
                 <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo"/>
                 <div className="text-center">
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>QINIMAGE bot</button>
-                    <button className="btn btn-primary custom-button" onClick={switchToGenerationPage}>Generation page</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToGenerationPage}>Geeneration page</button>
+                    <button className="btn btn-primary custom-button" onClick={switchToChatQinGptPage}>QINGEN bot</button>
                 </div>
                 <form>
                     <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>
                         <div style={{flex: 1}}>
-                            <label htmlFor="chatbox">Chat with bot:</label>
+                            <label htmlFor="chatbox">Generate image bot:</label>
                             <div className="chat-box" id="chatbox">
                                 <div className="chat-messages">
                                     {chatMessageList.map((msg, index) => (
                                         <div key={index} className={`chat-message ${msg.chatRole}`}>
-                                            <strong>{msg.chatRole}</strong>: <span className="message-content"
-                                                                                   style={{whiteSpace: 'pre-wrap'}}>{msg.content}</span>
+                                            <strong>{msg.chatRole}</strong>:
+                                            {msg.content.startsWith("http") ? (
+                                                <img src={msg.content} alt="Chat Image"
+                                                     style={{maxWidth: '100%', maxHeight: '300px'}}/>
+                                            ) : (
+                                                <span className="message-content"
+                                                      style={{whiteSpace: 'pre-wrap'}}>{msg.content}</span>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
@@ -96,4 +102,4 @@ function ChatPage({ switchToQinImagePage, switchToGenerationPage }) {
     );
 }
 
-export default ChatPage;
+export default DalleChatPage;

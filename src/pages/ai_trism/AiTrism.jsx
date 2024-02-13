@@ -6,12 +6,16 @@ function AiTrism() {
 
     const navigate = useNavigate();
     const [data, setData] = useState([]);
+    const [azureAiApiCallSuccessRate,setAzureAiApiCallSuccessRate] = useState('');
+    const [openedGptApiCallSuccessRate,setOpenedGptApiCallSuccessRate] = useState('');
 
     useEffect(() => {
         fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/regular/answer')
             .then(response => response.json())
             .then(data => {
                 setData(data.regularPromptAnswerResponses);
+                setAzureAiApiCallSuccessRate(data.azureAiApiCallSuccessRate)
+                setOpenedGptApiCallSuccessRate(data.openedGptApiCallSuccessRate)
             })
             .catch(error => {
                 console.error('Ошибка при получении данных:', error);
@@ -35,9 +39,9 @@ function AiTrism() {
                         <tr>
                             <th>Date</th>
                             <th>Prompt</th>
-                            <th>Answer AZURE AI</th>
-                            <th>Answer CHAT GPT AI</th>
-                            <th>Expected answer</th>
+                            <th>Answer AZURE AI {azureAiApiCallSuccessRate} %</th>
+                            <th>Answer CHAT GPT AI {openedGptApiCallSuccessRate} %</th>
+                            <th>Expected answer 100 %</th>
                             <th>Match</th>
                         </tr>
                         </thead>
@@ -52,6 +56,12 @@ function AiTrism() {
                                 <td>{item.difference}</td>
                             </tr>
                         ))}
+                        <tr>
+                            <td colSpan="2">Trustworthliness</td>
+                            <td>{azureAiApiCallSuccessRate} %</td>
+                            <td>{openedGptApiCallSuccessRate} %</td>
+                            <td>100 %</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
