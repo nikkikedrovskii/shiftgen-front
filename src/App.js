@@ -3,7 +3,6 @@ import './App.css';
 import Authorization from "./pages/google/authorization.js";
 import Conditions from "./pages/conditions/conditions.js";
 import RedirectPage from "./pages/redirect/Oauth2Redirect.js";
-// import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import Error from "./pages/error/error.js";
 import {TimerProvider} from "./pages/timer/TimerProvider.js";
 import Help from "./pages/help/help.js";
@@ -16,6 +15,7 @@ import Home from "./pages/home/Home";
 import LoginPage from "./pages/login/LoginPage";
 import Billing from "./pages/billing/Billing";
 import AiTrism from "./pages/ai_trism/AiTrism";
+import History from "./pages/history/History";
 
 function App() {
   return (
