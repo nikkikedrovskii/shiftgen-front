@@ -4,7 +4,7 @@ import qinshiftLogo from "../../img/qinshift_logo.svg";
 import AuthorizedUserDropdown from "../dropdown/AuthorizedUserDropdown";
 import UnauthorizedUserDropdown from "../dropdown/UnauthorizedUserDropdown";
 
-function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage }) {
+function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchToDataAnalystPage }) {
 
     const [inputValue, setInputValue] = useState('');
     let navigate = useNavigate();
@@ -33,7 +33,7 @@ function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage }) {
                 setUserAuthorized(true);
             } else {
                 setUserAuthorized(false);
-                localStorage.removeItem("token");
+                localStorage.clear();
             }
         }
 
@@ -122,12 +122,9 @@ function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage }) {
                     </div>
                 </div>
                 <div className="text-center">
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>QINIMAGE
-                        bot
-                    </button>
-                    <button className="btn btn-primary custom-button" onClick={switchToChatQinGptPage}>QINGEN
-                        bot
-                    </button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
+                    <button className="btn btn-primary custom-button" onClick={switchToChatQinGptPage}>QinGPT</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToDataAnalystPage}>D&A</button>
                     <form>
                         <div className="form-group" style={{display: 'flex', alignItems: 'center'}}>
                         <textarea
