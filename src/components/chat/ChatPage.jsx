@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
 
-function ChatPage({ switchToQinImagePage, switchToGenerationPage, switchToDataAnalystPage }) {
+function ChatPage({ switchToQinImagePage, switchToGenerationPage, switchToDataAnalystPage, switchToAssistantPage }) {
     const [inputValue, setInputValue] = useState('');
     const [inputText, setInputText] = useState('');
     const [chatMessageList, setChatMessageList] = useState([]);
@@ -60,6 +60,7 @@ function ChatPage({ switchToQinImagePage, switchToGenerationPage, switchToDataAn
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
                     <button className="btn btn-primary custom-button" onClick={switchToGenerationPage}>TaaS</button>
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToDataAnalystPage}>D&A</button>
+                    <button className="btn btn-primary custom-button" onClick={switchToAssistantPage}>Assistant QinGPT beta</button>
                 </div>
                 <form>
                     <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>

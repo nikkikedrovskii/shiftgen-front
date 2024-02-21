@@ -4,7 +4,7 @@ import qinshiftLogo from "../../img/qinshift_logo.svg";
 import AuthorizedUserDropdown from "../dropdown/AuthorizedUserDropdown";
 import UnauthorizedUserDropdown from "../dropdown/UnauthorizedUserDropdown";
 
-function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchToDataAnalystPage }) {
+function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchToDataAnalystPage, switchToAssistantPage }) {
 
     const [inputValue, setInputValue] = useState('');
     let navigate = useNavigate();
@@ -125,6 +125,7 @@ function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchTo
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
                     <button className="btn btn-primary custom-button" onClick={switchToChatQinGptPage}>QinGPT</button>
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToDataAnalystPage}>D&A</button>
+                    <button className="btn btn-primary custom-button" onClick={switchToAssistantPage}>Assistant QinGPT beta</button>
                     <form>
                         <div className="form-group" style={{display: 'flex', alignItems: 'center'}}>
                         <textarea

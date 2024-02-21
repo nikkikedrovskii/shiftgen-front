@@ -1,20 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
 
-function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGenerationPage, switchToAssistantPage }) {
+function Assistant({ switchToChatQinGptPage, switchToQinImagePage, switchToGenerationPage, switchToDataAnalystPage }) {
 
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [file, setFile] = useState(null);
     const [inputText, setInputText] = useState('');
     const [chatMessageList, setChatMessageList] = useState([]);
     const [showMessageList, setShowMessageList] = useState([]);
 
     useEffect(() => {
-        const chat = localStorage.getItem('dataAnalystChat');
-        const showChat = localStorage.getItem('showDataAnalystChat');
-        if (chat) {
-            const chatJson = JSON.parse(chat);
-            setChatMessageList(chatJson);
-        }
+        const showChat = localStorage.getItem('showAssistantChat');
         if (showChat) {
             const chatJson = JSON.parse(showChat);
             setShowMessageList(chatJson);
@@ -32,32 +28,33 @@ function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGen
 
         try {
             const tokenObject = localStorage.getItem('token');
+            const fileId = localStorage.getItem('fileId');
+            const assistantId = localStorage.getItem('assistantId');
+            const threadId = localStorage.getItem('threadId');
+
             const {value} = JSON.parse(tokenObject);
-            const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/analyst', {
+            const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/assistant/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${value}`
                 },
                 body: JSON.stringify({
-                    chatMessageList: newChatMessageList
+                    useCases: inputText,
+                    fileName: fileId,
+                    assistantId: assistantId,
+                    threadId: threadId
                 })
             });
 
             const responseData = await response.json();
-            const lastMessage = responseData.chatMessageList[responseData.chatMessageList.length - 1];
-            if (lastMessage) {
-                setChatMessageList(currentMessages => {
-                    const updatedMessages = [...currentMessages, { chatRole: 'QINGPT', content: lastMessage.content }];
-                    localStorage.setItem('dataAnalystChat', JSON.stringify(updatedMessages));
-                    return updatedMessages;
-                });
-                setShowMessageList(currentMessages => {
-                    const updatedMessages = [...currentMessages, { chatRole: 'QINGPT', content: lastMessage.content }];
-                    localStorage.setItem('showDataAnalystChat', JSON.stringify(updatedMessages));
-                    return updatedMessages;
-                });
-            }
+            const messageList = responseData.chatMessageList;
+            setShowMessageList([])
+            setShowMessageList(messageList);
+            localStorage.setItem('showAssistantChat', JSON.stringify(messageList));
+            localStorage.setItem('threadId', responseData.threadId);
+
+
         } catch (error) {
             console.error('Ошибка при отправке сообщения:', error);
         }
@@ -77,25 +74,21 @@ function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGen
         try {
             const tokenObject = localStorage.getItem('token');
             const {value} = JSON.parse(tokenObject);
-            const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/upload/file', {
+            const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/assistant/upload', {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${value}`
                 },
                 body: formData
             });
-
+            setIsButtonDisabled(true);
             const responseData = await response.json();
-            setChatMessageList(responseData.chatMessageList)
-            console.log(responseData)
-            const lastMessage = responseData.chatMessageList[responseData.chatMessageList.length - 1];
-          if (lastMessage) {
-                setShowMessageList(currentMessages => {
-                    const updatedMessages = [...currentMessages, { chatRole: 'QINGPT', content: lastMessage.content }];
-                    localStorage.setItem('showDataAnalystChat', JSON.stringify(updatedMessages));
-                    return updatedMessages;
-                });
-            }
+            const newMessage = { chatRole: 'assistant', content: responseData.successResponse };
+            const newChatMessageList = [...showMessageList, newMessage];
+            setShowMessageList(newChatMessageList);
+            localStorage.setItem('assistantId', responseData.assistantId);
+            localStorage.setItem('fileId', responseData.fileId);
+
         } catch (error) {
             console.error("Error during file upload:", error);
             alert("Error during file upload.");
@@ -111,28 +104,34 @@ function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGen
                     <input
                         type="file"
                         className="form-control"
-                        accept=".xlsx, .xls"
+                        accept=".xlsx, .xls .csv"
                         onChange={(e) => setFile(e.target.files[0])}
                         style={{display: 'block', marginBottom: '10px'}}
                     />
-                    <button className="btn btn-primary" onClick={handleSubmit}>Upload</button>
+                    <button className="btn btn-primary" onClick={handleSubmit} disabled={isButtonDisabled}>Upload</button>
                 </div>
                 <div className="mt-5 text-center">
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
                     <button className="btn btn-primary custom-button" onClick={switchToGenerationPage}>TaaS</button>
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToChatQinGptPage}>QinGPT</button>
-                    <button className="btn btn-primary custom-button" onClick={switchToAssistantPage}>Assistant QinGPT beta</button>
+                    <button className="btn btn-primary custom-button" onClick={switchToDataAnalystPage}>D&A</button>
                 </div>
                 <form>
                     <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>
-                    <div style={{flex: 1}}>
-                            <label htmlFor="chatbox">Data analyst bot:</label>
+                        <div style={{flex: 1}}>
+                            <label htmlFor="chatbox">Assistant QinGPT bot:</label>
                             <div className="chat-box" id="chatbox">
                                 <div className="chat-messages">
                                     {showMessageList.map((msg, index) => (
                                         <div key={index} className={`chat-message ${msg.chatRole}`}>
-                                            <strong>{msg.chatRole}</strong>: <span className="message-content"
-                                                                                   style={{whiteSpace: 'pre-wrap'}}>{msg.content}</span>
+                                            <strong>{msg.chatRole}</strong>:
+                                            {msg.content.startsWith("http") ? (
+                                                <img src={msg.content} alt="Chat Image"
+                                                     style={{maxWidth: '100%', maxHeight: '300px'}}/>
+                                            ) : (
+                                                <span className="message-content"
+                                                      style={{whiteSpace: 'pre-wrap'}}>{msg.content}</span>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
@@ -157,4 +156,4 @@ function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGen
     );
 }
 
-export default DataAnalyst;
+export default Assistant;
