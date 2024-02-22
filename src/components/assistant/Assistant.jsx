@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
 
-function Assistant({ switchToChatQinGptPage, switchToQinImagePage, switchToGenerationPage, switchToDataAnalystPage }) {
+function Assistant({ switchToChatQinGptPage, switchToQinImagePage, switchToGenerationPage }) {
 
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [file, setFile] = useState(null);
@@ -114,7 +114,7 @@ function Assistant({ switchToChatQinGptPage, switchToQinImagePage, switchToGener
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
                     <button className="btn btn-primary custom-button" onClick={switchToGenerationPage}>TaaS</button>
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToChatQinGptPage}>QinGPT</button>
-                    <button className="btn btn-primary custom-button" onClick={switchToDataAnalystPage}>D&A</button>
+                    {/*<button className="btn btn-primary custom-button" onClick={switchToDataAnalystPage}>D&A</button>*/}
                 </div>
                 <form>
                     <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>
