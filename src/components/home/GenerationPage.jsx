@@ -125,7 +125,7 @@ function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchTo
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
                     <button className="btn btn-primary custom-button" onClick={switchToChatQinGptPage}>QinGPT</button>
                     {/*<button className="btn btn-primary mx-5 custom-button" onClick={switchToDataAnalystPage}>D&A</button>*/}
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToAssistantPage}>Assistant QinGPT</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToAssistantPage}>D&A</button>
                     <form>
                         <div className="form-group" style={{display: 'flex', alignItems: 'center'}}>
                         <textarea

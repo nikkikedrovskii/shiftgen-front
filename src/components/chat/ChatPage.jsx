@@ -60,7 +60,7 @@ function ChatPage({ switchToQinImagePage, switchToGenerationPage, switchToAssist
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
                     <button className="btn btn-primary custom-button" onClick={switchToGenerationPage}>TaaS</button>
                     {/*<button className="btn btn-primary mx-5 custom-button" onClick={switchToDataAnalystPage}>D&A</button>*/}
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToAssistantPage}>Assistant QinGPT</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToAssistantPage}>D&A</button>
                 </div>
                 <form>
                     <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>

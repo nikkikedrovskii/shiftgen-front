@@ -119,7 +119,7 @@ function Assistant({ switchToChatQinGptPage, switchToQinImagePage, switchToGener
                 <form>
                     <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>
                         <div style={{flex: 1}}>
-                            <label htmlFor="chatbox">Assistant QinGPT bot:</label>
+                            <label htmlFor="chatbox">Data analyst bot:</label>
                             <div className="chat-box" id="chatbox">
                                 <div className="chat-messages">
                                     {showMessageList.map((msg, index) => (
