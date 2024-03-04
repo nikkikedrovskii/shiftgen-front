@@ -228,6 +228,8 @@ function RedirectPage() {
         const token = params.get('token');
         const action = localStorage.getItem("action");
 
+        const externalCustomerId = params.get('externalCustomerId');
+        localStorage.setItem('externalCustomerId', externalCustomerId);
 
         const now = new Date();
         const item = {
