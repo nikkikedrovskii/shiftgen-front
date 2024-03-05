@@ -14,26 +14,23 @@ function GenerationSwitcher() {
             {showComponent === 'generationPage' && (
                 <GenerationPage switchToChatQinGptPage={() => setShowComponent('chatPage')}
                                 switchToQinImagePage={() => setShowComponent('dalleChatPage')}
-                                switchToDataAnalystPage={() => setShowComponent('dataAnalystChatPage')}
+                                switchToAssistantPage={() => setShowComponent('assistantChatPage')}
                                 switchToDaV2Page={() => setShowComponent('DaV2Page')}/>
             )}
             {showComponent === 'chatPage' && (
                 <ChatPage switchToGenerationPage={() => setShowComponent('generationPage')}
                           switchToQinImagePage={() => setShowComponent('dalleChatPage')}
-                          switchToDataAnalystPage={() => setShowComponent('dataAnalystChatPage')}
                           switchToAssistantPage={() => setShowComponent('assistantChatPage')}/>
             )}
             {showComponent === 'dalleChatPage' && (
                 <DalleChatPage switchToGenerationPage={() => setShowComponent('generationPage')}
                                switchToChatQinGptPage={() => setShowComponent('chatPage')}
-                               switchToDataAnalystPage={() => setShowComponent('dataAnalystChatPage')}
                                switchToAssistantPage={() => setShowComponent('assistantChatPage')}/>
             )}
             {showComponent === 'assistantChatPage' && (
                 <Assistant switchToGenerationPage={() => setShowComponent('generationPage')}
                              switchToChatQinGptPage={() => setShowComponent('chatPage')}
-                             switchToQinImagePage={() => setShowComponent('dalleChatPage')}
-                             switchToDataAnalystPage={() => setShowComponent('dataAnalystChatPage')}/>
+                             switchToQinImagePage={() => setShowComponent('dalleChatPage')}/>
             )}
             {showComponent === 'DaV2Page' && (
                 <AssistantCleanArch/>

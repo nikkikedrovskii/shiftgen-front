@@ -3,6 +3,7 @@ import qinshiftLogo from "../../img/qinshift_logo.svg";
 
 function AssistantCleanArch() {
 
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [file, setFile] = useState(null);
     const [inputText, setInputText] = useState('');
     const [showMessageList, setShowMessageList] = useState([]);
@@ -104,6 +105,7 @@ function AssistantCleanArch() {
                 headers: {Authorization: `Bearer ${tokenValue}`},
                 body: formData,
             });
+            setIsButtonDisabled(true);
             if (!response.ok) {
                 throw new Error('Network response was not ok.');
             }
@@ -239,7 +241,7 @@ function AssistantCleanArch() {
                         onChange={(e) => setFile(e.target.files[0])}
                         style={{display: 'block', marginBottom: '10px'}}
                     />
-                    <button className="btn btn-primary" onClick={handleSubmit}>Upload</button>
+                    <button className="btn btn-primary" onClick={handleSubmit} disabled={isButtonDisabled}>Upload</button>
                 </div>
                 <form>
                     <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>
