@@ -16,7 +16,7 @@ function RedirectPage() {
             const timeout = setTimeout(() => {
                 navigate("/error")
                 throw new Error('Timeout Error');
-            }, 180000);
+            }, 250000);
 
             const fileData = localStorage.getItem('uploadedFile');
             let responsePromise;
@@ -69,7 +69,7 @@ function RedirectPage() {
             const timeout = setTimeout(() => {
                 navigate("/error")
                 throw new Error('Timeout Error');
-            }, 180000);
+            }, 250000);
 
 
             const fileData = localStorage.getItem('uploadedFile');
@@ -120,7 +120,7 @@ function RedirectPage() {
             const timeout = setTimeout(() => {
                 navigate("/error")
                 throw new Error('Timeout Error');
-            }, 180000);
+            }, 250000);
 
             const responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/script/cucumber/generate', {
                 method: 'POST',
@@ -174,7 +174,7 @@ function RedirectPage() {
         const timeout = setTimeout(() => {
             navigate("/error")
             throw new Error('Timeout Error');
-        }, 180000);
+        }, 250000);
 
         try {
             const fileData = localStorage.getItem('uploadedFile');
