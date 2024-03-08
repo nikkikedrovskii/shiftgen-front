@@ -4,6 +4,7 @@ import {TimerContext} from "../../pages/timer/TimerProvider.js";
 import PageHeader from "../page_header/PageHeader";
 
 function Case() {
+    const [loading, setLoading] = useState(false);
     const outputRef = useRef(null);
     const [responseData, setResponseData] = useState([]);
     const languages = ["cypress", "python", "playwright"];
@@ -69,7 +70,7 @@ function Case() {
         const buttonText = e.target.innerText;
         const storedData = localStorage.getItem('responseData');
         const testStrategy = JSON.parse(storedData);
-
+        setLoading(true);
         const responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/script/generate', {
             method: 'POST',
             headers: {
@@ -89,21 +90,11 @@ function Case() {
         if (response.status === 200) {
             let formattedString = data.script.replace(/\n/g, '<br>');
             setScriptData(formattedString);
-/*            if (buttonText === "Generate cypress script") {
-                console.log(data.script)
-                let formattedString = data.script.replace(/\n/g, '<br>');
-                setCypressData(formattedString);
-            } else if (buttonText === "Generate python script") {
-                let formattedString = data.script.replace(/\n/g, '<br>');
-                setPythonData(formattedString)
-            } else if (buttonText === "Generate playwright script") {
-                let formattedString = data.script.replace(/\n/g, '<br>');
-                setPlaywrightData(formattedString)
-            }*/
         } else {
             localStorage.setItem('error', JSON.stringify(data));
             navigate("/error")
         }
+        setLoading(false);
     };
 
     return (
@@ -115,6 +106,13 @@ function Case() {
                         <div className="copy-icon" onClick={copyContent}></div>
                         <label htmlFor="outputdata" style={{ display: 'flex', alignItems: 'center' }}>
                             Your test cases:
+                            {loading && <div className="spinner-border" role="status"
+                                             style={{
+                                                 color: 'yellow',
+                                                 position: 'absolute',
+                                                 right: '85%'
+                                             }}>
+                            </div>}
                             {isVisible && <div style={{ marginLeft: '1000px' }}>In progress: {seconds}</div>}
                         </label>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata">
