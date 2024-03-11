@@ -166,6 +166,23 @@ function RedirectPage() {
         return formData;
     }
 
+    function getExcelFileObjectFromB64Json() {
+        const fileData = localStorage.getItem('uploadedFile');
+        const parsedFileData = JSON.parse(fileData);
+        const base64String = parsedFileData.base64String;
+        const binaryString = atob(base64String);
+        const byteArray = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+            byteArray[i] = binaryString.charCodeAt(i);
+        }
+        const fileBlob = new Blob([byteArray], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const file = new File([fileBlob], parsedFileData.filename);
+
+        const formData = new FormData();
+        formData.append('file', file);
+        return formData;
+    }
+
     const fetchGenerateUseCase = async () => {
         localStorage.removeItem("responseData");
         const tokenObject = localStorage.getItem('token');
@@ -219,6 +236,35 @@ function RedirectPage() {
         }
     };
 
+    const getTestCaseFromExcel = async () => {
+        localStorage.removeItem("responseData");
+        const tokenObject = localStorage.getItem('token');
+        const {value} = JSON.parse(tokenObject);
+        try {
+
+              const formData = getExcelFileObjectFromB64Json()
+              const responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/file/test-case', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${value}`
+                    },
+                    body: formData
+                });
+              
+            const response = await responsePromise;
+            const data = await response.json();
+            if (response.status === 200) {
+                localStorage.setItem('responseData', JSON.stringify(data.testCaseList));
+                window.dispatchEvent(new Event('storage'))
+            } else {
+                localStorage.setItem('error', JSON.stringify(data));
+                navigate("/error")
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
 
 
 
@@ -252,6 +298,9 @@ function RedirectPage() {
             navigate('/conditions');
         } else if (action === "cucumberScript") {
             fetchGenerateCucumberScript()
+            navigate('/conditions');
+        } else if (action === "scriptFromExcel") {
+            getTestCaseFromExcel()
             navigate('/conditions');
         } else {
             navigate('/');

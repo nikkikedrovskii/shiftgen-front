@@ -11,6 +11,7 @@ function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchTo
     const [file, setFile] = useState(null);
     const [inputDataDisabled, setInputDataDisabled] = useState(false);
     const [fileUploaded, setFileUploaded] = useState(false);
+    const [excelFileUpload, setExcelFileUpload] = useState(true);
     const [isUserAuthorized, setUserAuthorized] = useState(false);
 
 
@@ -48,6 +49,10 @@ function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchTo
 
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
+        if (selectedFile.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+            setExcelFileUpload(false);
+        }
+        console.log(" type of file " + selectedFile.type)
         setFile(selectedFile);
     };
 
@@ -69,9 +74,13 @@ function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchTo
         } else if (buttonText === 'Generate cucumber script') {
             localStorage.removeItem("action")
             localStorage.setItem('action', "cucumberScript");
+        } else if (buttonText === 'Generate script using excel format') {
+            localStorage.removeItem("action")
+            localStorage.setItem('action', "scriptFromExcel");
         }
         localStorage.setItem('data', inputValue);
         const tokenObject = localStorage.getItem('token');
+
         if (tokenObject){
             const {value} = JSON.parse(tokenObject);
             window.location.href = 'https://master.d44820iy5gmpk.amplifyapp.com/oauth2/redirect?token=' + value;
@@ -153,6 +162,9 @@ function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchTo
                                 </button>
                                 <button type="button" className="btn btn-primary mx-2 custom-button"
                                         style={{minWidth: '250px'}} onClick={handleSubmit}>Generate cucumber script
+                                </button>
+                                <button type="button" className="btn btn-primary custom-button"
+                                        style={{minWidth: '300px'}} onClick={handleSubmit} disabled={excelFileUpload}>Generate script using excel format
                                 </button>
                             </div>
                             <button type="button" className="btn btn-primary mx-2 custom-button mt-2"
