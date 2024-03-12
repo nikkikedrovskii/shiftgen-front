@@ -5,6 +5,7 @@ function DalleChatPage({ switchToChatQinGptPage, switchToGenerationPage, switchT
     const [inputValue, setInputValue] = useState('');
     const [inputText, setInputText] = useState('');
     const [chatMessageList, setChatMessageList] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const chat = localStorage.getItem('imageChat');
@@ -23,6 +24,7 @@ function DalleChatPage({ switchToChatQinGptPage, switchToGenerationPage, switchT
         console.log(JSON.stringify({
             chatMessageList: newChatMessageList
         }))
+        setLoading(true);
 
         try {
             const tokenObject = localStorage.getItem('token');
@@ -47,6 +49,7 @@ function DalleChatPage({ switchToChatQinGptPage, switchToGenerationPage, switchT
                     return updatedMessages;
                 });
             }
+            setLoading(false);
         } catch (error) {
             console.error('Ошибка при отправке сообщения:', error);
         }
@@ -99,6 +102,13 @@ function DalleChatPage({ switchToChatQinGptPage, switchToGenerationPage, switchT
                                 <button type="button" className="btn btn-primary custom-button"
                                         onClick={handleSend}>Send
                                 </button>
+                                {loading && <div className="spinner-border" role="status"
+                                                 style={{
+                                                     color: 'yellow',
+                                                     position: 'absolute',
+                                                     right: '70%'
+                                                 }}>
+                                </div>}
                             </div>
                         </div>
                     </div>

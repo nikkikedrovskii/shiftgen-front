@@ -3,6 +3,7 @@ import qinshiftLogo from "../../img/qinshift_logo.svg";
 
 function Assistant({ switchToChatQinGptPage, switchToQinImagePage, switchToGenerationPage }) {
 
+    const [loading, setLoading] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [file, setFile] = useState(null);
     const [inputText, setInputText] = useState('');
@@ -25,6 +26,7 @@ function Assistant({ switchToChatQinGptPage, switchToQinImagePage, switchToGener
         const newShowChatMessageList = [...showMessageList, newMessage];
         setShowMessageList(newShowChatMessageList);
         setInputText('');
+        setLoading(true);
 
         try {
             const tokenObject = localStorage.getItem('token');
@@ -53,7 +55,7 @@ function Assistant({ switchToChatQinGptPage, switchToQinImagePage, switchToGener
             setShowMessageList(messageList);
             localStorage.setItem('showAssistantChat', JSON.stringify(messageList));
             localStorage.setItem('threadId', responseData.threadId);
-
+            setLoading(false);
 
         } catch (error) {
             console.error('Ошибка при отправке сообщения:', error);
@@ -153,6 +155,13 @@ function Assistant({ switchToChatQinGptPage, switchToQinImagePage, switchToGener
                                 <button type="button" className="btn btn-primary custom-button"
                                         onClick={handleSend}>Send
                                 </button>
+                                {loading && <div className="spinner-border" role="status"
+                                                 style={{
+                                                     color: 'yellow',
+                                                     position: 'absolute',
+                                                     right: '70%'
+                                                 }}>
+                                </div>}
                             </div>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGen
     const [inputText, setInputText] = useState('');
     const [chatMessageList, setChatMessageList] = useState([]);
     const [showMessageList, setShowMessageList] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const chat = localStorage.getItem('dataAnalystChat');
@@ -29,6 +30,7 @@ function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGen
         const newShowChatMessageList = [...showMessageList, newMessage];
         setShowMessageList(newShowChatMessageList);
         setInputText('');
+        setLoading(true);
 
         try {
             const tokenObject = localStorage.getItem('token');
@@ -58,6 +60,7 @@ function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGen
                     return updatedMessages;
                 });
             }
+            setLoading(true);
         } catch (error) {
             console.error('Ошибка при отправке сообщения:', error);
         }
@@ -153,6 +156,13 @@ function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGen
                                 <button type="button" className="btn btn-primary custom-button"
                                         onClick={handleSend}>Send
                                 </button>
+                                {loading && <div className="spinner-border" role="status"
+                                                 style={{
+                                                     color: 'yellow',
+                                                     position: 'absolute',
+                                                     right: '70%'
+                                                 }}>
+                                </div>}
                             </div>
                         </div>
                     </div>

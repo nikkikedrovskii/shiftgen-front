@@ -5,6 +5,7 @@ function ChatPage({ switchToQinImagePage, switchToGenerationPage, switchToAssist
     const [inputValue, setInputValue] = useState('');
     const [inputText, setInputText] = useState('');
     const [chatMessageList, setChatMessageList] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const chat = localStorage.getItem('chat');
@@ -23,6 +24,7 @@ function ChatPage({ switchToQinImagePage, switchToGenerationPage, switchToAssist
         console.log(JSON.stringify({
             chatMessageList: newChatMessageList
         }))
+        setLoading(true);
 
         try {
             const tokenObject = localStorage.getItem('token');
@@ -47,6 +49,7 @@ function ChatPage({ switchToQinImagePage, switchToGenerationPage, switchToAssist
                     return updatedMessages;
                 });
             }
+            setLoading(false);
         } catch (error) {
             console.error('Ошибка при отправке сообщения:', error);
         }
@@ -93,6 +96,13 @@ function ChatPage({ switchToQinImagePage, switchToGenerationPage, switchToAssist
                                 <button type="button" className="btn btn-primary custom-button"
                                         onClick={handleSend}>Send
                                 </button>
+                                {loading && <div className="spinner-border" role="status"
+                                                 style={{
+                                                     color: 'yellow',
+                                                     position: 'absolute',
+                                                     right: '70%'
+                                                 }}>
+                                </div>}
                             </div>
                         </div>
                     </div>
