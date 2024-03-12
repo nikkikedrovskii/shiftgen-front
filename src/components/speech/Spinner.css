@@ -1,0 +1,43 @@
+.upload-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.spinner {
+    position: relative;
+    width: 100px;
+    height: 20px;
+    border: 2px solid black;
+}
+
+.spinner-arrow {
+    position: absolute;
+    right: -8px;
+    top: -5px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid black;
+}
+
+@keyframes moveGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.spinner-fill {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to left, transparent 50%, red 50%, red 60%, transparent 60%);
+    background-size: 200% 100%;
+    animation: moveGradient 2s linear infinite;
+}
+

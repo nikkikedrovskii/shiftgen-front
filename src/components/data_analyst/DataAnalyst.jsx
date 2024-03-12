@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
 
-function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGenerationPage, switchToAssistantPage }) {
+function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGenerationPage, switchToSpeechToTextPage }) {
 
     const [file, setFile] = useState(null);
     const [inputText, setInputText] = useState('');
     const [chatMessageList, setChatMessageList] = useState([]);
     const [showMessageList, setShowMessageList] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const chat = localStorage.getItem('dataAnalystChat');
@@ -29,6 +30,7 @@ function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGen
         const newShowChatMessageList = [...showMessageList, newMessage];
         setShowMessageList(newShowChatMessageList);
         setInputText('');
+        setLoading(true);
 
         try {
             const tokenObject = localStorage.getItem('token');
@@ -58,6 +60,7 @@ function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGen
                     return updatedMessages;
                 });
             }
+            setLoading(true);
         } catch (error) {
             console.error('Ошибка при отправке сообщения:', error);
         }
@@ -120,7 +123,9 @@ function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGen
                 <div className="mt-5 text-center">
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
                     <button className="btn btn-primary custom-button" onClick={switchToGenerationPage}>TaaS</button>
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToChatQinGptPage}>QinGPT</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToChatQinGptPage}>QinGPT
+                    </button>
+                    <button className="btn btn-primary custom-button" onClick={switchToSpeechToTextPage}>SPEECH</button>
                 </div>
                 <form>
                     <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>
@@ -153,6 +158,13 @@ function DataAnalyst({ switchToChatQinGptPage, switchToQinImagePage, switchToGen
                                 <button type="button" className="btn btn-primary custom-button"
                                         onClick={handleSend}>Send
                                 </button>
+                                {loading && <div className="spinner-border" role="status"
+                                                 style={{
+                                                     color: 'yellow',
+                                                     position: 'absolute',
+                                                     right: '70%'
+                                                 }}>
+                                </div>}
                             </div>
                         </div>
                     </div>

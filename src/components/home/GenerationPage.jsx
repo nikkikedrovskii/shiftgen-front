@@ -4,7 +4,7 @@ import qinshiftLogo from "../../img/qinshift_logo.svg";
 import AuthorizedUserDropdown from "../dropdown/AuthorizedUserDropdown";
 import UnauthorizedUserDropdown from "../dropdown/UnauthorizedUserDropdown";
 
-function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchToDaV2Page, switchToAssistantPage }) {
+function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchToAssistantPage, switchToSpeechToTextPage }) {
 
     const [inputValue, setInputValue] = useState('');
     let navigate = useNavigate();
@@ -134,7 +134,7 @@ function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchTo
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
                     <button className="btn btn-primary custom-button" onClick={switchToChatQinGptPage}>QinGPT</button>
                     <button className="btn btn-primary mx-5 custom-button" onClick={switchToAssistantPage}>DATA</button>
-                    <button className="btn btn-primary custom-button" onClick={switchToDaV2Page}>DATA v2</button>
+                    <button className="btn btn-primary custom-button" onClick={switchToSpeechToTextPage}>SPEECH</button>
                     <form>
                         <div className="form-group" style={{display: 'flex', alignItems: 'center'}}>
                         <textarea
@@ -164,7 +164,8 @@ function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchTo
                                         style={{minWidth: '250px'}} onClick={handleSubmit}>Generate cucumber script
                                 </button>
                                 <button type="button" className="btn btn-primary custom-button"
-                                        style={{minWidth: '300px'}} onClick={handleSubmit} disabled={excelFileUpload}>Generate script using excel format
+                                        style={{minWidth: '300px'}} onClick={handleSubmit}
+                                        disabled={excelFileUpload}>Generate script using excel format
                                 </button>
                             </div>
                             <button type="button" className="btn btn-primary mx-2 custom-button mt-2"

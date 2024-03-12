@@ -19,7 +19,7 @@ function Case() {
     const {value} = JSON.parse(tokenObject);
 
     useEffect(() => {
-
+        setLoading(true)
         const storedData = JSON.parse(localStorage.getItem('responseData'));
         if (storedData) {
             setResponseData(storedData)
@@ -39,6 +39,7 @@ function Case() {
             const testStrategy = JSON.parse(storedData);
             console.log(" into handler " + testStrategy)
         }
+        setLoading(false)
     }
 
     const hideBlock = () => {
@@ -110,10 +111,9 @@ function Case() {
                                              style={{
                                                  color: 'yellow',
                                                  position: 'absolute',
-                                                 right: '85%'
+                                                 right: '80%'
                                              }}>
                             </div>}
-                            {isVisible && <div style={{ marginLeft: '1000px' }}>In progress: {seconds}</div>}
                         </label>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata">
                             {responseData.map((item, index) => (

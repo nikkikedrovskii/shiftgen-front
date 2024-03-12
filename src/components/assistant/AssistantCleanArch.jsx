@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
 
-function AssistantCleanArch() {
+function AssistantCleanArch({ switchToChatQinGptPage, switchToQinImagePage, switchToGenerationPage, switchToSpeechToTextPage }) {
 
     const [loading, setLoading] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -144,25 +144,27 @@ function AssistantCleanArch() {
 
 
     async function getThreadMessageByThreadId(threadId) {
-        setSelectedThreadId(threadId)
-        localStorage.setItem('threadId', threadId);
-        fetchThreadFilesName();
-        try {
-            const tokenObject = getToken();
-            const response = await fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/assistant/${threadId}/messages`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${tokenObject}`,
-                    'Content-Type': 'application/json'
-                },
-            });
+        if (threadId != null) {
+            setSelectedThreadId(threadId)
+            localStorage.setItem('threadId', threadId);
+            fetchThreadFilesName();
+            try {
+                const tokenObject = getToken();
+                const response = await fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/assistant/${threadId}/messages`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${tokenObject}`,
+                        'Content-Type': 'application/json'
+                    },
+                });
 
-            const data = await response.json();
-            setShowMessageList(data.chatMessageList)
-            return data;
-        } catch (error) {
-            console.error("Failed to fetch thread source:", error);
-            throw error;
+                const data = await response.json();
+                setShowMessageList(data.chatMessageList)
+                return data;
+            } catch (error) {
+                console.error("Failed to fetch thread source:", error);
+                throw error;
+            }
         }
     }
 
@@ -282,8 +284,8 @@ function AssistantCleanArch() {
                     padding: '10px',
                     borderRadius: '5px',
                     boxShadow: '0px 0px 5px rgba(0,0,0,0.2)',
-                    width: '200px', // Фиксированная ширина
-                    overflow: 'hidden', // Обрезание текста, если он превышает ширину
+                    width: '200px',
+                    overflow: 'hidden',
                     maxHeight: '300px'
                 }}>
                     <div style={{color: 'black', marginBottom: '10px'}}>Uploaded files:</div>
@@ -295,10 +297,16 @@ function AssistantCleanArch() {
                         }}>{fileName}</div>
                     ))}
                 </div>
+                <div className="mt-5 text-center">
+                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
+                    <button className="btn btn-primary custom-button" onClick={switchToGenerationPage}>TaaS</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToChatQinGptPage}>QinGPT</button>
+                    <button className="btn btn-primary custom-button" onClick={switchToSpeechToTextPage}>SPEECH</button>
+                </div>
                 <form>
                     <div className="form-group pt-4" style={{alignItems: 'center'}}>
-                        <div style={{flex: 1, position: 'relative', width: '85%'}}>
-                            <label htmlFor="chatbox">Data analyst bot V2:</label>
+                    <div style={{flex: 1, position: 'relative', width: '85%'}}>
+                            <label htmlFor="chatbox">Data analyst bot:</label>
                             <div style={{
                                 position: 'absolute',
                                 right: 0,

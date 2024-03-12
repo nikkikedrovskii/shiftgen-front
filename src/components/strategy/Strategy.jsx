@@ -13,9 +13,10 @@ function Strategy() {
     const [isChecked, setIsChecked] = useState(false);
     const seconds = useContext(TimerContext);
     const [isVisible, setIsVisible] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-
+        setLoading(true)
         const storedData = JSON.parse(localStorage.getItem('responseData'));
         if (storedData) {
             hideBlock();
@@ -44,6 +45,7 @@ function Strategy() {
 
             setResponseStorage(storedData);
         }
+        setLoading(false)
     }
 
     const copyContent = async () => {
@@ -66,7 +68,13 @@ function Strategy() {
                         <div className="copy-icon" onClick={copyContent}></div>
                         <label htmlFor="outputdata" style={{ display: 'flex', alignItems: 'center' }}>
                             Your test strategy:
-                            {isVisible && <div style={{ marginLeft: '1000px' }}>In progress: {seconds}</div>}
+                            {loading && <div className="spinner-border" role="status"
+                                             style={{
+                                                 color: 'yellow',
+                                                 position: 'absolute',
+                                                 right: '80%'
+                                             }}>
+                            </div>}
                         </label>
                         <div className="read-rights pt-3 ps-3 pe-3 pb-3" id="outputdata">
                             <p dangerouslySetInnerHTML={{ __html: strategyData }} />

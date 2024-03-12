@@ -6,6 +6,7 @@ import WarningInfo from "../../WarningInfo";
 
 function FileHistoryPage({ switchToImage }) {
     const [fileList, setFileList] = useState([]);
+    const [transcriptionFiles, setTranscriptionFiles] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,7 +26,31 @@ function FileHistoryPage({ switchToImage }) {
         }
 
         fetchWarningData();
+        fetchTranscriptionFileData();
     }, []);
+
+    async function fetchTranscriptionFileData() {
+        const externalCustomerId = localStorage.getItem('externalCustomerId');
+        const tokenObject = getToken();
+
+        const response = await fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/user/${externalCustomerId}/transcription`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${tokenObject}`,
+                'Content-Type': 'application/json'
+            },
+        });
+
+        const data = await response.json();
+        console.log(data);
+        setTranscriptionFiles(data.transcriptionFileList);
+    }
+
+    function getToken() {
+        const tokenObject = localStorage.getItem('token');
+        const { value } = JSON.parse(tokenObject);
+        return value;
+    }
 
     const handleRedirect = () => {
         navigate("/overview");
@@ -56,6 +81,41 @@ function FileHistoryPage({ switchToImage }) {
         }
     };
 
+    const handleDownloadTranscription = (fileName) => {
+
+        const tokenObject = localStorage.getItem('token');
+
+        if (!tokenObject) return;
+        const { value } = JSON.parse(tokenObject);
+
+        const externalCustomerId = localStorage.getItem('externalCustomerId');
+
+        if (fileName) {
+            const params = new URLSearchParams({
+                fileType: "AUDIO_TRANSCRIPTION"
+            }).toString();
+
+            fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/user/${externalCustomerId}/file/${encodeURIComponent(fileName)}?${params}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${value}`,
+                }
+            })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(new Blob([blob]));
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url); // Хорошая практика - освободить URL после использования
+                    document.body.removeChild(a);
+                })
+                .catch(error => console.error('Ошибка:', error));
+        }
+    };
+
     return (
         <main>
             <div className="container">
@@ -69,8 +129,10 @@ function FileHistoryPage({ switchToImage }) {
                     <img src={qinshiftLogo} alt="logo Qinshift" className="ms-auto brand-logo"/>
                 </div>
                 <div className="text-center">
-                <h4>File History</h4>
-                <button className="btn btn-primary mb-5 mt-2 custom-button" onClick={switchToImage}>Go to Image History</button>
+                    <h4>File History</h4>
+                    <button className="btn btn-primary mb-5 mt-2 custom-button" onClick={switchToImage}>Go to Image
+                        History
+                    </button>
                 </div>
                 <div className="table-responsive">
                     <table className="table table-sm">
@@ -102,6 +164,30 @@ function FileHistoryPage({ switchToImage }) {
                         </tbody>
                     </table>
                 </div>
+                <div className="text-center mt-5">
+                    <h4>Transcription File</h4>
+                </div>
+                <div className="table-responsive" style={{display: 'flex', justifyContent: 'center'}}>
+                    <table className="table table-sm" style={{tableLayout: 'auto', width: 'auto'}}>
+                        <thead>
+                        <tr>
+                            <th>Datetime</th>
+                            <th style={{textAlign: 'center'}}>Audio Transcription file name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {transcriptionFiles.map((file, index) => (
+                            <tr key={index}>
+                                <th>{file.createdAt}</th>
+                                <th onClick={() => handleDownloadTranscription(file.fileName)} style={{textAlign: 'center'}}>
+                                    {file.fileName}
+                                </th>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </main>
     );
