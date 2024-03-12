@@ -344,6 +344,12 @@ function AssistantCleanArch() {
                                     placeholder="Type a message..."
                                     value={inputText}
                                     onChange={(e) => setInputText(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && inputText.trim() && !e.shiftKey) {
+                                            e.preventDefault();
+                                            handleSend();
+                                        }
+                                    }}
                                 />
                             </div>
                             <div className="pt-4">
