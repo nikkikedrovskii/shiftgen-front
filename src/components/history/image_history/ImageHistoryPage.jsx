@@ -82,7 +82,7 @@ function ImageHistoryPage({ switchToFile }) {
                         <tbody>
                         {fileList.map((image, index) => (
                             <tr key={index}>
-                                <th>{image.imageName}</th>
+                                <th>{image.imageName.replace(/david.vitecek/g, 'username')}</th>
                                 <th>{image.prompt}</th>
                                 <th onClick={() => handleDownload(image.imageName)}>
                                         <img src={image.imagePath} alt={image.imageName}
