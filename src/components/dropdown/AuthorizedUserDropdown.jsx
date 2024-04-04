@@ -5,10 +5,13 @@ import {jwtDecode} from "jwt-decode";
 function AuthorizedUserDropdown() {
 
     const [email, setEmail] = useState('');
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
 
     useEffect(() => {
         const token = localStorage.getItem('token');
+        const externalCustomerId = localStorage.getItem('externalCustomerId');
+        fetchActiveUserData(externalCustomerId)
         const decodedToken = jwtDecode(token)
         localStorage.setItem('email', decodedToken.email);
 
@@ -21,6 +24,32 @@ function AuthorizedUserDropdown() {
             }
         }
     },[]);
+
+    function fetchActiveUserData(externalCustomerId) {
+        const tokenObject = getToken();
+        fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/user/${externalCustomerId}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${tokenObject}`,
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                setIsButtonDisabled(data.authRole === "ADMIN")
+                localStorage.setItem('activeUser', JSON.stringify(data));
+            })
+            .catch(error => {
+                console.error('Ошибка при загрузке данных пользователя:', error);
+            });
+    }
+
+    function getToken() {
+        const tokenObject = localStorage.getItem('token');
+        const { value } = JSON.parse(tokenObject);
+        return value;
+    }
+
 
     const handleLogout = () => {
         saveChat();
@@ -69,6 +98,7 @@ function AuthorizedUserDropdown() {
                 <Link to="/security" className="dropdown-item">Security</Link>
                 <Link to="/setting" className="dropdown-item">Setting</Link>
                 <Link to="/aitrism" className="dropdown-item">Ai Trism</Link>
+                {isButtonDisabled && <Link to="/dataset" className="dropdown-item">Dataset</Link>}
                 <button className="dropdown-item" onClick={handleLogout}>Log out</button>
                 <a className="dropdown-item" href="#">Delete account</a>
             </ul>

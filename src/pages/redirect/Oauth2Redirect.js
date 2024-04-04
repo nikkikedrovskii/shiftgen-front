@@ -273,7 +273,6 @@ function RedirectPage() {
         const params = new URLSearchParams(location.search);
         const token = params.get('token');
         const action = localStorage.getItem("action");
-
         const externalCustomerId = params.get('externalCustomerId');
         localStorage.setItem('externalCustomerId', externalCustomerId);
 
@@ -284,7 +283,6 @@ function RedirectPage() {
         };
         localStorage.setItem('token', JSON.stringify(item));
         const decodedToken = jwtDecode(token)
-
         localStorage.setItem('email', decodedToken.email);
 
         if (action === "testCase") {

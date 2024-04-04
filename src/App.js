@@ -16,6 +16,7 @@ import LoginPage from "./pages/login/LoginPage";
 import Billing from "./pages/billing/Billing";
 import AiTrism from "./pages/ai_trism/AiTrism";
 import History from "./pages/history/History";
+import Dataset from "./pages/dataset/Dataset";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
          <Route path="/login" element={<LoginPage/>}/>
          <Route path="/billing" element={<Billing/>}/>
          <Route path="/aitrism" element={<AiTrism/>}/>
+         <Route path="/dataset" element={<Dataset/>}/>
      </Routes>
    </div>
   );
