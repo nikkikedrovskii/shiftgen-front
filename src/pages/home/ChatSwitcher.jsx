@@ -5,6 +5,7 @@ import DalleChatPage from "../../components/dalle/DalleChatPage";
 import Assistant from "../../components/assistant/Assistant";
 import AssistantCleanArch from "../../components/assistant/AssistantCleanArch";
 import SpeechToText from "../../components/speech/SpeechToText";
+import SpeechToTextV2 from "../../components/speech/SpeechToText";
 
 function GenerationSwitcher() {
 

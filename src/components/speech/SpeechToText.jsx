@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import txtFileLogo from "../../img/935033.svg";
 import qinshiftLogo from "../../img/qinshift_logo.svg";
 import './Spinner.css'
 import {useNavigate} from "react-router-dom";
 
-function SpeechToText({ switchToChatQinGptPage, switchToQinImagePage, switchToAssistantPage, switchToGenerationPage }) {
+function SpeechToTextV2() {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [downloadUrl, setDownloadUrl] = useState('');
@@ -35,7 +34,6 @@ function SpeechToText({ switchToChatQinGptPage, switchToQinImagePage, switchToAs
             alert('Пожалуйста, выберите файл для конвертации.');
             return;
         }
-        setIsLoading(true);
 
         const formData = new FormData();
         formData.append('file', selectedFile);
@@ -50,9 +48,10 @@ function SpeechToText({ switchToChatQinGptPage, switchToQinImagePage, switchToAs
                 },
                 body: formData
             });
-            const responseData = await response.json();
-            setDownloadUrl(responseData.fileName);
-            setIsFileLoaded(true)
+
+            setIsFileLoaded(true);
+
+
         } catch (error) {
             console.error('Ошибка при отправке файла:', error);
         }
@@ -96,39 +95,34 @@ function SpeechToText({ switchToChatQinGptPage, switchToQinImagePage, switchToAs
 
 
     return (
-    <main>
-        <div className="container">
-            <div className="header-row"
-                 style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-                <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo"/>
-            </div>
-            <div className="text-center">
-                <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
-                <button className="btn btn-primary custom-button" onClick={switchToChatQinGptPage}>QinGPT</button>
-                <button className="btn btn-primary mx-5 custom-button" onClick={switchToAssistantPage}>DATA</button>
-                <button className="btn btn-primary custom-button" onClick={switchToGenerationPage}>TaaS</button>
-            </div>
-            <div className="upload-container mt-5"
-                 style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <div style={{display: 'flex', alignItems: 'center'}}>
-                    <input type="file" accept=".mp3" onChange={handleFileChange}/>
-                    {isLoading &&
-                        <div className="spinner-border" role="status"
-                             style={{color: 'yellow', marginLeft: '16px'}}></div>
-                    }
-                    {isFileLoaded && (
-                        <img src={txtFileLogo} style={{width: '50px', height: '50px'}} onClick={handleDownload}/>
-                    )}
+        <main>
+            <div className="container">
+                <div className="header-row"
+                     style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
+                    <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo"/>
                 </div>
-                <button className="btn btn-primary mt-3" onClick={handleConvert} style={{marginTop: '16px'}} disabled={excelFileUpload}>Convert
-                    speech
-                    to text
-                </button>
+                <div className="upload-container mt-5"
+                     style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <div>
+                        <div>Add a file. Please use a unique name.</div>
+                    </div>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <input type="file" accept=".mp3" onChange={handleFileChange}/>
+                    </div>
+                    {isFileLoaded && (
+                        <div>Conversion has been initiated. You can download the file in history when the conversion is
+                            successful.</div>
+                    )}
+                    <button className="btn btn-primary mt-3" onClick={handleConvert} style={{marginTop: '16px'}}
+                            disabled={excelFileUpload}>Convert
+                        speech
+                        to text
+                    </button>
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
     )
         ;
 }
 
-export default SpeechToText;
+export default SpeechToTextV2;

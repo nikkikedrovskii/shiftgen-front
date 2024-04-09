@@ -173,6 +173,7 @@ function FileHistoryPage({ switchToImage }) {
                         <tr>
                             <th>Datetime</th>
                             <th style={{textAlign: 'center'}}>Audio Transcription file name</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -182,6 +183,7 @@ function FileHistoryPage({ switchToImage }) {
                                 <th onClick={() => handleDownloadTranscription(file.fileName)} style={{textAlign: 'center'}}>
                                     {file.fileName}
                                 </th>
+                                <th>{file.status}</th>
                             </tr>
                         ))}
                         </tbody>
