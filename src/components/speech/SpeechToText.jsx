@@ -104,7 +104,7 @@ function SpeechToTextV2() {
                 <div className="upload-container mt-5"
                      style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <div>
-                        <div>Add a file. Please use a unique name.</div>
+                        <div>Add a file(Only mono audio). Please use a unique name.</div>
                     </div>
                     <div style={{display: 'flex', alignItems: 'center'}}>
                         <input type="file" accept=".mp3" onChange={handleFileChange}/>
