@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
 
-function AssistantCleanArch({ switchToChatQinGptPage, switchToQinImagePage, switchToGenerationPage, switchToSpeechToTextPage }) {
+function AssistantCleanArch({ setShowComponent }) {
 
     const [loading, setLoading] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -265,7 +265,7 @@ function AssistantCleanArch({ switchToChatQinGptPage, switchToQinImagePage, swit
     return (
         <main>
             <div className="container">
-                <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo"/>
+                <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo" onClick={() => setShowComponent('generationPage')}/>
                 <div style={{position: 'absolute', top: 0, right: 0, margin: '20px'}}>
                     <input
                         type="file"
@@ -298,10 +298,10 @@ function AssistantCleanArch({ switchToChatQinGptPage, switchToQinImagePage, swit
                     ))}
                 </div>
                 <div className="mt-5 text-center">
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
-                    <button className="btn btn-primary custom-button" onClick={switchToGenerationPage}>TaaS</button>
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToChatQinGptPage}>QinGPT</button>
-                    <button className="btn btn-primary custom-button" onClick={switchToSpeechToTextPage}>SPEECH</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('dalleChatPage')}>DRAW</button>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('generationPage')}>TaaS</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('chatPage')}>QinGPT</button>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('speechPage')}>SPEECH</button>
                 </div>
                 <form>
                     <div className="form-group pt-4" style={{alignItems: 'center'}}>

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import qinshiftLogo from '../../../img/qinshift_logo.svg'
 import {useNavigate} from "react-router-dom";
 import {AiOutlineLeft} from "react-icons/ai";
 import WarningInfo from "../../WarningInfo";
+import Logo from "../../logo/Logo";
 
 function FileHistoryPage({ switchToImage }) {
     const [fileList, setFileList] = useState([]);
@@ -109,7 +109,7 @@ function FileHistoryPage({ switchToImage }) {
                     a.download = fileName;
                     document.body.appendChild(a);
                     a.click();
-                    window.URL.revokeObjectURL(url); // Хорошая практика - освободить URL после использования
+                    window.URL.revokeObjectURL(url);
                     document.body.removeChild(a);
                 })
                 .catch(error => console.error('Ошибка:', error));
@@ -120,13 +120,13 @@ function FileHistoryPage({ switchToImage }) {
         <main>
             <div className="container">
                 <div className="d-flex align-items-center">
-                    <div className="go-back-link" onClick={() => navigate(-1)}>
-                        <p className="mb-0">
-                            <AiOutlineLeft className={'icon-ba'}/>
-                            Back
-                        </p>
-                    </div>
-                    <img src={qinshiftLogo} alt="logo Qinshift" className="ms-auto brand-logo"/>
+                    <Logo/>
+                </div>
+                <div className="go-back-link" onClick={() => navigate(-1)}>
+                    <p className="mb-0">
+                        <AiOutlineLeft className={'icon-ba'}/>
+                        Back
+                    </p>
                 </div>
                 <div className="text-center">
                     <h4>File History</h4>
@@ -180,7 +180,8 @@ function FileHistoryPage({ switchToImage }) {
                         {transcriptionFiles.map((file, index) => (
                             <tr key={index}>
                                 <th>{file.createdAt}</th>
-                                <th onClick={() => handleDownloadTranscription(file.fileName)} style={{textAlign: 'center'}}>
+                                <th onClick={() => handleDownloadTranscription(file.fileName)}
+                                    style={{textAlign: 'center'}}>
                                     {file.fileName}
                                 </th>
                                 <th>{file.status}</th>

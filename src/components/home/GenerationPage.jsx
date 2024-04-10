@@ -4,7 +4,7 @@ import qinshiftLogo from "../../img/qinshift_logo.svg";
 import AuthorizedUserDropdown from "../dropdown/AuthorizedUserDropdown";
 import UnauthorizedUserDropdown from "../dropdown/UnauthorizedUserDropdown";
 
-function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchToAssistantPage, switchToSpeechToTextPage }) {
+function GenerationPage({ setShowComponent }) {
 
     const [inputValue, setInputValue] = useState('');
     let navigate = useNavigate();
@@ -13,7 +13,6 @@ function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchTo
     const [fileUploaded, setFileUploaded] = useState(false);
     const [excelFileUpload, setExcelFileUpload] = useState(true);
     const [isUserAuthorized, setUserAuthorized] = useState(false);
-
 
     useEffect(() => {
         localStorage.removeItem("responseData");
@@ -131,10 +130,10 @@ function GenerationPage({ switchToChatQinGptPage, switchToQinImagePage, switchTo
                     </div>
                 </div>
                 <div className="text-center">
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
-                    <button className="btn btn-primary custom-button" onClick={switchToChatQinGptPage}>QinGPT</button>
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToAssistantPage}>DATA</button>
-                    <button className="btn btn-primary custom-button" onClick={switchToSpeechToTextPage}>SPEECH</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('dalleChatPage')}>DRAW</button>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('chatPage')}>QinGPT</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('assistantChatPage')}>DATA</button>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('speechPage')}>SPEECH</button>
                     <form>
                         <div className="form-group" style={{display: 'flex', alignItems: 'center'}}>
                         <textarea

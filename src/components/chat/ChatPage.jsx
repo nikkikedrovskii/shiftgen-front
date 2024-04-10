@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
 
-function ChatPage({ switchToQinImagePage, switchToGenerationPage, switchToAssistantPage, switchToSpeechToTextPage }) {
+function ChatPage({ setShowComponent }) {
     const [inputValue, setInputValue] = useState('');
     const [inputText, setInputText] = useState('');
     const [chatMessageList, setChatMessageList] = useState([]);
@@ -58,12 +58,12 @@ function ChatPage({ switchToQinImagePage, switchToGenerationPage, switchToAssist
     return (
         <main>
             <div className="container">
-                <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo"/>
+                <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo" onClick={() => setShowComponent('generationPage')}/>
                 <div className="text-center">
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToQinImagePage}>DRAW</button>
-                    <button className="btn btn-primary custom-button" onClick={switchToGenerationPage}>TaaS</button>
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToAssistantPage}>DATA</button>
-                    <button className="btn btn-primary custom-button" onClick={switchToSpeechToTextPage}>SPEECH</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('dalleChatPage')}>DRAW</button>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('generationPage')}>TaaS</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('assistantChatPage')}>DATA</button>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('speechPage')}>SPEECH</button>
                 </div>
                 <form>
                     <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>

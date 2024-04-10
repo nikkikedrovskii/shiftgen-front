@@ -1,12 +1,14 @@
 import React, {useEffect, useRef, useState} from "react";
-import qinshiftLogo from "../../img/qinshift_logo.svg";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import Logo from "../../components/logo/Logo";
 
 function Dataset() {
 
     const [datasetList, setDatasetList] = useState([]);
     const [file, setFile] = useState(null);
     const fileInputRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchDatasetFile();
@@ -77,7 +79,7 @@ function Dataset() {
             <div className="container">
                 <div className="header-row"
                      style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-                    <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo"/>
+                    <Logo/>
                 </div>
                 <div className="upload-container mt-5"
                      style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>

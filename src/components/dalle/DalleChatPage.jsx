@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
 
-function DalleChatPage({ switchToChatQinGptPage, switchToGenerationPage, switchToAssistantPage, switchToSpeechToTextPage }) {
+function DalleChatPage({ setShowComponent }) {
     const [inputValue, setInputValue] = useState('');
     const [inputText, setInputText] = useState('');
     const [chatMessageList, setChatMessageList] = useState([]);
@@ -58,13 +58,13 @@ function DalleChatPage({ switchToChatQinGptPage, switchToGenerationPage, switchT
     return (
         <main>
             <div className="container">
-                <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo"/>
+                <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo" onClick={() => setShowComponent('generationPage')}/>
                 <div className="text-center">
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToGenerationPage}>TaaS
+                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('generationPage')}>TaaS
                     </button>
-                    <button className="btn btn-primary custom-button" onClick={switchToChatQinGptPage}>QinGPT</button>
-                    <button className="btn btn-primary mx-5 custom-button" onClick={switchToAssistantPage}>DATA</button>
-                    <button className="btn btn-primary custom-button" onClick={switchToSpeechToTextPage}>SPEECH</button>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('chatPage')}>QinGPT</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('assistantChatPage')}>DATA</button>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('speechPage')}>SPEECH</button>
                 </div>
                 <form>
                     <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>

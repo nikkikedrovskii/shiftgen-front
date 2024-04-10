@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import qinshiftLogo from '../../../img/qinshift_logo.svg'
 import {useNavigate} from "react-router-dom";
 import {AiOutlineLeft} from "react-icons/ai";
+import Logo from "../../logo/Logo";
 
 function ImageHistoryPage({ switchToFile }) {
     const [fileList, setFileList] = useState([]);
@@ -56,17 +56,19 @@ function ImageHistoryPage({ switchToFile }) {
         <main>
             <div className="container">
                 <div className="d-flex align-items-center">
-                    <div className="go-back-link" onClick={() => navigate(-1)}>
-                        <p className="mb-0">
-                            <AiOutlineLeft className={'icon-ba'}/>
-                            Back
-                        </p>
-                    </div>
-                    <img src={qinshiftLogo} alt="logo Qinshift" className="ms-auto brand-logo"/>
+                    <Logo/>
+                </div>
+                <div className="go-back-link" onClick={() => navigate(-1)}>
+                    <p className="mb-0">
+                        <AiOutlineLeft className={'icon-ba'}/>
+                        Back
+                    </p>
                 </div>
                 <div className="text-center">
-                <h4>Image History</h4>
-                <button className="btn btn-primary mb-5 mt-2 custom-button" onClick={switchToFile}>Go to File History</button>
+                    <h4>Image History</h4>
+                    <button className="btn btn-primary mb-5 mt-2 custom-button" onClick={switchToFile}>Go to File
+                        History
+                    </button>
                 </div>
                 <div className="table-responsive">
                     <table className="table table-sm">
@@ -85,8 +87,8 @@ function ImageHistoryPage({ switchToFile }) {
                                 <th>{image.imageName.replace(/david.vitecek/g, 'username')}</th>
                                 <th>{image.prompt}</th>
                                 <th onClick={() => handleDownload(image.imageName)}>
-                                        <img src={image.imagePath} alt={image.imageName}
-                                             style={{width: '100px', height: '100px'}}/>
+                                    <img src={image.imagePath} alt={image.imageName}
+                                         style={{width: '100px', height: '100px'}}/>
                                 </th>
                                 <th>{image.quality}</th>
                                 <th>{image.resolution}</th>

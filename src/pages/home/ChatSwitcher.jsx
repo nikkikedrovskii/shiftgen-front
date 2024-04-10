@@ -2,10 +2,8 @@ import React, {useState} from 'react';
 import GenerationPage from "../../components/home/GenerationPage";
 import ChatPage from "../../components/chat/ChatPage";
 import DalleChatPage from "../../components/dalle/DalleChatPage";
-import Assistant from "../../components/assistant/Assistant";
 import AssistantCleanArch from "../../components/assistant/AssistantCleanArch";
 import SpeechToText from "../../components/speech/SpeechToText";
-import SpeechToTextV2 from "../../components/speech/SpeechToText";
 
 function GenerationSwitcher() {
 
@@ -14,34 +12,19 @@ function GenerationSwitcher() {
     return (
         <div>
             {showComponent === 'generationPage' && (
-                <GenerationPage switchToChatQinGptPage={() => setShowComponent('chatPage')}
-                                switchToQinImagePage={() => setShowComponent('dalleChatPage')}
-                                switchToAssistantPage={() => setShowComponent('assistantChatPage')}
-                                switchToSpeechToTextPage={() => setShowComponent('speechPage')}/>
+                <GenerationPage setShowComponent={setShowComponent}/>
             )}
             {showComponent === 'chatPage' && (
-                <ChatPage switchToGenerationPage={() => setShowComponent('generationPage')}
-                          switchToQinImagePage={() => setShowComponent('dalleChatPage')}
-                          switchToAssistantPage={() => setShowComponent('assistantChatPage')}
-                          switchToSpeechToTextPage={() => setShowComponent('speechPage')}/>
+                <ChatPage setShowComponent={setShowComponent}/>
             )}
             {showComponent === 'dalleChatPage' && (
-                <DalleChatPage switchToGenerationPage={() => setShowComponent('generationPage')}
-                               switchToChatQinGptPage={() => setShowComponent('chatPage')}
-                               switchToAssistantPage={() => setShowComponent('assistantChatPage')}
-                               switchToSpeechToTextPage={() => setShowComponent('speechPage')}/>
+                <DalleChatPage setShowComponent={setShowComponent}/>
             )}
             {showComponent === 'assistantChatPage' && (
-                <AssistantCleanArch switchToGenerationPage={() => setShowComponent('generationPage')}
-                             switchToChatQinGptPage={() => setShowComponent('chatPage')}
-                             switchToQinImagePage={() => setShowComponent('dalleChatPage')}
-                             switchToSpeechToTextPage={() => setShowComponent('speechPage')}/>
+                <AssistantCleanArch setShowComponent={setShowComponent}/>
             )}
             {showComponent === 'speechPage' && (
-                <SpeechToText switchToGenerationPage={() => setShowComponent('generationPage')}
-                              switchToChatQinGptPage={() => setShowComponent('chatPage')}
-                              switchToQinImagePage={() => setShowComponent('dalleChatPage')}
-                              switchToAssistantPage={() => setShowComponent('assistantChatPage')}/>
+                <SpeechToText setShowComponent={setShowComponent}/>
             )}
         </div>
     );

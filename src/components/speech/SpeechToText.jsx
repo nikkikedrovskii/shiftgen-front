@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import qinshiftLogo from "../../img/qinshift_logo.svg";
 import './Spinner.css'
 import {useNavigate} from "react-router-dom";
+import Logo from "../logo/Logo";
 
-function SpeechToTextV2() {
+function SpeechToText({ setShowComponent }) {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [downloadUrl, setDownloadUrl] = useState('');
@@ -97,9 +97,15 @@ function SpeechToTextV2() {
     return (
         <main>
             <div className="container">
-                <div className="header-row"
+                <div className="header-row mb-5" onClick={() => setShowComponent('generationPage')}
                      style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-                    <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo"/>
+                    <Logo/>
+                </div>
+                <div className="text-center">
+                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('dalleChatPage')}>DRAW</button>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('chatPage')}>QinGPT</button>
+                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('assistantChatPage')}>DATA</button>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('generationPage')}>TaaS</button>
                 </div>
                 <div className="upload-container mt-5"
                      style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -125,4 +131,4 @@ function SpeechToTextV2() {
         ;
 }
 
-export default SpeechToTextV2;
+export default SpeechToText;

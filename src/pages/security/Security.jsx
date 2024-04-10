@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import qinshiftLogo from '../../img/qinshift_logo.svg';
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import "./Security.css"
 import ForbiddenWordForm from "../../components/forbidden_word_form/ForbiddenWordForm";
 import ForbiddenWordList from "../../components/forbidden_word/ForbiddenWordList";
 import {AiOutlineLeft} from "react-icons/ai";
+import Logo from "../../components/logo/Logo";
 
 function Security() {
 
@@ -62,13 +62,13 @@ function Security() {
         <main>
             <div className="container">
                 <div className="d-flex align-items-center">
-                    <div className="go-back-link" onClick={() => navigate(-1)}>
-                        <p className="mb-0">
-                            <AiOutlineLeft className={'icon-ba'}/>
-                            Back
-                        </p>
-                    </div>
-                    <img src={qinshiftLogo} alt="logo Qinshift" className="ms-auto brand-logo"/>
+                    <Logo/>
+                </div>
+                <div className="go-back-link" onClick={() => navigate(-1)}>
+                    <p className="mb-0">
+                        <AiOutlineLeft className={'icon-ba'}/>
+                        Back
+                    </p>
                 </div>
                 <ForbiddenWordForm create={createPost}/>
                 {posts.length !== 0
