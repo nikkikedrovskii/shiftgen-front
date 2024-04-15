@@ -27,7 +27,7 @@ function Authorization()  {
             <div className="container">
                 <div className="d-flex align-items-center">
                     <div className="go-back-link">
-                        <p className="mb-0"><a href="podminky.html">Back</a></p>
+                        <p className="mb-0"><a href="podminky.html">Back</a></p>\
                     </div>
                     <img src={qinshiftLogo} alt="logo Qinshift" className="ms-auto brand-logo" />
                 </div>

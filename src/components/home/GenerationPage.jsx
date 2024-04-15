@@ -79,10 +79,11 @@ function GenerationPage({ setShowComponent }) {
         }
         localStorage.setItem('data', inputValue);
         const tokenObject = localStorage.getItem('token');
+        const externalCustomerId = localStorage.getItem('externalCustomerId');
 
         if (tokenObject){
             const {value} = JSON.parse(tokenObject);
-            window.location.href = 'https://master.d44820iy5gmpk.amplifyapp.com/oauth2/redirect?token=' + value;
+            window.location.href = 'https://master.d44820iy5gmpk.amplifyapp.com/oauth2/redirect?token=' + value + '&externalCustomerId=' + externalCustomerId;
         } else {
             navigate("/authorization")
         }
