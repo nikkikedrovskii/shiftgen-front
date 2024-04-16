@@ -17,12 +17,14 @@ import Billing from "./pages/billing/Billing";
 import AiTrism from "./pages/ai_trism/AiTrism";
 import History from "./pages/history/History";
 import Dataset from "./pages/dataset/Dataset";
+import GenerationPageV2 from "./components/home/GenerationPageV2";
 
 function App() {
   return (
    <div>
      <Routes>
          <Route path="/" element={<Home/>}/>
+         <Route path="/home" element={<GenerationPageV2/>}/>
          <Route path="/authorization" element={<Authorization/>}/>
          <Route path="/conditions" element={<Conditions/>}/>
          <Route path="/oauth2/redirect" element={<RedirectPage/>}/>

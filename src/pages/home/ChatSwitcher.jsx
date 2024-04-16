@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import GenerationPage from "../../components/home/GenerationPage";
 import ChatPage from "../../components/chat/ChatPage";
 import DalleChatPage from "../../components/dalle/DalleChatPage";
 import AssistantCleanArch from "../../components/assistant/AssistantCleanArch";
 import SpeechToText from "../../components/speech/SpeechToText";
+import GenerationPage from "../../components/home/GenerationPage";
 
 function GenerationSwitcher() {
 
