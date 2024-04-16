@@ -3,7 +3,7 @@ import ChatPage from "../../components/chat/ChatPage";
 import DalleChatPage from "../../components/dalle/DalleChatPage";
 import AssistantCleanArch from "../../components/assistant/AssistantCleanArch";
 import SpeechToText from "../../components/speech/SpeechToText";
-import GenerationPage from "../../components/home/GenerationPage";
+import GenerationPageV2 from "../../components/home/GenerationPageV2";
 
 function GenerationSwitcher() {
 
@@ -12,7 +12,7 @@ function GenerationSwitcher() {
     return (
         <div>
             {showComponent === 'generationPage' && (
-                <GenerationPage setShowComponent={setShowComponent}/>
+                <GenerationPageV2 setShowComponent={setShowComponent}/>
             )}
             {showComponent === 'chatPage' && (
                 <ChatPage setShowComponent={setShowComponent}/>
