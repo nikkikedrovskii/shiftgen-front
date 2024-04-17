@@ -11,13 +11,9 @@ function AssistantCleanArch({ setShowComponent }) {
     const [threadIdList, setThreadIdList] = useState([])
     const [selectedThreadId, setSelectedThreadId] = useState('');
     const [threadFileNames, setThreadFileNames] = useState([]);
+    const prefix = "Download file -> ";
 
     useEffect(() => {
-        const showChat = localStorage.getItem('showAssistantChat');
-        if (showChat) {
-            const chatJson = JSON.parse(showChat);
-            setShowMessageList(chatJson);
-        }
         fetchUserAssistant();
         fetchThreadFilesName();
     }, []);
@@ -77,36 +73,44 @@ function AssistantCleanArch({ setShowComponent }) {
     const handleSend = async () => {
         setLoading(true);
         const newMessage = { chatRole: 'user', content: inputText };
-        const newShowChatMessageList = [...showMessageList, newMessage];
-        setShowMessageList(newShowChatMessageList);
+
+        setShowMessageList(prevMessages => [...prevMessages, newMessage]);
         setInputText('');
 
-            const assistantId = localStorage.getItem('assistantId');
-            const threadId = localStorage.getItem('threadId');
+        const assistantId = localStorage.getItem('assistantId');
+        const threadId = localStorage.getItem('threadId');
 
-            try {
-                const tokenObject = getToken();
-                const response =  await fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/assistant/${assistantId}/thread/${threadId}`, {
-                    method: 'POST',
-                    headers: {
-                        Authorization: `Bearer ${tokenObject}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        content: inputText
-                    })
-                });
-                const responseData = await response.json();
-                const messageList = responseData.chatMessageList;
-                setShowMessageList([])
-                setShowMessageList(messageList);
-                setLoading(false);
-            } catch (error) {
-                console.error("Failed to post thread source:", error);
-                throw error;
+        try {
+            const tokenObject = getToken();
+            const response = await fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/assistant/${assistantId}/thread/${threadId}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${tokenObject}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: newMessage.content
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to send message');
             }
 
+            const responseData = await response.json();
+            const messageList = responseData.chatMessageList;
+
+            setShowMessageList([])
+
+            setShowMessageList(prevMessages => [...prevMessages, ...messageList]);
+        } catch (error) {
+            console.error("Failed to post thread source:", error);
+        } finally {
+            setLoading(false);
+        }
     };
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -168,19 +172,19 @@ function AssistantCleanArch({ setShowComponent }) {
         }
     }
 
-   async function connectFileToSelectedThread(uploadedFile) {
+    async function connectFileToSelectedThread(uploadedFile) {
 
 
-       const newMessage = { chatRole: 'assistant', content: `File ${uploadedFile.fileName} uploaded. Ask a question, please.` };
-       const newChatMessageList = [...showMessageList, newMessage];
-       setShowMessageList(newChatMessageList);
+        const newMessage = { chatRole: 'assistant', content: `File ${uploadedFile.fileName} uploaded. Ask a question, please.` };
+        const newChatMessageList = [...showMessageList, newMessage];
+        setShowMessageList(newChatMessageList);
 
 
-       const requestBody = JSON.stringify({
-           fileId: uploadedFile.id,
-           fileName: uploadedFile.fileName,
-           contentType: uploadedFile.contentType
-       });
+        const requestBody = JSON.stringify({
+            fileId: uploadedFile.id,
+            fileName: uploadedFile.fileName,
+            contentType: uploadedFile.contentType
+        });
 
         try {
             const tokenObject = getToken();
@@ -227,6 +231,40 @@ function AssistantCleanArch({ setShowComponent }) {
         }
 
     }
+    const handleDownloadTranscription = (fileName) => {
+
+        const tokenObject = localStorage.getItem('token');
+
+        if (!tokenObject) return;
+        const { value } = JSON.parse(tokenObject);
+
+        const externalCustomerId = localStorage.getItem('externalCustomerId');
+
+        if (fileName) {
+            const params = new URLSearchParams({
+                fileType: "TEXT_FILE"
+            }).toString();
+
+            fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/user/${externalCustomerId}/file/${encodeURIComponent(fileName)}?${params}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${value}`,
+                }
+            })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(new Blob([blob]));
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                })
+                .catch(error => console.error('Ошибка:', error));
+        }
+    };
 
     async function deleteAssistantThread() {
         console.log(" delete thread this selectedId " + selectedThreadId)
@@ -270,7 +308,6 @@ function AssistantCleanArch({ setShowComponent }) {
                     <input
                         type="file"
                         className="form-control"
-                        accept=".xlsx, .xls .csv"
                         onChange={(e) => setFile(e.target.files[0])}
                         style={{display: 'block', marginBottom: '10px'}}
                     />
@@ -305,7 +342,7 @@ function AssistantCleanArch({ setShowComponent }) {
                 </div>
                 <form>
                     <div className="form-group pt-4" style={{alignItems: 'center'}}>
-                    <div style={{flex: 1, position: 'relative', width: '85%'}}>
+                        <div style={{flex: 1, position: 'relative', width: '85%'}}>
                             <label htmlFor="chatbox">Data analyst bot:</label>
                             <div style={{
                                 position: 'absolute',
@@ -336,13 +373,21 @@ function AssistantCleanArch({ setShowComponent }) {
                                     {showMessageList.map((msg, index) => (
                                         <div key={index} className={`chat-message ${msg.chatRole}`}>
                                             <strong>{msg.chatRole}</strong>:
-                                            {msg.content.startsWith("http") ? (
-                                                <img src={msg.content} alt="Chat Image"
-                                                     style={{maxWidth: '100%', maxHeight: '300px'}}/>
-                                            ) : (
-                                                <span className="message-content"
-                                                      style={{whiteSpace: 'pre-wrap'}}>{msg.content}</span>
-                                            )}
+                                            {
+                                                msg.content.startsWith("http") ?
+                                                    (<img src={msg.content} alt="Chat Image" style={{maxWidth: '100%', maxHeight: '300px'}}/>) :
+                                                    (msg.content.startsWith(prefix) ?
+                                                        (<span className="message-content" style={{whiteSpace: 'pre-wrap'}}>
+                                                               <div
+                                                                   onClick={() => handleDownloadTranscription(msg.content.slice(prefix.length))}
+                                                                   style={{
+                                                                       cursor: 'pointer',
+                                                                       textDecoration: 'underline',
+                                                                       color: 'blue'
+                                                                   }}
+                                                               >{msg.content.slice(prefix.length)}</div></span>) :
+                                                        (<span className="message-content" style={{whiteSpace: 'pre-wrap'}}>{msg.content}</span>))
+                                            }
                                         </div>
                                     ))}
                                 </div>
