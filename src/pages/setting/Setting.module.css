@@ -1,0 +1,42 @@
+
+.trismSetting {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.dataItem input, .dataItem select {
+    flex: 1;
+}
+
+.dataItem button {
+    padding: 5px 10px;
+}
+
+@media (max-width: 768px) {
+
+    .dataItem {
+        width: 100%;
+        margin: 0;
+    }
+
+    .dataItem {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.dataItem {
+    width:60%;
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+

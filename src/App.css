@@ -86,29 +86,6 @@ video {
     border-radius: 5px;
     background: #D2D2D2; /* Чуть более светлый фон для сообщений */
 }
-.ai-comparison-table {
-    width: 100%; /* Ширина таблицы */
-    margin-top: 20px; /* Отступ сверху */
-    border-collapse: collapse; /* Убираем промежутки между ячейками */
-}
-
-.ai-comparison-table th, .ai-comparison-table td {
-    border: 1px solid #ddd; /* Граница для ячеек */
-    padding: 8px; /* Отступ в ячейках */
-}
-
-.ai-comparison-table th {
-    background-color: #f2f2f2; /* Цвет фона заголовков */
-    text-align: left; /* Выравнивание текста */
-}
-
-.settings-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-}
 
 .form-input, .form-select {
     width: 40% !important; /* Установлен одинаковый размер */
@@ -142,23 +119,6 @@ video {
 .chat-message, .chat-message > strong, .chat-message > span {
     color: #222226;
 }
-.data-item {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    display: flex;
-    gap: 10px; /* Расстояние между элементами */
-}
-
-.data-item input, .data-item select {
-    flex: 1; /* Равномерное распределение пространства между полями ввода и выпадающим списком */
-}
-
-.data-item button {
-    padding: 5px 10px; /* Меньший padding для кнопок */
-}
-
 
 .chat-message.bot {
     align-self: flex-start; /* Сообщения бота выравниваются по левой стороне */

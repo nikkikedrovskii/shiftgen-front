@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {AiOutlineLeft} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
+import styles from "../ai_trism/AiTrism.module.css";
 
 function AiTrism() {
 
     const navigate = useNavigate();
     const [data, setData] = useState([]);
-    const [azureAiApiCallSuccessRate,setAzureAiApiCallSuccessRate] = useState('');
-    const [openedGptApiCallSuccessRate,setOpenedGptApiCallSuccessRate] = useState('');
+    const [azureAiApiCallSuccessRate, setAzureAiApiCallSuccessRate] = useState('');
+    const [openedGptApiCallSuccessRate, setOpenedGptApiCallSuccessRate] = useState('');
 
     useEffect(() => {
         fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/regular/answer')
@@ -25,8 +26,10 @@ function AiTrism() {
 
     return (
         <main>
-            <div className="container">
-                <div className="text-center">
+            <div>
+                <div style={{
+                    textAlign: "center"
+                }}>
                     <div className="go-back-link" onClick={() => navigate(-1)}>
                         <p className="mb-0">
                             <AiOutlineLeft className={'icon-ba'}/>
@@ -34,7 +37,9 @@ function AiTrism() {
                         </p>
                     </div>
                     <h1>AI TRiSM</h1>
-                    <table className="ai-comparison-table">
+                </div>
+                <div className={styles.tableContainer}>
+                    <table className={styles.aiComparisonTable}>
                         <thead>
                         <tr>
                             <th>Date</th>

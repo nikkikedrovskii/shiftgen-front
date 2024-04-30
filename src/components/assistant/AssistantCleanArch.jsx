@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
+import styles from "../assistant/Assistant.module.css";
 
-function AssistantCleanArch({ setShowComponent }) {
+function AssistantCleanArch({setShowComponent}) {
 
     const [loading, setLoading] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -21,7 +22,7 @@ function AssistantCleanArch({ setShowComponent }) {
     async function fetchUserAssistant() {
         const tokenObject = localStorage.getItem('token');
         if (!tokenObject) return;
-        const { value } = JSON.parse(tokenObject);
+        const {value} = JSON.parse(tokenObject);
         const externalCustomerId = localStorage.getItem('externalCustomerId');
 
         try {
@@ -49,7 +50,7 @@ function AssistantCleanArch({ setShowComponent }) {
     async function fetchThreadFilesName() {
         const tokenObject = localStorage.getItem('token');
         if (!tokenObject) return;
-        const { value } = JSON.parse(tokenObject);
+        const {value} = JSON.parse(tokenObject);
         const threadId = localStorage.getItem('threadId');
 
         try {
@@ -72,7 +73,7 @@ function AssistantCleanArch({ setShowComponent }) {
 
     const handleSend = async () => {
         setLoading(true);
-        const newMessage = { chatRole: 'user', content: inputText };
+        const newMessage = {chatRole: 'user', content: inputText};
 
         setShowMessageList(prevMessages => [...prevMessages, newMessage]);
         setInputText('');
@@ -109,7 +110,6 @@ function AssistantCleanArch({ setShowComponent }) {
             setLoading(false);
         }
     };
-
 
 
     const handleSubmit = async (e) => {
@@ -175,7 +175,10 @@ function AssistantCleanArch({ setShowComponent }) {
     async function connectFileToSelectedThread(uploadedFile) {
 
 
-        const newMessage = { chatRole: 'assistant', content: `File ${uploadedFile.fileName} uploaded. Ask a question, please.` };
+        const newMessage = {
+            chatRole: 'assistant',
+            content: `File ${uploadedFile.fileName} uploaded. Ask a question, please.`
+        };
         const newChatMessageList = [...showMessageList, newMessage];
         setShowMessageList(newChatMessageList);
 
@@ -211,7 +214,7 @@ function AssistantCleanArch({ setShowComponent }) {
 
         try {
             const tokenObject = getToken();
-            const response =  await fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/assistant/${assistantId}/thread`, {
+            const response = await fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/assistant/${assistantId}/thread`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${tokenObject}`,
@@ -231,12 +234,13 @@ function AssistantCleanArch({ setShowComponent }) {
         }
 
     }
+
     const handleDownloadTranscription = (fileName) => {
 
         const tokenObject = localStorage.getItem('token');
 
         if (!tokenObject) return;
-        const { value } = JSON.parse(tokenObject);
+        const {value} = JSON.parse(tokenObject);
 
         const externalCustomerId = localStorage.getItem('externalCustomerId');
 
@@ -278,8 +282,7 @@ function AssistantCleanArch({ setShowComponent }) {
                 }
             });
             const updatedThreadIdList = threadIdList.filter(threadId => threadId !== selectedThreadId);
-            if (updatedThreadIdList.length === 0)
-            {
+            if (updatedThreadIdList.length === 0) {
                 setThreadIdList([]);
             } else {
                 setThreadIdList(updatedThreadIdList);
@@ -296,88 +299,101 @@ function AssistantCleanArch({ setShowComponent }) {
 
     function getToken() {
         const tokenObject = localStorage.getItem('token');
-        const { value } = JSON.parse(tokenObject);
+        const {value} = JSON.parse(tokenObject);
         return value;
     }
 
     return (
         <main>
-            <div className="container">
-                <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo" onClick={() => setShowComponent('generationPage')}/>
-                <div style={{position: 'absolute', top: 0, right: 0, margin: '20px'}}>
-                    <input
-                        type="file"
-                        className="form-control"
-                        onChange={(e) => setFile(e.target.files[0])}
-                        style={{display: 'block', marginBottom: '10px'}}
-                    />
-                    <button className="btn btn-primary" onClick={handleSubmit}>Upload</button>
-                </div>
-                <div className="white-window" style={{
-                    position: 'absolute',
-                    top: '60px',
-                    right: '20px',
-                    backgroundColor: 'white',
-                    padding: '10px',
-                    borderRadius: '5px',
-                    boxShadow: '0px 0px 5px rgba(0,0,0,0.2)',
-                    width: '200px',
-                    overflow: 'hidden',
-                    maxHeight: '300px'
-                }}>
-                    <div style={{color: 'black', marginBottom: '10px'}}>Uploaded files:</div>
-                    {threadFileNames.map((fileName, index) => (
-                        <div key={index} style={{
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap'
-                        }}>{fileName}</div>
-                    ))}
-                </div>
-                <div className="mt-5 text-center">
-                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('dalleChatPage')}>DRAW</button>
-                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('generationPage')}>TaaS</button>
-                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('chatPage')}>QinGPT</button>
-                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('speechPage')}>SPEECH</button>
-                </div>
-                <form>
-                    <div className="form-group pt-4" style={{alignItems: 'center'}}>
-                        <div style={{flex: 1, position: 'relative', width: '85%'}}>
-                            <label htmlFor="chatbox">Data analyst bot:</label>
-                            <div style={{
-                                position: 'absolute',
-                                right: 0,
-                                top: '-10px',
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}>
-                                <select
-                                    className="form-control"
-                                    value={selectedThreadId}
-                                    onChange={(e) => getThreadMessageByThreadId(e.target.value)}
-                                >
-                                    {threadIdList.map((threadId, index) => (
-                                        <option key={index} value={threadId}>
-                                            {threadId}
-                                        </option>
-                                    ))}
-                                </select>
-                                <button type="button" className="btn btn-primary mr-2 mx-2"
-                                        onClick={createAssistantThread}>+
-                                </button>
-                                <button type="button" className="btn btn-primary" onClick={deleteAssistantThread}>-
-                                </button>
+            <div>
+                <div className={styles.header}>
+                    <div>
+                        <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo"
+                             onClick={() => setShowComponent('generationPage')}/>
+                    </div>
+                    <div>
+                        <div>
+                            <input
+                                type="file"
+                                className={styles.formControl}
+                                onChange={(e) => setFile(e.target.files[0])}
+                            />
+                        </div>
+                        <div style={{
+                            display: 'flex'
+                        }}>
+                            <div>
+                                <button className="btn btn-primary m-1" onClick={handleSubmit}>Upload</button>
                             </div>
-                            <div className="chat-box" id="chatbox">
-                                <div className="chat-messages">
-                                    {showMessageList.map((msg, index) => (
-                                        <div key={index} className={`chat-message ${msg.chatRole}`}>
-                                            <strong>{msg.chatRole}</strong>:
-                                            {
-                                                msg.content.startsWith("http") ?
-                                                    (<img src={msg.content} alt="Chat Image" style={{maxWidth: '100%', maxHeight: '300px'}}/>) :
-                                                    (msg.content.startsWith(prefix) ?
-                                                        (<span className="message-content" style={{whiteSpace: 'pre-wrap'}}>
+                            <div className={styles.whiteWindow}>
+                                <div>Uploaded files:</div>
+                                {threadFileNames.map((fileName, index) => (
+                                    <div key={index} style={{
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap'
+                                    }}>{fileName}</div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.navigationButtons}>
+                    <button className="btn btn-primary custom-button"
+                            onClick={() => setShowComponent('dalleChatPage')}>DRAW
+                    </button>
+                    <button className="btn btn-primary custom-button"
+                            onClick={() => setShowComponent('generationPage')}>TaaS
+                    </button>
+                    <button className="btn btn-primary custom-button"
+                            onClick={() => setShowComponent('chatPage')}>QinGPT
+                    </button>
+                    <button className="btn btn-primary custom-button"
+                            onClick={() => setShowComponent('speechPage')}>SPEECH
+                    </button>
+                </div>
+                <div className={styles.assistantChatContainer}>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between'
+                    }}>
+                        <div>
+                         <label htmlFor="chatbox">Data analyst bot:</label>
+                        </div>
+                        <div>
+                            <select
+                                value={selectedThreadId}
+                                onChange={(e) => getThreadMessageByThreadId(e.target.value)}
+                            >
+                                {threadIdList.map((threadId, index) => (
+                                    <option key={index} value={threadId}>
+                                        {threadId}
+                                    </option>
+                                ))}
+                            </select>
+                            <button type="button" className="btn btn-primary m-1"
+                                    onClick={createAssistantThread}>+
+                            </button>
+                            <button type="button" className="btn btn-primary m-1" onClick={deleteAssistantThread}>-
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <form>
+                            <div>
+                                <div>
+                                    <div className="chat-box" id="chatbox">
+                                        <div className="chat-messages">
+                                            {showMessageList.map((msg, index) => (
+                                                <div key={index} className={`chat-message ${msg.chatRole}`}>
+                                                    <strong>{msg.chatRole}</strong>:
+                                                    {
+                                                        msg.content.startsWith("http") ?
+                                                            (<img src={msg.content} alt="Chat Image"
+                                                                  style={{maxWidth: '100%', maxHeight: '300px'}}/>) :
+                                                            (msg.content.startsWith(prefix) ?
+                                                                (<span className="message-content"
+                                                                       style={{whiteSpace: 'pre-wrap'}}>
                                                                <div
                                                                    onClick={() => handleDownloadTranscription(msg.content.slice(prefix.length))}
                                                                    style={{
@@ -386,40 +402,43 @@ function AssistantCleanArch({ setShowComponent }) {
                                                                        color: 'blue'
                                                                    }}
                                                                >{msg.content.slice(prefix.length)}</div></span>) :
-                                                        (<span className="message-content" style={{whiteSpace: 'pre-wrap'}}>{msg.content}</span>))
-                                            }
+                                                                (<span className="message-content"
+                                                                       style={{whiteSpace: 'pre-wrap'}}>{msg.content}</span>))
+                                                    }
+                                                </div>
+                                            ))}
                                         </div>
-                                    ))}
+                                        <input
+                                            type="text"
+                                            className="form-control chat-input"
+                                            placeholder="Type a message..."
+                                            value={inputText}
+                                            onChange={(e) => setInputText(e.target.value)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter' && inputText.trim() && !e.shiftKey) {
+                                                    e.preventDefault();
+                                                    handleSend();
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="pt-4">
+                                        <button type="button" className="btn btn-primary custom-button"
+                                                onClick={handleSend}>Send
+                                        </button>
+                                        {loading && <div className="spinner-border" role="status"
+                                                         style={{
+                                                             color: 'yellow',
+                                                             position: 'absolute',
+                                                             right: '70%'
+                                                         }}>
+                                        </div>}
+                                    </div>
                                 </div>
-                                <input
-                                    type="text"
-                                    className="form-control chat-input"
-                                    placeholder="Type a message..."
-                                    value={inputText}
-                                    onChange={(e) => setInputText(e.target.value)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter' && inputText.trim() && !e.shiftKey) {
-                                            e.preventDefault();
-                                            handleSend();
-                                        }
-                                    }}
-                                />
                             </div>
-                            <div className="pt-4">
-                                <button type="button" className="btn btn-primary custom-button"
-                                        onClick={handleSend}>Send
-                                </button>
-                                {loading && <div className="spinner-border" role="status"
-                                                 style={{
-                                                     color: 'yellow',
-                                                     position: 'absolute',
-                                                     right: '70%'
-                                                 }}>
-                                </div>}
-                            </div>
-                        </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         </main>
     );

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
+import styles from "../chat/ChatPage.module.css";
 
 function ChatPage({ setShowComponent }) {
     const [inputValue, setInputValue] = useState('');
@@ -57,61 +58,74 @@ function ChatPage({ setShowComponent }) {
 
     return (
         <main>
-            <div className="container">
-                <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo" onClick={() => setShowComponent('generationPage')}/>
-                <div className="text-center">
-                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('dalleChatPage')}>DRAW</button>
-                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('generationPage')}>TaaS</button>
-                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('assistantChatPage')}>DATA</button>
-                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('speechPage')}>SPEECH</button>
+            <div>
+                <div className={styles.header}>
+                    <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo"
+                         onClick={() => setShowComponent('generationPage')}/>
                 </div>
+                <div className={styles.navigationButtons}>
+                    <button className="btn btn-primary custom-button"
+                            onClick={() => setShowComponent('dalleChatPage')}>DRAW
+                    </button>
+                    <button className="btn btn-primary custom-button"
+                            onClick={() => setShowComponent('generationPage')}>TaaS
+                    </button>
+                    <button className="btn btn-primary custom-button"
+                            onClick={() => setShowComponent('assistantChatPage')}>DATA
+                    </button>
+                    <button className="btn btn-primary custom-button"
+                            onClick={() => setShowComponent('speechPage')}>SPEECH
+                    </button>
+                </div>
+                <div className={styles.qinGptChatContainer}>
                 <form>
-                    <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>
-                        <div style={{flex: 1}}>
-                            <label htmlFor="chatbox">Chat with bot:</label>
-                            <div className="chat-box" id="chatbox">
-                                <div className="chat-messages">
-                                    {chatMessageList.map((msg, index) => (
-                                        <div key={index} className={`chat-message ${msg.chatRole}`}>
-                                            <strong>{msg.chatRole}</strong>: <span className="message-content"
-                                                                                   style={{whiteSpace: 'pre-wrap'}}>{msg.content}</span>
-                                        </div>
-                                    ))}
+                <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>
+                            <div style={{flex: 1}}>
+                                <label htmlFor="chatbox">Chat with bot:</label>
+                                <div className="chat-box" id="chatbox">
+                                    <div className="chat-messages">
+                                        {chatMessageList.map((msg, index) => (
+                                            <div key={index} className={`chat-message ${msg.chatRole}`}>
+                                                <strong>{msg.chatRole}</strong>: <span className="message-content"
+                                                                                       style={{whiteSpace: 'pre-wrap'}}>{msg.content}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <input
+                                        type="text"
+                                        className="form-control chat-input"
+                                        placeholder="Type a message..."
+                                        value={inputText}
+                                        onChange={(e) => setInputText(e.target.value)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' && inputText.trim() && !e.shiftKey) {
+                                                e.preventDefault();
+                                                handleSend();
+                                            }
+                                        }}
+                                    />
                                 </div>
-                                <input
-                                    type="text"
-                                    className="form-control chat-input"
-                                    placeholder="Type a message..."
-                                    value={inputText}
-                                    onChange={(e) => setInputText(e.target.value)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter' && inputText.trim() && !e.shiftKey) {
-                                            e.preventDefault();
-                                            handleSend();
-                                        }
-                                    }}
-                                />
-                            </div>
-                            <div className="pt-4 pt-lg-5">
-                                <button type="button" className="btn btn-primary custom-button"
-                                        onClick={handleSend}>Send
-                                </button>
-                                {loading && <div className="spinner-border" role="status"
-                                                 style={{
-                                                     color: 'yellow',
-                                                     position: 'absolute',
-                                                     right: '70%'
-                                                 }}>
-                                </div>}
+                                <div className="pt-4 pt-lg-5">
+                                    <button type="button" className="btn btn-primary custom-button"
+                                            onClick={handleSend}>Send
+                                    </button>
+                                    {loading && <div className="spinner-border" role="status"
+                                                     style={{
+                                                         color: 'yellow',
+                                                         position: 'absolute',
+                                                         right: '70%'
+                                                     }}>
+                                    </div>}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+                </div>
         </main>
 
 
-    );
+);
 }
 
 export default ChatPage;

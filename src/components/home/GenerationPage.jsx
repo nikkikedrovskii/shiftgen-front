@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import qinshiftLogo from "../../img/qinshift_logo.svg";
 import AuthorizedUserDropdown from "../dropdown/AuthorizedUserDropdown";
 import UnauthorizedUserDropdown from "../dropdown/UnauthorizedUserDropdown";
+import styles from './GenerationPage.module.css';
 
 function GenerationPage({ setShowComponent }) {
 
@@ -116,67 +117,76 @@ function GenerationPage({ setShowComponent }) {
 
     return (
         <main>
-            <div className="container">
-                <div className="header-row"
-                     style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-                    <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo"/>
-                    <div style={{display: 'flex', alignItems: 'center'}}>
-                        <div style={{marginRight: '15px'}}>
-                            <input type="file" onChange={handleFileChange}/>
+            <div>
+                <div className={styles.header}>
+                    <div>
+                        <img src={qinshiftLogo} alt="logo Qinshift" className={styles.logo}/>
+                    </div>
+                    <div className={styles.rightControls}>
+                        <div className={styles.controls}>
+                            <input type="file" onChange={handleFileChange} className={styles.inputFile}/>
+                            <button onClick={handleUpload} disabled={!file} className={styles.button} className="btn btn-primary">Upload</button>
                         </div>
-                        <button onClick={handleUpload} disabled={!file} className="btn btn-primary"
-                                style={{marginRight: '15px'}}>Upload
-                        </button>
+                    </div>
+                    <div>
                         {isUserAuthorized ? <AuthorizedUserDropdown/> : <UnauthorizedUserDropdown/>}
                     </div>
                 </div>
-                <div className="text-center">
-                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('dalleChatPage')}>DRAW</button>
-                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('chatPage')}>QinGPT</button>
-                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('assistantChatPage')}>DATA</button>
-                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('speechPage')}>SPEECH</button>
+                <div className={styles.navigationButtons}>
+                    <button className="btn btn-primary custom-button"
+                            onClick={() => setShowComponent('dalleChatPage')}>DRAW
+                    </button>
+                    <button className="btn btn-primary custom-button"
+                            onClick={() => setShowComponent('chatPage')}>QinGPT
+                    </button>
+                    <button className="btn btn-primary custom-button"
+                            onClick={() => setShowComponent('assistantChatPage')}>DATA
+                    </button>
+                    <button className="btn btn-primary custom-button"
+                            onClick={() => setShowComponent('speechPage')}>SPEECH
+                    </button>
+                </div>
+                <div>
                     <form>
-                        <div className="form-group" style={{display: 'flex', alignItems: 'center'}}>
-                        <textarea
-                            className="form-control"
-                            id="inputdata"
-                            value={inputValue}
-                            onChange={handleInputChange}
-                            disabled={inputDataDisabled}
-                            style={{flex: 1}}
-                        />
+                        <div className="form-group">
+              <textarea
+                  className="form-control"
+                  id="inputdata"
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  disabled={inputDataDisabled}
+              />
                         </div>
                         {fileUploaded &&
                             <div className="text-center">The file has been uploaded. The text input field is
                                 locked</div>}
-                        <div className="text-center pt-4 pt-lg-5">
-                            <div>
-                                <button type="button" className="btn btn-primary custom-button"
-                                        onClick={handleSubmit}>Generate Test Strategy
-                                </button>
-                                <button type="button" className="btn btn-primary mx-2 custom-button"
-                                        onClick={handleSubmit}>Generate Test Plan
-                                </button>
-                                <button type="button" className="btn btn-primary custom-button"
-                                        onClick={handleSubmit}>Generate Test Cases
-                                </button>
-                                <button type="button" className="btn btn-primary mx-2 custom-button"
-                                        style={{minWidth: '250px'}} onClick={handleSubmit}>Generate cucumber script
-                                </button>
-                                <button type="button" className="btn btn-primary custom-button"
-                                        style={{minWidth: '300px'}} onClick={handleSubmit}
-                                        disabled={excelFileUpload}>Generate script using excel format
-                                </button>
-                            </div>
-                            <button type="button" className="btn btn-primary mx-2 custom-button mt-2"
-                                    onClick={helpButton}>Help
-                            </button>
-                        </div>
                     </form>
                 </div>
+                <div>
+                    <div className={styles.navigationButtons}>
+                        <button className="btn btn-primary custom-button" onClick={handleSubmit}>Generate Test
+                            Strategy
+                        </button>
+                        <button className="btn btn-primary custom-button" onClick={handleSubmit}>Generate Test Plan
+                        </button>
+                        <button className="btn btn-primary custom-button" onClick={handleSubmit}>Generate Test Cases
+                        </button>
+                        <button className="btn btn-primary custom-button" onClick={handleSubmit}>Generate cucumber
+                            script
+                        </button>
+                        <button className="btn btn-primary custom-button" onClick={handleSubmit}
+                                disabled={excelFileUpload}>Generate script using
+                            excel format
+                        </button>
+                    </div>
+                </div>
+                <button className="btn btn-primary custom-button" onClick={helpButton}
+                        className={styles.helpButton}>Help
+                </button>
             </div>
         </main>
     );
 }
 
 export default GenerationPage;
+
