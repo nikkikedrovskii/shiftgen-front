@@ -1,0 +1,31 @@
+.tableContainer {
+    overflow-x: auto;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.aiComparisonTable {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.aiComparisonTable th, .aiComparisonTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.aiComparisonTable th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+
+    .tableContainer {
+        width: 100%;
+        margin: 0;
+    }
+}

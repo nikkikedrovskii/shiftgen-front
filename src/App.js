@@ -1,7 +1,7 @@
 import {Route, Routes} from 'react-router-dom'
 import './App.css';
 import Authorization from "./pages/google/authorization.js";
-import Conditions from "./pages/conditions/conditions.js";
+import Conditions from "./pages/conditions/Conditions.jsx";
 import RedirectPage from "./pages/redirect/Oauth2Redirect.js";
 import Error from "./pages/error/error.js";
 import {TimerProvider} from "./pages/timer/TimerProvider.js";
@@ -17,14 +17,14 @@ import Billing from "./pages/billing/Billing";
 import AiTrism from "./pages/ai_trism/AiTrism";
 import History from "./pages/history/History";
 import Dataset from "./pages/dataset/Dataset";
-import GenerationPageV2 from "./components/home/GenerationPageV2";
+import GenerationPage from "./components/home/GenerationPage";
 
 function App() {
   return (
    <div>
      <Routes>
          <Route path="/" element={<Home/>}/>
-         <Route path="/home" element={<GenerationPageV2/>}/>
+         <Route path="/home" element={<GenerationPage/>}/>
          <Route path="/authorization" element={<Authorization/>}/>
          <Route path="/conditions" element={<Conditions/>}/>
          <Route path="/oauth2/redirect" element={<RedirectPage/>}/>

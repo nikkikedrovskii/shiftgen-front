@@ -5,28 +5,29 @@ import enFlag from "../../img/us.svg";
 import czFlag from "../../img/cz.svg";
 import {useNavigate} from "react-router-dom";
 import {AiOutlineLeft} from "react-icons/ai";
+import styles from "../setting/Setting.module.css";
 
 const languageMapping = {
-    en: { name: 'English', flag: enFlag, iso639_2: 'EN'},
-    cs: { name: 'Czech', flag: czFlag, iso639_2: 'CS' },
+    en: {name: 'English', flag: enFlag, iso639_2: 'EN'},
+    cs: {name: 'Czech', flag: czFlag, iso639_2: 'CS'},
 };
 
 function Setting() {
-    const [selectedLanguage, setSelectedLanguage] = useState({ name: 'Loading...', flag: '' });
+    const [selectedLanguage, setSelectedLanguage] = useState({name: 'Loading...', flag: ''});
     const [isModalOpen, setModalOpen] = useState(false);
     const [originalLanguage, setOriginalLanguage] = useState(null);
     const [posts, setPosts] = useState([])
     const navigate = useNavigate();
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(posts)
         fetchBannedWordResponseList();
-    },[])
+    }, [])
 
     async function fetchBannedWordResponseList() {
         const tokenObject = localStorage.getItem('token');
         const {value} = JSON.parse(tokenObject);
-        const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/regular/prompt',{
+        const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/regular/prompt', {
             headers: {
                 Authorization: `Bearer ${value}`
             }
@@ -35,6 +36,7 @@ function Setting() {
         console.log(data)
         setPosts(data.regularPromptResponseList);
     }
+
     useEffect(() => {
         const fetchSettings = async () => {
             try {
@@ -79,7 +81,7 @@ function Setting() {
             const tokenObject = localStorage.getItem('token');
             const {value} = JSON.parse(tokenObject);
             console.log("selectedLanguage.iso639_2", selectedLanguage.iso639_2);
-            const response = await axios.put('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/setting', { language: selectedLanguage.iso639_2 }, {
+            const response = await axios.put('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/setting', {language: selectedLanguage.iso639_2}, {
                 headers: {
                     Authorization: `Bearer ${value}`
                 }
@@ -103,14 +105,14 @@ function Setting() {
             expectedAnswer: expectedAnswerValue,
             iteration: iterationValue,
         };
-         await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/regular/prompt', {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json',
-                  Authorization: `Bearer ${value}`
-             },
-             body: JSON.stringify(dataToSend),
-         });
+        await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/regular/prompt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${value}`
+            },
+            body: JSON.stringify(dataToSend),
+        });
         fetchBannedWordResponseList();
     };
 
@@ -155,14 +157,14 @@ function Setting() {
     const handleChange = (id, field, value) => {
         setPosts(currentData =>
             currentData.map(item =>
-                item.id === id ? { ...item, [field]: value } : item
+                item.id === id ? {...item, [field]: value} : item
             )
         );
     };
 
     return (
         <main>
-            <div className="container">
+            <div>
                 <div className="text-center">
                     <div className="go-back-link" onClick={() => navigate(-1)}>
                         <p className="mb-0">
@@ -183,21 +185,20 @@ function Setting() {
                     </button>
                 </div>
                 <h1 className="text-center">AI TRiSM Setting:</h1>
-                <div className="settings-form">
-                    <input type="text" className="form-input" placeholder="Prompt" id="prompt"/>
-                    <input type="text" className="form-input" placeholder="Expected Answer" id="expectedAnswer"/>
+                <div className={styles.trismSetting}>
+                        <input type="text" className="form-input" placeholder="Prompt" id="prompt"/>
+                        <input type="text" className="form-input" placeholder="Expected Answer" id="expectedAnswer"/>
 
-                    <select className="form-select" id="iteration">
-                        <option value="DAILY">DAILY</option>
-                        <option value="WEEKLY">WEEKLY</option>
-                        <option value="MONTHLY">MONTHLY</option>
-                    </select>
-
-                    <button className="btn btn-primary custom-button" onClick={handleSave}>Save</button>
+                        <select className="form-select" id="iteration">
+                            <option value="DAILY">DAILY</option>
+                            <option value="WEEKLY">WEEKLY</option>
+                            <option value="MONTHLY">MONTHLY</option>
+                        </select>
+                        <button className="btn btn-primary custom-button" onClick={handleSave}>Save</button>
                 </div>
-                <div className="data-list" style={{ marginTop:'30px' }}>
+                <div style={{marginTop: '30px'}}>
                     {posts.map(item => (
-                        <div key={item.id} className="data-item">
+                        <div key={item.id} className={styles.dataItem}>
                             <input
                                 type="text"
                                 value={item.prompt}
@@ -216,8 +217,12 @@ function Setting() {
                                 <option value="WEEKLY">WEEKLY</option>
                                 <option value="MONTHLY">MONTHLY</option>
                             </select>
-                            <button onClick={() => handleUpdateRegularPrompt(item)} className="btn btn-primary custom-button">Update</button>
-                            <button onClick={() => handleDelete(item.externalRegularPromptId)} className="btn btn-primary custom-button">Delete</button>
+                            <button onClick={() => handleUpdateRegularPrompt(item)}
+                                    className="btn btn-primary custom-button">Update
+                            </button>
+                            <button onClick={() => handleDelete(item.externalRegularPromptId)}
+                                    className="btn btn-primary custom-button">Delete
+                            </button>
                         </div>
                     ))}
                 </div>

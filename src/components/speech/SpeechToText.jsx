@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './Spinner.css'
 import {useNavigate} from "react-router-dom";
 import Logo from "../logo/Logo";
+import styles from "../speech/SpeechToText.module.css";
 
 function SpeechToText({ setShowComponent }) {
 
@@ -96,18 +97,18 @@ function SpeechToText({ setShowComponent }) {
 
     return (
         <main>
-            <div className="container">
+            <div>
                 <div className="header-row mb-5" onClick={() => setShowComponent('generationPage')}
                      style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
                     <Logo/>
                 </div>
-                <div className="text-center">
-                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('dalleChatPage')}>DRAW</button>
+                <div className={styles.navigationButtons}>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('dalleChatPage')}>DRAW</button>
                     <button className="btn btn-primary custom-button" onClick={() => setShowComponent('chatPage')}>QinGPT</button>
-                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('assistantChatPage')}>DATA</button>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('assistantChatPage')}>DATA</button>
                     <button className="btn btn-primary custom-button" onClick={() => setShowComponent('generationPage')}>TaaS</button>
                 </div>
-                <div className="upload-container mt-5"
+                <div className="upload-container"
                      style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <div>
                         <div>Add a file(Only mono audio). Please use a unique name.</div>

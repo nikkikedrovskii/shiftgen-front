@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
+import styles from "../dalle/DalleChatPage.module.css";
 
 function DalleChatPage({ setShowComponent }) {
     const [inputValue, setInputValue] = useState('');
@@ -57,15 +58,18 @@ function DalleChatPage({ setShowComponent }) {
 
     return (
         <main>
-            <div className="container">
+            <div>
+                <div className={styles.header}>
                 <img src={qinshiftLogo} alt="logo Qinshift" className="brand-logo" onClick={() => setShowComponent('generationPage')}/>
-                <div className="text-center">
-                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('generationPage')}>TaaS
+                </div>
+                <div className={styles.navigationButtons}>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('generationPage')}>TaaS
                     </button>
                     <button className="btn btn-primary custom-button" onClick={() => setShowComponent('chatPage')}>QinGPT</button>
-                    <button className="btn btn-primary mx-5 custom-button" onClick={() => setShowComponent('assistantChatPage')}>DATA</button>
+                    <button className="btn btn-primary custom-button" onClick={() => setShowComponent('assistantChatPage')}>DATA</button>
                     <button className="btn btn-primary custom-button" onClick={() => setShowComponent('speechPage')}>SPEECH</button>
                 </div>
+                <div className={styles.dalleChatContainer}>
                 <form>
                     <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>
                         <div style={{flex: 1}}>
@@ -114,6 +118,7 @@ function DalleChatPage({ setShowComponent }) {
                         </div>
                     </div>
                 </form>
+                </div>
             </div>
         </main>
 

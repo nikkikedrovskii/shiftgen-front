@@ -1,0 +1,54 @@
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 15px;
+}
+
+.brand-logo {
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+}
+
+.form-check-label, .form-check-input {
+    display: block;
+}
+
+.next-step {
+    display: none;
+}
+
+.conditionStyle {
+    font-family: "Elza, Arial, sans-serif", serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    color: #D08F74;
+    padding-top: 10px;
+}
+
+
+@media (max-width: 768px) {
+    .brand-logo {
+        max-width: 120px;
+    }
+
+    .form-check {
+        padding: 0 10px;
+    }
+
+    .next-step {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .next-step {
+        position: static;
+        margin-left: 0;
+        display: block;
+    }
+}
+
