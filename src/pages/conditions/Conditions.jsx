@@ -58,30 +58,30 @@ function Conditions() {
                             ))}
                         </div>
                     </div>
-                </form>
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    margin: '5px'
-                }}>
-                    <div>
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value={isChecked}
-                            id="agreement"
-                            onChange={handleCheckboxChange} style={{
-                            margin: '5px'
-                        }}
-                        />
-                        <label htmlFor="agreement">I confirm</label>
-                    </div>
-                    <button type="submit" className={`next-step ${isChecked ? '' : 'd-none'}`} style={{
-                        right: '0'
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        margin: '5px'
                     }}>
-                        Next
-                    </button>
-                </div>
+                        <div>
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                value={isChecked}
+                                id="agreement"
+                                onChange={handleCheckboxChange} style={{
+                                margin: '5px'
+                            }}
+                            />
+                            <label htmlFor="agreement">I confirm</label>
+                        </div>
+                        <button type="submit" className={`next-step ${isChecked ? '' : 'd-none'}`} style={{
+                            right: '0'
+                        }}>
+                            Next
+                        </button>
+                    </div>
+                </form>
                 <div className="d-flex flex-column pt-4">
                     <p> That the text I have uploaded does not contain any business-sensitive data. By clicking
                         this confirmation, <br/>
@@ -95,7 +95,6 @@ function Conditions() {
                         in accordance with all applicable laws and regulations.<br/></p>
                 </div>
             </div>
-
         </main>
     );
 }

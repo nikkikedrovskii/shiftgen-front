@@ -1,0 +1,188 @@
+.userListContainer {
+    padding: 20px;
+    width: 55%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.userListContainer .userItem {
+    border: 2px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: auto;
+}
+
+.userListContainer .userItem .userDetails {
+    font-weight: bold;
+    margin-bottom: 10px;
+
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+    }
+}
+
+.userListContainer .userItem .limitList {
+    padding-left: 20px;
+}
+
+.userListContainer .userItem .limitList .limitItem {
+    border-left: 2px solid #eee;
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+
+.limitTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    table-layout: fixed;
+}
+
+.limitTable th, .limitTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.limitTable th {
+    background-color: #f2f2f2;
+}
+
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.closeButton {
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.modalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: auto;
+    max-width: 90%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.closeButton {
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+
+@media (max-width: 600px) {
+    .modalContent {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+    }
+    .userListContainer {
+        width: 100%;
+        margin: 0;
+    }
+    .limitList {
+        width: 100%;
+        margin: 0;
+    }
+
+    .userItem {
+        width: 100%;
+        margin: 0;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .limitTable th, .limitTable td {
+        font-size: 3vw;
+        padding: 4px;
+    }
+
+}
+
+@media (min-width: 769px) {
+    .limitTable th, .limitTable td {
+        font-size: 0.8rem;
+    }
+}
+
+.customTooltip {
+    max-width: 80%;
+    padding: 10px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+@media (max-width: 600px) {
+    .customTooltip {
+        font-size: 4vw;
+    }
+}
+
+@media (min-width: 601px) {
+    .customTooltip {
+        font-size: 12px;
+    }
+}
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+}
+
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+}
+

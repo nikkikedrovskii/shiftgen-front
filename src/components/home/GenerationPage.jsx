@@ -14,6 +14,7 @@ function GenerationPage({ setShowComponent }) {
     const [fileUploaded, setFileUploaded] = useState(false);
     const [excelFileUpload, setExcelFileUpload] = useState(true);
     const [isUserAuthorized, setUserAuthorized] = useState(false);
+    const [isTextGenerationLimitExceeded, setIsTextGenerationLimitExceeded] = useState(false);
 
     useEffect(() => {
         localStorage.removeItem("responseData");
@@ -21,11 +22,16 @@ function GenerationPage({ setShowComponent }) {
         localStorage.removeItem("data");
         localStorage.removeItem("uploadedFile");
         isAuthenticated();
+
+       const isTextGenerationLimitExceeded = localStorage.getItem('isTextGenerationLimitExceeded');
+        console.log(isTextGenerationLimitExceeded)
+        if (isTextGenerationLimitExceeded) {
+            setIsTextGenerationLimitExceeded(JSON.parse(isTextGenerationLimitExceeded))
+        }
     }, []);
 
     function isAuthenticated() {
         const token = localStorage.getItem('token');
-
         if (!token) {
             setUserAuthorized(false)
         } else {
@@ -162,16 +168,21 @@ function GenerationPage({ setShowComponent }) {
                                 locked</div>}
                     </form>
                 </div>
+                {isTextGenerationLimitExceeded && (
+                    <div style={{ color: 'white', marginTop: '10px' }}>
+                        The text generation limit has been reached. Please contact the administrator.
+                    </div>
+                )}
                 <div>
                     <div className={styles.navigationButtons}>
-                        <button className="btn btn-primary custom-button" onClick={handleSubmit}>Generate Test
+                        <button className="btn btn-primary custom-button" onClick={handleSubmit} disabled={isTextGenerationLimitExceeded}>Generate Test
                             Strategy
                         </button>
-                        <button className="btn btn-primary custom-button" onClick={handleSubmit}>Generate Test Plan
+                        <button className="btn btn-primary custom-button" onClick={handleSubmit} disabled={isTextGenerationLimitExceeded}>Generate Test Plan
                         </button>
-                        <button className="btn btn-primary custom-button" onClick={handleSubmit}>Generate Test Cases
+                        <button className="btn btn-primary custom-button" onClick={handleSubmit} disabled={isTextGenerationLimitExceeded}>Generate Test Cases
                         </button>
-                        <button className="btn btn-primary custom-button" onClick={handleSubmit}>Generate cucumber
+                        <button className="btn btn-primary custom-button" onClick={handleSubmit} disabled={isTextGenerationLimitExceeded}>Generate cucumber
                             script
                         </button>
                         <button className="btn btn-primary custom-button" onClick={handleSubmit}

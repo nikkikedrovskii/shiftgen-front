@@ -1,11 +1,13 @@
 // В RedirectPage.js
-import React, { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { jwtDecode } from "jwt-decode";
+import React, {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {jwtDecode} from "jwt-decode";
 
 function RedirectPage() {
     const navigate = useNavigate();
     const location = useLocation();
+    const [isDone, setIsDone] = useState(false);
+
 
 
     const fetchGenerateStrategy = async () => {
@@ -112,7 +114,7 @@ function RedirectPage() {
         }
     };
 
-    const fetchGenerateCucumberScript= async () => {
+    const fetchGenerateCucumberScript = async () => {
         const tokenObject = localStorage.getItem('token');
         const {value} = JSON.parse(tokenObject);
         localStorage.removeItem("responseData");
@@ -158,7 +160,7 @@ function RedirectPage() {
         for (let i = 0; i < binaryString.length; i++) {
             byteArray[i] = binaryString.charCodeAt(i);
         }
-        const fileBlob = new Blob([byteArray], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        const fileBlob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
         const file = new File([fileBlob], parsedFileData.filename);
 
         const formData = new FormData();
@@ -175,7 +177,7 @@ function RedirectPage() {
         for (let i = 0; i < binaryString.length; i++) {
             byteArray[i] = binaryString.charCodeAt(i);
         }
-        const fileBlob = new Blob([byteArray], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const fileBlob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
         const file = new File([fileBlob], parsedFileData.filename);
 
         const formData = new FormData();
@@ -208,7 +210,7 @@ function RedirectPage() {
                     body: formData
                 });
             } else {
-                responsePromise  = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/case/generate', {
+                responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/case/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -242,15 +244,15 @@ function RedirectPage() {
         const {value} = JSON.parse(tokenObject);
         try {
 
-              const formData = getExcelFileObjectFromB64Json()
-              const responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/file/test-case', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${value}`
-                    },
-                    body: formData
-                });
-              
+            const formData = getExcelFileObjectFromB64Json()
+            const responsePromise = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/file/test-case', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${value}`
+                },
+                body: formData
+            });
+
             const response = await responsePromise;
             const data = await response.json();
             if (response.status === 200) {
@@ -265,44 +267,76 @@ function RedirectPage() {
         }
     };
 
-
-
-
+    async function fetchUserLimitStatus(externalCustomerId, token) {
+        const response = await fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/user/${externalCustomerId}/limit/status`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        });
+        const data = await response.json();
+        console.log(data)
+        localStorage.setItem('isTextGenerationLimitExceeded', data.textGenerationLimitExceeded);
+        localStorage.setItem('isImageGenerationLimitExceeded', data.imageGenerationLimitExceeded);
+        localStorage.setItem('isSpeechToTextLimitExceeded', data.speechToTextLimitExceeded);
+    }
+    
     useEffect(() => {
 
-        const params = new URLSearchParams(location.search);
-        const token = params.get('token');
-        const action = localStorage.getItem("action");
-        const externalCustomerId = params.get('externalCustomerId');
-        localStorage.setItem('externalCustomerId', externalCustomerId);
+            const params = new URLSearchParams(location.search);
+            const token = params.get('token');
+            const action = localStorage.getItem("action");
+            const externalCustomerId = params.get('externalCustomerId');
+            localStorage.setItem('externalCustomerId', externalCustomerId);
 
-        const now = new Date();
-        const item = {
-            value: token,
-            expiry: now.getTime() + 60 * 60000,
-        };
-        localStorage.setItem('token', JSON.stringify(item));
-        const decodedToken = jwtDecode(token)
-        localStorage.setItem('email', decodedToken.email);
+            const now = new Date();
+            const item = {
+                value: token,
+                expiry: now.getTime() + 60 * 60000,
+            };
+            localStorage.setItem('token', JSON.stringify(item));
+            const decodedToken = jwtDecode(token)
+            localStorage.setItem('email', decodedToken.email);
 
-        if (action === "testCase") {
-            fetchGenerateUseCase();
-            navigate('/conditions');
-        } else if (action === "testStrategy") {
-            fetchGenerateStrategy()
-            navigate('/conditions');
-        } else if (action === "testPlan") {
-            fetchGeneratePlan()
-            navigate('/conditions');
-        } else if (action === "cucumberScript") {
-            fetchGenerateCucumberScript()
-            navigate('/conditions');
-        } else if (action === "scriptFromExcel") {
-            getTestCaseFromExcel()
-            navigate('/conditions');
-        } else {
-            navigate('/');
-        }
+            if (action === "testCase") {
+                fetchGenerateUseCase();
+                navigate('/conditions');
+            } else if (action === "testStrategy") {
+                fetchGenerateStrategy()
+                navigate('/conditions');
+            } else if (action === "testPlan") {
+                fetchGeneratePlan()
+                navigate('/conditions');
+            } else if (action === "cucumberScript") {
+                fetchGenerateCucumberScript()
+                navigate('/conditions');
+            } else if (action === "scriptFromExcel") {
+                getTestCaseFromExcel()
+                navigate('/conditions');
+            } else {
+                fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/user/${externalCustomerId}/limit/status`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("HTTP error " + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                        localStorage.setItem('isTextGenerationLimitExceeded', data.textGenerationLimitExceeded);
+                        localStorage.setItem('isImageGenerationLimitExceeded', data.imageGenerationLimitExceeded);
+                        localStorage.setItem('isSpeechToTextLimitExceeded', data.speechToTextLimitExceeded);
+                        navigate('/');
+                    })
+                    .catch(e => console.log('There has been a problem with your fetch operation: ' + e.message))
+            }
 
     }, [navigate, location.search]);
 
