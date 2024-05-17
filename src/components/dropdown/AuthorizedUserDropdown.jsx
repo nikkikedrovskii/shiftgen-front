@@ -99,6 +99,7 @@ function AuthorizedUserDropdown() {
                 <Link to="/setting" className="dropdown-item">Setting</Link>
                 <Link to="/aitrism" className="dropdown-item">Ai Trism</Link>
                 {isButtonDisabled && <Link to="/dataset" className="dropdown-item">Dataset</Link>}
+                {isButtonDisabled && <Link to="/limits" className="dropdown-item">User Limits</Link>}
                 <button className="dropdown-item" onClick={handleLogout}>Log out</button>
                 <a className="dropdown-item" href="#">Delete account</a>
             </ul>

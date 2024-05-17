@@ -13,8 +13,13 @@ function AssistantCleanArch({setShowComponent}) {
     const [selectedThreadId, setSelectedThreadId] = useState('');
     const [threadFileNames, setThreadFileNames] = useState([]);
     const prefix = "Download file -> ";
+    const [isTextGenerationLimitExceeded, setIsTextGenerationLimitExceeded] = useState(false);
 
     useEffect(() => {
+        const isTextGenerationLimitExceeded = localStorage.getItem('isTextGenerationLimitExceeded');
+        if (isTextGenerationLimitExceeded) {
+            setIsTextGenerationLimitExceeded(JSON.parse(isTextGenerationLimitExceeded))
+        }
         fetchUserAssistant();
         fetchThreadFilesName();
     }, []);
@@ -81,7 +86,6 @@ function AssistantCleanArch({setShowComponent}) {
         const assistantId = localStorage.getItem('assistantId');
         const threadId = localStorage.getItem('threadId');
 
-        try {
             const tokenObject = getToken();
             const response = await fetch(`https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/assistant/${assistantId}/thread/${threadId}`, {
                 method: 'POST',
@@ -94,21 +98,21 @@ function AssistantCleanArch({setShowComponent}) {
                 })
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to send message');
-            }
-
+        if (response.status === 200) {
             const responseData = await response.json();
             const messageList = responseData.chatMessageList;
-
             setShowMessageList([])
-
             setShowMessageList(prevMessages => [...prevMessages, ...messageList]);
-        } catch (error) {
-            console.error("Failed to post thread source:", error);
-        } finally {
             setLoading(false);
+        } else {
+            const responseData = await response.json();
+            setLoading(false);
+            if (responseData.message === 'systemError.paymentLimitExceeded') {
+                localStorage.setItem('isTextGenerationLimitExceeded', 'true');
+                setIsTextGenerationLimitExceeded(true);
+            }
         }
+
     };
 
 
@@ -424,8 +428,14 @@ function AssistantCleanArch({setShowComponent}) {
                                     </div>
                                     <div className="pt-4">
                                         <button type="button" className="btn btn-primary custom-button"
-                                                onClick={handleSend}>Send
+                                                onClick={handleSend}
+                                                disabled={isTextGenerationLimitExceeded}>Send
                                         </button>
+                                        {isTextGenerationLimitExceeded && (
+                                            <div style={{ color: 'white', marginTop: '10px' }}>
+                                                The text generation limit has been reached. Please contact the administrator.
+                                            </div>
+                                        )}
                                         {loading && <div className="spinner-border" role="status"
                                                          style={{
                                                              color: 'yellow',

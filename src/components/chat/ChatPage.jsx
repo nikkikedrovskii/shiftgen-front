@@ -2,23 +2,27 @@ import React, {useEffect, useState} from 'react';
 import qinshiftLogo from "../../img/qinshift_logo.svg";
 import styles from "../chat/ChatPage.module.css";
 
-function ChatPage({ setShowComponent }) {
+function ChatPage({setShowComponent}) {
     const [inputValue, setInputValue] = useState('');
     const [inputText, setInputText] = useState('');
     const [chatMessageList, setChatMessageList] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [isTextGenerationLimitExceeded, setIsTextGenerationLimitExceeded] = useState(false);
 
     useEffect(() => {
         const chat = localStorage.getItem('chat');
+        const isTextGenerationLimitExceeded = localStorage.getItem('isTextGenerationLimitExceeded');
+        if (isTextGenerationLimitExceeded) {
+            setIsTextGenerationLimitExceeded(JSON.parse(isTextGenerationLimitExceeded))
+        }
         if (chat) {
             const chatJson = JSON.parse(chat);
             setChatMessageList(chatJson);
         }
     }, []);
 
-
     const handleSend = async () => {
-        const newMessage = { chatRole: 'user', content: inputText };
+        const newMessage = {chatRole: 'user', content: inputText};
         const newChatMessageList = [...chatMessageList, newMessage];
         setChatMessageList(newChatMessageList);
         setInputText('');
@@ -27,32 +31,37 @@ function ChatPage({ setShowComponent }) {
         }))
         setLoading(true);
 
-        try {
-            const tokenObject = localStorage.getItem('token');
-            const {value} = JSON.parse(tokenObject);
-            const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${value}`
-                },
-                body: JSON.stringify({
-                    chatMessageList: newChatMessageList
-                })
+        const tokenObject = localStorage.getItem('token');
+        const {value} = JSON.parse(tokenObject);
+        const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${value}`
+            },
+            body: JSON.stringify({
+                chatMessageList: newChatMessageList
+            })
+        });
+        console.log(response)
+        if (response.status === 200) {
+        const responseData = await response.json();
+        const lastMessage = responseData.chatMessageList[responseData.chatMessageList.length - 1];
+        if (lastMessage) {
+            setChatMessageList(currentMessages => {
+                const updatedMessages = [...currentMessages, {chatRole: 'QINGPT', content: lastMessage.content}];
+                localStorage.setItem('chat', JSON.stringify(updatedMessages));
+                return updatedMessages;
             });
-
+        }
+        setLoading(false);
+    } else {
             const responseData = await response.json();
-            const lastMessage = responseData.chatMessageList[responseData.chatMessageList.length - 1];
-            if (lastMessage) {
-                setChatMessageList(currentMessages => {
-                    const updatedMessages = [...currentMessages, { chatRole: 'QINGPT', content: lastMessage.content }];
-                    localStorage.setItem('chat', JSON.stringify(updatedMessages));
-                    return updatedMessages;
-                });
-            }
             setLoading(false);
-        } catch (error) {
-            console.error('Ошибка при отправке сообщения:', error);
+            if (responseData.message === 'systemError.paymentLimitExceeded') {
+                localStorage.setItem('isTextGenerationLimitExceeded', 'true');
+                setIsTextGenerationLimitExceeded(true);
+            }
         }
     };
 
@@ -78,8 +87,8 @@ function ChatPage({ setShowComponent }) {
                     </button>
                 </div>
                 <div className={styles.qinGptChatContainer}>
-                <form>
-                <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>
+                    <form>
+                        <div className="form-group pt-4" style={{display: 'flex', alignItems: 'center'}}>
                             <div style={{flex: 1}}>
                                 <label htmlFor="chatbox">Chat with bot:</label>
                                 <div className="chat-box" id="chatbox">
@@ -107,8 +116,14 @@ function ChatPage({ setShowComponent }) {
                                 </div>
                                 <div className="pt-4 pt-lg-5">
                                     <button type="button" className="btn btn-primary custom-button"
-                                            onClick={handleSend}>Send
+                                            onClick={handleSend}
+                                            disabled={isTextGenerationLimitExceeded}>Send
                                     </button>
+                                    {isTextGenerationLimitExceeded && (
+                                        <div style={{ color: 'white', marginTop: '10px' }}>
+                                            The text generation limit has been reached. Please contact the administrator.
+                                        </div>
+                                    )}
                                     {loading && <div className="spinner-border" role="status"
                                                      style={{
                                                          color: 'yellow',
@@ -121,11 +136,11 @@ function ChatPage({ setShowComponent }) {
                         </div>
                     </form>
                 </div>
-                </div>
+            </div>
         </main>
 
 
-);
+    );
 }
 
 export default ChatPage;

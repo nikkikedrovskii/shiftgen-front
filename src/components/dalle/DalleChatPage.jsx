@@ -7,9 +7,14 @@ function DalleChatPage({ setShowComponent }) {
     const [inputText, setInputText] = useState('');
     const [chatMessageList, setChatMessageList] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [isImageGenerationLimitExceeded, setIsImageGenerationLimitExceeded] = useState(false);
 
     useEffect(() => {
         const chat = localStorage.getItem('imageChat');
+        const isImageGenerationLimitExceeded = localStorage.getItem('isImageGenerationLimitExceeded');
+        if (isImageGenerationLimitExceeded) {
+            setIsImageGenerationLimitExceeded(JSON.parse(isImageGenerationLimitExceeded))
+        }
         if (chat) {
             const chatJson = JSON.parse(chat);
             setChatMessageList(chatJson);
@@ -27,7 +32,6 @@ function DalleChatPage({ setShowComponent }) {
         }))
         setLoading(true);
 
-        try {
             const tokenObject = localStorage.getItem('token');
             const {value} = JSON.parse(tokenObject);
             const response = await fetch('https://qingentest.jollyflower-775741df.northeurope.azurecontainerapps.io/image/generate', {
@@ -41,18 +45,24 @@ function DalleChatPage({ setShowComponent }) {
                 })
             });
 
+        if (response.status === 200) {
             const responseData = await response.json();
             const lastMessage = responseData.imageUrl;
             if (lastMessage) {
                 setChatMessageList(currentMessages => {
-                    const updatedMessages = [...currentMessages, { chatRole: 'QINIMAGE', content: lastMessage }];
+                    const updatedMessages = [...currentMessages, {chatRole: 'QINIMAGE', content: lastMessage}];
                     localStorage.setItem('imageChat', JSON.stringify(updatedMessages));
                     return updatedMessages;
                 });
             }
             setLoading(false);
-        } catch (error) {
-            console.error('Ошибка при отправке сообщения:', error);
+        } else {
+            const responseData = await response.json();
+            setLoading(false);
+            if (responseData.message === 'systemError.paymentLimitExceeded') {
+                localStorage.setItem('isImageGenerationLimitExceeded', 'true');
+                setIsImageGenerationLimitExceeded(true);
+            }
         }
     };
 
@@ -105,8 +115,14 @@ function DalleChatPage({ setShowComponent }) {
                             </div>
                             <div className="pt-4 pt-lg-5">
                                 <button type="button" className="btn btn-primary custom-button"
-                                        onClick={handleSend}>Send
+                                        onClick={handleSend}
+                                        disabled={isImageGenerationLimitExceeded}>Send
                                 </button>
+                                {isImageGenerationLimitExceeded && (
+                                    <div style={{ color: 'white', marginTop: '10px' }}>
+                                        The text generation limit has been reached. Please contact the administrator.
+                                    </div>
+                                )}
                                 {loading && <div className="spinner-border" role="status"
                                                  style={{
                                                      color: 'yellow',

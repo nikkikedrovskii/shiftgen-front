@@ -17,6 +17,7 @@ import AiTrism from "./pages/ai_trism/AiTrism";
 import History from "./pages/history/History";
 import Dataset from "./pages/dataset/Dataset";
 import GenerationPage from "./components/home/GenerationPage";
+import UserLimit from "./components/user_limit/UserLimit";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
          <Route path="/billing" element={<Billing/>}/>
          <Route path="/aitrism" element={<AiTrism/>}/>
          <Route path="/dataset" element={<Dataset/>}/>
+         <Route path="/limits" element={<UserLimit/>}/>
      </Routes>
    </div>
   );
