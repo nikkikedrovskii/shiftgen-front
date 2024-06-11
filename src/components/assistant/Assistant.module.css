@@ -17,6 +17,11 @@
     right: 0;
 }
 
+.chat-input {
+    color: black !important;
+}
+
+
 .file-name {
     overflow: hidden;
     textOverflow: ellipsis;
@@ -25,8 +30,6 @@
 
 .assistantChatContainer {
     width: 80%;
-    justify-content: center;
-    align-items: center;
     margin: 0 auto;
 }
 

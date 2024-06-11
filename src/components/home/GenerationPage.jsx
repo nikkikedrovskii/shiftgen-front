@@ -156,7 +156,7 @@ function GenerationPage({ setShowComponent }) {
                     <form>
                         <div className="form-group">
               <textarea
-                  className="form-control"
+                  className="taas-form-control"
                   id="inputdata"
                   value={inputValue}
                   onChange={handleInputChange}

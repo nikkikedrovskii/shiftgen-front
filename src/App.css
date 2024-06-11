@@ -369,7 +369,7 @@ textarea {
     font-weight: 500 !important;
     font-size: 16px !important;
     line-height: 170% !important;
-    color: #FFFEF8 !important;
+    color: #FFFEF8;
     border: 1px solid #7F8C9F !important;
     border-radius: 24px !important;
     background-color: transparent !important;
