@@ -19,7 +19,7 @@ function AssistantCleanArch({setShowComponent}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const blockTexts = {
-        "Generate test case": "Analyse the uploaded file and create test cases based on the information provided. Structure the test cases: Title, Priority, Conditions, Execution steps (write down step by step), Result. Write the result in an .xlsx file.",
+        "Generate test case": "Analyzuj nahraný soubor .docx a vygeneruj 10 testovacích případů pro UC001. Struktura testovacího případu: název, priorita, podmínka, kroky, výsledek. Výsledek zapiš do souboru .xlsx. Udělej to v češtině",
         "Generate test plan": "Analyse the uploaded file and create test plan based on the information provided",
         "Generate test strategy": "Develop a test strategy document. Outline the scope, objectives, resources, schedule, and deliverables for the testing process."
 
